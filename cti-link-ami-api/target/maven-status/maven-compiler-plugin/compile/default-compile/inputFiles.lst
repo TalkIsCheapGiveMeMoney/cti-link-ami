@@ -1,0 +1,15 @@
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/online/CtiAgent.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/ivrmonitor/IvrMonitorService.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/queuemonitor/QueueStatus.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/ivrmonitor/IvrEntry.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/online/CtiAgentService.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/action/AmiActionResponse.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/queuemonitor/QueueEntry.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/webcall/WebCall.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/formattool/AmiStaticParameters.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/queuemonitor/QueueStat.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/webcall/WebCallResponse.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/webcall/WebCallService.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/ivrmonitor/IvrStat.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/queuemonitor/QueueMonitorService.java
+/Users/vonvey/Work/svn/tinet/cti-link/cti-link-ami-api/src/main/java/com/tinet/ctilink/ami/action/AmiActionService.java

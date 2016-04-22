@@ -1,0 +1,70 @@
+package com.tinet.ctilink.ami.action;
+
+import java.util.Map;
+
+import org.asteriskjava.manager.action.MuteAudioAction;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.inc.Const;
+import com.tinet.ctilink.ami.online.CtiAgent;
+
+/**
+ * 静音
+ * 
+ * @author tianzp
+ */
+@Component
+public class MuteActionHandler extends AbstractActionHandler {
+
+	@Override
+	public String getAction() {
+		return AmiAction.MUTE;
+	}
+
+	@Override
+	public AmiActionResponse handle( Map<String, String> params) {
+		logger.info("handle {} action : {}", this.getAction(), params);
+		
+		String direction = params.get(AmiAction.VARIABLE_MUTE_DIRECTION);
+		String state = params.get(AmiAction.VARIABLE_MUTE_STATE);
+
+		CtiAgent ctiAgent = getCtiAgent(params);
+		if (ctiAgent == null) {
+			return ERROR_BAD_PARAM;
+		}
+
+		String memberChannel = null;
+		if (ctiAgent.getCallType() == Const.CDR_CALL_TYPE_OB
+				|| ctiAgent.getCallType() == Const.CDR_CALL_TYPE_PREVIEW_OB) {// 先呼座席
+			memberChannel = ctiAgent.getMainChannel();
+		} else {
+			memberChannel = ctiAgent.getChannel();
+		}
+
+		if (StringUtils.isEmpty(memberChannel) || !CtiAgent.BUSY.equals(ctiAgent.getDeviceStatus())) {
+			return AmiActionResponse.createFailResponse(AmiAction.ERRORCODE_NO_CHANNEL, "no channel to mute");
+		}
+
+		if (StringUtils.isEmpty(direction)
+				|| (!direction.equals("in") && !direction.equals("out") && !direction.equals("all"))) {
+			return AmiActionResponse.createFailResponse(AmiAction.ERRORCODE_NO_CHANNEL,
+					"direction should be in|out|all");
+		}
+
+		if (StringUtils.isEmpty(state) || (!state.equals("on") && !state.equals("off"))) {
+			return AmiActionResponse.createFailResponse(AmiAction.ERRORCODE_NO_CHANNEL, "state should be on|off");
+		}
+
+		MuteAudioAction muteAudioAction = new MuteAudioAction(memberChannel);
+		muteAudioAction.setDirection(direction);
+		muteAudioAction.setState(state);
+
+		if (sendAction(muteAudioAction) == null) {
+			return ERROR_EXCEPTION;
+		}
+		return SUCCESS;
+	}
+
+}
