@@ -1,4 +1,4 @@
-package com.tinet.ctilink.ami.action;
+package com.tinet.ctilink.ami.event;
 
 import java.util.Date;
 
@@ -8,8 +8,6 @@ import org.asteriskjava.manager.userevent.QueueLogEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
-import com.tinet.ctilink.ami.event.AmiQueueEventHandler;
 import com.tinet.ctilink.ami.log.AmiLogQueueEngine;
 import com.tinet.ctilink.ami.queuemonitor.QueueMonitorServiceImp;
 import com.tinet.ctilink.ami.online.CtiAgent;

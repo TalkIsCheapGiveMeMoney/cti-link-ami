@@ -1,23 +1,23 @@
-package com.tinet.ctilink.ami.action;
+package com.tinet.ctilink.ami.event;
 
 import org.asteriskjava.live.internal.ChannelManager;
 import org.asteriskjava.manager.event.ManagerEvent;
-import org.asteriskjava.manager.event.RenameEvent;
+import org.asteriskjava.manager.event.NewStateEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiChannelEventHandler;
 
 @Component
-public class RenameEventHandler extends AbstractAmiEventHandler  implements AmiChannelEventHandler {
+public class NewStateEventHandler extends AbstractAmiEventHandler  implements AmiChannelEventHandler {
 	@Override
 	public Class<?> getEventClass() {
-		return RenameEvent.class;
+		return NewStateEvent.class;
 	}
 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
-		logger.info("channelManager.handleRenameEvent((RenameEvent) event)");
-		channelManager.handleRenameEvent((RenameEvent) event);
+		logger.info("channelManager.handleNewStateEvent((NewStateEvent) event)");
+		channelManager.handleNewStateEvent((NewStateEvent) event);
 	}
 }

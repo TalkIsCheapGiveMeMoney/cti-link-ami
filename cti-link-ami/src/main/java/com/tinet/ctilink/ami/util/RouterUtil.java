@@ -2,11 +2,11 @@ package com.tinet.ctilink.ami.util;
 
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
-import com.tinet.ctilink.entity.Caller;
+import com.tinet.ctilink.ami.entity.Caller;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.model.EnterpriseRouter;
-import com.tinet.ctilink.model.Gateway;
-import com.tinet.ctilink.model.Router;
+import com.tinet.ctilink.conf.model.EnterpriseRouter;
+import com.tinet.ctilink.conf.model.Gateway;
+import com.tinet.ctilink.conf.model.Router;
 import com.tinet.ctilink.util.ContextUtil;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +21,8 @@ public class RouterUtil {
 
     public static Router getRouter (int enterpriseId, int routerClidCallType, Caller caller) {
 
-        EnterpriseRouter enterpriseRouter = ContextUtil.getContext().getBean(RedisService.class).get(String.format(CacheKey.ENTERPRISE_ROUTER_ENTERPRISE_ID, enterpriseId)
-                , EnterpriseRouter.class);
+        EnterpriseRouter enterpriseRouter = ContextUtil.getContext().getBean(RedisService.class).get(Const.REDIS_DB_CONF_INDEX
+                , String.format(CacheKey.ENTERPRISE_ROUTER_ENTERPRISE_ID, enterpriseId), EnterpriseRouter.class);
         Router router = null;
         if(enterpriseRouter == null){
             return null;
@@ -53,7 +53,8 @@ public class RouterUtil {
         if (caller.getTelType() == Const.TEL_TYPE_MOBILE) {
             routerTel = caller.getAreaCode() + caller.getCallerNumber();
         }
-        List<Router> routerList = ContextUtil.getContext().getBean(RedisService.class).getList(String.format(CacheKey.ROUTER_ROUTERSET_ID, routersetId), Router.class);
+        List<Router> routerList = ContextUtil.getContext().getBean(RedisService.class)
+                .getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ROUTER_ROUTERSET_ID, routersetId), Router.class);
         //找prefix
         for (Router r : routerList) {
             if (routerTel.startsWith(r.getPrefix())) {
@@ -79,7 +80,7 @@ public class RouterUtil {
 
         if (router != null) {
             List<Gateway> gatewayList = ContextUtil.getContext().getBean(RedisService.class)
-                    .getList(CacheKey.GATEWAY, Gateway.class);
+                    .getList(Const.REDIS_DB_CONF_INDEX, CacheKey.GATEWAY, Gateway.class);
             for (Gateway gw : gatewayList) {
                 if (gw.getId() == router.getId()) {
                     if (caller.getTelType() == Const.TEL_TYPE_MOBILE) {

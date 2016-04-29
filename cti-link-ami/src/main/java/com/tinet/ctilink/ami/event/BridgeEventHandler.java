@@ -1,4 +1,4 @@
-package com.tinet.ctilink.ami.action;
+package com.tinet.ctilink.ami.event;
 
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiChannelEventHandler;

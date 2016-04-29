@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.AmiEvent;
-import com.tinet.ctilink.ami.action.AmiActionResponse;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.ami.online.CtiAgent;
 

@@ -25,11 +25,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.tinet.ctilink.ami.cache.CacheService;
+import com.tinet.ctilink.ami.util.AmiUtil;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
-import com.tinet.ctilink.model.EnterpriseHotline;
-import com.tinet.ctilink.model.EnterpriseSetting;
-import com.tinet.ctilink.model.Queue;
+import com.tinet.ctilink.conf.model.EnterpriseHotline;
+import com.tinet.ctilink.conf.model.EnterpriseSetting;
+import com.tinet.ctilink.conf.model.Queue;
 import com.tinet.ctilink.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.live.AsteriskChannel;
@@ -60,7 +61,6 @@ import com.tinet.ctilink.ami.event.AmiEventPublisher;
 import com.tinet.ctilink.ami.log.AmiLogQueueEngine;
 import com.tinet.ctilink.ami.queuemonitor.QueueMonitorServiceImp;
 import com.tinet.ctilink.ami.queuemonitor.QueueStatus;
-import com.tinet.ctilink.ami.util.AmiUtil;
 import com.tinet.ctilink.ami.wrapup.AmiWrapup;
 import com.tinet.ctilink.ami.wrapup.AmiWrapupEngine;
 import com.tinet.ctilink.inc.Const;
@@ -514,7 +514,7 @@ public class QueueManager {
 //					} else
 					if ((callType == Const.CDR_CALL_TYPE_IB || callType == Const.CDR_CALL_TYPE_OB_WEBCALL)
 							&& StringUtils.isNotEmpty(curQueue)) {
-						Queue queue = redisService.get(String.format(CacheKey.QUEUE_ENTERPRISE_QNO,
+						Queue queue = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.QUEUE_ENTERPRISE_ID_QNO,
 								enterpriseId, curQueue), Queue.class);
 						thisWrapup = queue.getWrapupTime();
 					}
@@ -619,7 +619,7 @@ public class QueueManager {
 									}
 									String channelHotline = "";
 									if (StringUtils.isNotEmpty(channelNumberTrunk)) {
-										EnterpriseHotline enterpriseHotline =redisService.get(String.format(CacheKey.ENTERPRISE_HOTLINE_ENTERPRISE_ID_NUMBER_TRUNK,
+										EnterpriseHotline enterpriseHotline =redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_HOTLINE_ENTERPRISE_ID_NUMBER_TRUNK,
 												enterpriseId, channelNumberTrunk), EnterpriseHotline.class);
 										channelHotline = enterpriseHotline.getHotline();
 									}
@@ -733,7 +733,7 @@ public class QueueManager {
 									ringingEvent.put(AmiAction.VARIABLE_QID, channelQid);
 
 									// 根据企业设置获取前台来电弹屏时传递的参数
-									EnterpriseSetting entSetting = redisService.get(String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
+									EnterpriseSetting entSetting = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
 											enterpriseId, Const.ENTERPRISE_SETTING_NAME_CRM_URL_POPUP_USER_FIELD), EnterpriseSetting.class);
 									if (entSetting != null && entSetting.getId() != null) {
 										if (StringUtils.isNotEmpty(entSetting.getProperty())) {

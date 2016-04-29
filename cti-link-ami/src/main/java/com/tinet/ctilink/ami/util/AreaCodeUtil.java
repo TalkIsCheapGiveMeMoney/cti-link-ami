@@ -2,12 +2,11 @@ package com.tinet.ctilink.ami.util;
 
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
-import com.tinet.ctilink.entity.Caller;
+import com.tinet.ctilink.ami.entity.Caller;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.inc.Macro;
-import com.tinet.ctilink.model.AreaCode;
-import com.tinet.ctilink.model.Gateway;
-import com.tinet.ctilink.model.SystemSetting;
+import com.tinet.ctilink.conf.model.AreaCode;
+import com.tinet.ctilink.conf.model.Gateway;
+import com.tinet.ctilink.conf.model.SystemSetting;
 import com.tinet.ctilink.util.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -19,7 +18,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
 
-import java.awt.geom.Area;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -49,8 +47,8 @@ public class AreaCodeUtil {
             caller.setCallerNumber(number);
             caller.setTelType(Const.TEL_TYPE_LANDLINE);
         } else if (Pattern.compile(Const.PATTERN_MOBILE_WITH_PREFIX0).matcher(number).find()) {
-            AreaCode areaCode = redisService.get(String.format(CacheKey.AREA_CODE_PREFIX, number.substring(2, 7)),
-                    AreaCode.class);
+            AreaCode areaCode = redisService.get(Const.REDIS_DB_AREA_CODE_INDEX, String.format(CacheKey.AREA_CODE_PREFIX
+                            , number.substring(2, 7)), AreaCode.class);
             if (areaCode != null) {
                 caller.setAreaCode(areaCode.getAreaCode());
             }else{
@@ -72,8 +70,8 @@ public class AreaCodeUtil {
             caller.setCallerNumber(number.substring(1));
             caller.setTelType(Const.TEL_TYPE_MOBILE);
         } else if (Pattern.compile(Const.PATTERN_MOBILE_WITHOUT_PREFIX0).matcher(number).find()) {
-            AreaCode areaCode = redisService.get(String.format(CacheKey.AREA_CODE_PREFIX, number.substring(1, 7)),
-                    AreaCode.class);
+            AreaCode areaCode = redisService.get(Const.REDIS_DB_AREA_CODE_INDEX, String.format(CacheKey.AREA_CODE_PREFIX
+                            , number.substring(1, 7)), AreaCode.class);
             if (areaCode != null) {
                 caller.setAreaCode(areaCode.getAreaCode());
             }else{
@@ -105,7 +103,7 @@ public class AreaCodeUtil {
             if(number.length() >=3 ){//大于3表示没有区号的固话，给一个区号，或者95555/10086/10010/110/112/999等号码都认为是本地固话
                 if(!StringUtils.isEmpty(gateway)){
                     boolean find = false;
-                    List<Gateway> gatewayList = redisService.getList(CacheKey.GATEWAY, Gateway.class);
+                    List<Gateway> gatewayList = redisService.getList(Const.REDIS_DB_CONF_INDEX, CacheKey.GATEWAY, Gateway.class);
                     for(Gateway gw : gatewayList){
                         if(gw.getIpAddr().equals(gateway)){
                             caller.setAreaCode(gw.getAreaCode());
@@ -115,7 +113,8 @@ public class AreaCodeUtil {
                         }
                     }
                     if(find == false){
-                        SystemSetting systemSetting = redisService.get(String.format(CacheKey.SYSTEM_SETTING_NAME, Const.SYSTEM_SETTING_NAME_DEFAULT_AREA_CODE), SystemSetting.class);
+                        SystemSetting systemSetting = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.SYSTEM_SETTING_NAME
+                                , Const.SYSTEM_SETTING_NAME_DEFAULT_AREA_CODE), SystemSetting.class);
                         if (systemSetting != null) {
                             caller.setAreaCode(systemSetting.getValue());
                             caller.setCallerNumber(caller.getAreaCode() + caller.getCallerNumber());
@@ -131,8 +130,8 @@ public class AreaCodeUtil {
             caller.setProvince(Const.UNKNOWN_AREA);
             caller.setCity(Const.UNKNOWN_AREA);
         } else {
-            AreaCode areaCode = redisService.get(String.format(CacheKey.AREA_CODE_PREFIX, caller.getAreaCode()),
-                    AreaCode.class);
+            AreaCode areaCode = redisService.get(Const.REDIS_DB_AREA_CODE_INDEX, String.format(CacheKey.AREA_CODE_PREFIX
+                            , caller.getAreaCode()), AreaCode.class);
             if (areaCode != null) {
                 caller.setProvince(areaCode.getProvince());
                 caller.setCity(areaCode.getCity());
@@ -141,31 +140,6 @@ public class AreaCodeUtil {
         return caller;
     }
 
-    /**
-     * 获取手机号码的运营商 mobile移动 unicom联通 telecom电信
-     * 默认移动
-     */
-    public static String getSP(String mobile){
-        if(mobile != null && mobile.length() == 11){
-            String prefix = mobile.substring(0, 3);
-            for(String segment: Macro.MOBILE_SEGMENT){
-                if(segment.equals(prefix)){
-                    return "mobile";
-                }
-            }
-            for(String segment: Macro.UNICOM_SEGMENT){
-                if(segment.equals(prefix)){
-                    return "unicom";
-                }
-            }
-            for(String segment: Macro.TELECOM_SEGMENT){
-                if(segment.equals(prefix)){
-                    return "telecom";
-                }
-            }
-        }
-        return "mobile";
-    }
     /**
      * 获取电话号码前缀
      * @param tel 电话号

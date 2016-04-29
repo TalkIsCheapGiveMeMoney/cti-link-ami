@@ -1,4 +1,4 @@
-package com.tinet.ctilink.ami.action;
+package com.tinet.ctilink.ami.event;
 
 import org.asteriskjava.live.internal.QueueManager;
 import org.asteriskjava.manager.event.ManagerEvent;

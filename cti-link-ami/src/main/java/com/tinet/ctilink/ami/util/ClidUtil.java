@@ -3,15 +3,13 @@ package com.tinet.ctilink.ami.util;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.model.EnterpriseClid;
-import com.tinet.ctilink.model.EnterpriseHotline;
-import com.tinet.ctilink.model.Trunk;
+import com.tinet.ctilink.conf.model.EnterpriseClid;
+import com.tinet.ctilink.conf.model.EnterpriseHotline;
+import com.tinet.ctilink.conf.model.Trunk;
 import com.tinet.ctilink.util.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -22,7 +20,7 @@ public class ClidUtil {
 
     public static String getClid (int enterpriseId, int routerClidCallType, String customerNumber, String numberTrunk) {
         RedisService redisService = ContextUtil.getContext().getBean(RedisService.class);
-        EnterpriseClid enterpriseClid = redisService.get(String.format(CacheKey.ENTERPRISE_CLID_ENTERPRISE_ID, enterpriseId)
+        EnterpriseClid enterpriseClid = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_CLID_ENTERPRISE_ID, enterpriseId)
                 , EnterpriseClid.class);
 
         int clidType = 0;
@@ -45,7 +43,7 @@ public class ClidUtil {
             if(clidType != 0){
                 String clid = "";
                 if(clidType == 1){//外显中继号码，选取主热线号码对应的中继号码
-                    List<EnterpriseHotline> enterpriseHotlines = redisService.getList(String.format(CacheKey.ENTERPRISE_HOTLINE_ENTERPRISE_ID, enterpriseId)
+                    List<EnterpriseHotline> enterpriseHotlines = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_HOTLINE_ENTERPRISE_ID, enterpriseId)
                             , EnterpriseHotline.class);
                     if(enterpriseHotlines.size() > 0){
                         clid = enterpriseHotlines.get(0).getNumberTrunk();
@@ -53,8 +51,8 @@ public class ClidUtil {
 
                 }else if(clidType == 2){//外显客户号码
                     if(customerNumber.equals(Const.UNKNOWN_NUMBER)){
-                        List<EnterpriseHotline> enterpriseHotlines = redisService.getList(String.format(CacheKey.ENTERPRISE_HOTLINE_ENTERPRISE_ID, enterpriseId)
-                                , EnterpriseHotline.class);
+                        List<EnterpriseHotline> enterpriseHotlines = redisService.getList(Const.REDIS_DB_CONF_INDEX
+                                , String.format(CacheKey.ENTERPRISE_HOTLINE_ENTERPRISE_ID, enterpriseId), EnterpriseHotline.class);
                         if(enterpriseHotlines.size() > 0){
                             clid = enterpriseHotlines.get(0).getNumberTrunk();
                         }
@@ -74,14 +72,14 @@ public class ClidUtil {
                     }
                 } else if (clidType == 4) { //外显热线号码
                     if (StringUtils.isNotEmpty(numberTrunk) && StringUtils.isNumeric(numberTrunk)) {
-                        EnterpriseHotline enterpriseHotline = redisService.get(String.format(CacheKey.ENTERPRISE_HOTLINE_ENTERPRISE_ID_NUMBER_TRUNK, enterpriseId, numberTrunk)
-                                , EnterpriseHotline.class);
+                        EnterpriseHotline enterpriseHotline = redisService.get(Const.REDIS_DB_CONF_INDEX
+                                , String.format(CacheKey.ENTERPRISE_HOTLINE_ENTERPRISE_ID_NUMBER_TRUNK, enterpriseId, numberTrunk), EnterpriseHotline.class);
                         if (enterpriseHotline != null) {
                             clid = enterpriseHotline.getHotline();
                         }
                     } else {
-                        List<EnterpriseHotline> enterpriseHotlines = redisService.getList(String.format(CacheKey.ENTERPRISE_HOTLINE_ENTERPRISE_ID, enterpriseId)
-                                , EnterpriseHotline.class);
+                        List<EnterpriseHotline> enterpriseHotlines = redisService.getList(Const.REDIS_DB_CONF_INDEX
+                                , String.format(CacheKey.ENTERPRISE_HOTLINE_ENTERPRISE_ID, enterpriseId), EnterpriseHotline.class);
                         if(enterpriseHotlines.size() > 0){
                             clid = enterpriseHotlines.get(0).getHotline();
                         }
@@ -89,7 +87,7 @@ public class ClidUtil {
 
                 }
                 //加区号
-                Trunk trunk = redisService.get(String.format(CacheKey.TRUNK_NUMBER_TRUNK, clid), Trunk.class);
+                Trunk trunk = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.TRUNK_NUMBER_TRUNK, clid), Trunk.class);
                 if(trunk != null) {
                     clid = trunk.getAreaCode() + clid;
                 }

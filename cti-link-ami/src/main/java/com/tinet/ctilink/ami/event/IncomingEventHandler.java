@@ -3,13 +3,11 @@ package com.tinet.ctilink.ami.event;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.tinet.ctilink.ami.cache.CacheService;
 import com.tinet.ctilink.ami.ivrmonitor.IvrMonitorServiceImp;
 import com.tinet.ctilink.ami.util.AmiUtil;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
-import com.tinet.ctilink.model.EnterpriseSetting;
-import com.tinet.ctilink.util.ContextUtil;
+import com.tinet.ctilink.conf.model.EnterpriseSetting;
 import org.asteriskjava.manager.event.ManagerEvent;
 import org.asteriskjava.manager.event.UserEvent;
 import org.asteriskjava.manager.userevent.IncomingEvent;
@@ -30,7 +28,7 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 	@Autowired
 	private IvrMonitorServiceImp ivrMonitorService;
 	@Autowired
-	private CacheService cacheService;
+	private RedisService redisService;
 	@Override
 	public Class<?> getEventClass() {
 		return IncomingEvent.class;
@@ -62,7 +60,7 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 				Const.CURL_TYPE_INCOMING);
 		// ivr来电数统计
 		if(callType != null && (callType.equals(String.valueOf(Const.CDR_CALL_TYPE_IB)) || callType.equals(String.valueOf(Const.CDR_CALL_TYPE_OB_WEBCALL)) || callType.equals(String.valueOf(Const.CDR_CALL_TYPE_PREDICTIVE_OB)))){
-			EnterpriseSetting enterpriseSetting = ContextUtil.getBean(RedisService.class).get(String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
+			EnterpriseSetting enterpriseSetting = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
 					Integer.parseInt(enterpriseId), Const.ENTERPRISE_SETTING_NAME_IVR_OBSERVER), EnterpriseSetting.class);
 			if(enterpriseSetting != null && enterpriseSetting.getValue() != null && enterpriseSetting.getValue().equals("1") ){
 				ivrMonitorService.setIvrIncomings(enterpriseId, ivrId, event.getDateReceived(),((IncomingEvent)event).getEnterpriseIdIvrIdCount());

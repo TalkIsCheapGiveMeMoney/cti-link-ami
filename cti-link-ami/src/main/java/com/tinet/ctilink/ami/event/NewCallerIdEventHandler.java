@@ -1,23 +1,23 @@
-package com.tinet.ctilink.ami.action;
+package com.tinet.ctilink.ami.event;
 
 import org.asteriskjava.live.internal.ChannelManager;
 import org.asteriskjava.manager.event.ManagerEvent;
-import org.asteriskjava.manager.event.NewStateEvent;
+import org.asteriskjava.manager.event.NewCallerIdEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiChannelEventHandler;
 
 @Component
-public class NewStateEventHandler extends AbstractAmiEventHandler  implements AmiChannelEventHandler {
+public class NewCallerIdEventHandler extends AbstractAmiEventHandler  implements AmiChannelEventHandler {
 	@Override
 	public Class<?> getEventClass() {
-		return NewStateEvent.class;
+		return NewCallerIdEvent.class;
 	}
 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
-		logger.info("channelManager.handleNewStateEvent((NewStateEvent) event)");
-		channelManager.handleNewStateEvent((NewStateEvent) event);
+		logger.info("channelManager.handleNewCallerIdEvent((NewCallerIdEvent) event)");
+		channelManager.handleNewCallerIdEvent((NewCallerIdEvent) event);
 	}
 }

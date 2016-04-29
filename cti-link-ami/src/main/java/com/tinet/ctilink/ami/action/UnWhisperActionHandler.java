@@ -7,7 +7,6 @@ import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.action.AmiActionResponse;
 import com.tinet.ctilink.ami.online.CtiAgent;
 
 /**

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.action.AmiActionResponse;
 import com.tinet.ctilink.ami.wrapup.AmiWrapupEngine;
 import com.tinet.ctilink.ami.online.CtiAgent;
 

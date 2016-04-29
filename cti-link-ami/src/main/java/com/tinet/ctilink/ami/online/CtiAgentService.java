@@ -1,7 +1,7 @@
 package com.tinet.ctilink.ami.online;
 
-import java.util.List;
-
+import com.tinet.ctilink.cache.RedisService;
+import com.tinet.ctilink.inc.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.inc.Const;
+import java.util.List;
 
 /**
  * 在线座席管理服务
@@ -21,7 +21,7 @@ public class CtiAgentService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private RedisTemplate<String, Object> redisTemplate;
+	private RedisService redisService;
 
 	private HashOperations<String, String, CtiAgent> ctiAgentOperation;
 	private HashOperations<String, String, Integer> integerOperation;
@@ -141,7 +141,7 @@ public class CtiAgentService {
 	 */
 	private HashOperations<String, String, CtiAgent> ctiAgentOperations() {
 		if (this.ctiAgentOperation == null) {
-			this.ctiAgentOperation = redisTemplate.opsForHash();
+			this.ctiAgentOperation = redisService.opsForHash();
 		}
 
 		return this.ctiAgentOperation;
@@ -154,7 +154,7 @@ public class CtiAgentService {
 	 */
 	private HashOperations<String, String, Integer> integerOperations() {
 		if (this.integerOperation == null) {
-			this.integerOperation = redisTemplate.opsForHash();
+			this.integerOperation = redisService.opsForHash();
 		}
 
 		return this.integerOperation;

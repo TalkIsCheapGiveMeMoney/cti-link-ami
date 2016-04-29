@@ -1,23 +1,23 @@
-package com.tinet.ctilink.ami.action;
+package com.tinet.ctilink.ami.event;
 
 import org.asteriskjava.live.internal.QueueManager;
 import org.asteriskjava.manager.event.ManagerEvent;
-import org.asteriskjava.manager.event.QueueMemberPausedEvent;
+import org.asteriskjava.manager.event.QueueMemberEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiQueueEventHandler;
 
 @Component
-public class QueueMemberPausedEventHandler extends AbstractAmiEventHandler  implements AmiQueueEventHandler{
+public class QueueMemberEventHandler extends AbstractAmiEventHandler  implements AmiQueueEventHandler {
 	@Override
 	public Class<?> getEventClass() {
-		return QueueMemberPausedEvent.class;
+		return QueueMemberEvent.class;
 	}
 
 	@Override
 	public void handle(ManagerEvent event, QueueManager queueManager) {
-		logger.info("queueManager.handleQueueMemberPausedEvent((QueueMemberPausedEvent)event)");
-		queueManager.handleQueueMemberPausedEvent((QueueMemberPausedEvent)event);
+		logger.info("queueManager.handleQueueMemberEvent((QueueMemberEvent) event)");
+		queueManager.handleQueueMemberEvent((QueueMemberEvent) event);
 	}
 }
