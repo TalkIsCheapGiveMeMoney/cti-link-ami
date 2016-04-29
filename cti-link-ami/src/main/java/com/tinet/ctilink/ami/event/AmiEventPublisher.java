@@ -4,14 +4,13 @@ import java.util.*;
 
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.AmiEvent;
-import com.tinet.ctilink.ami.cache.CacheService;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
 import com.tinet.ctilink.curl.CurlData;
 import com.tinet.ctilink.curl.CurlPushClient;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.model.EnterpriseHangupAction;
-import com.tinet.ctilink.model.EnterpriseSetting;
+import com.tinet.ctilink.conf.model.EnterpriseHangupAction;
+import com.tinet.ctilink.conf.model.EnterpriseSetting;
 import com.tinet.ctilink.util.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,22 +29,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class AmiEventPublisher {
 	@Autowired
-	private RedisTemplate<String, Map<String, String>> redisTemplate;
-
-	@Autowired
-	private CacheService cacheService;
+	private RedisService redisService;
 
 	public void publish(Map<String, String> event) {
 		if (!event.containsKey(AmiAction.VARIABLE_TYPE)) {
 			event.put(AmiAction.VARIABLE_TYPE, AmiAction.VARIABLE_EVENT);
 		}
 
-		redisTemplate.convertAndSend(Const.REDIS_CHANNEL_AMIEVENT, event);
+		redisService.convertAndSend(Const.REDIS_DB_CONF_INDEX, Const.REDIS_CHANNEL_AMIEVENT, event);
 
 		// 根据企业设置推送AMI状态
 		if (event.get(AmiAction.VARIABLE_NAME).equals(AmiEvent.STATUS)) {
 			Integer enterpriseId = Integer.parseInt(event.get(AmiAction.VARIABLE_ENTERPRISE_ID));
-			List<EnterpriseHangupAction> pushActionList = ContextUtil.getBean(RedisService.class).getList(String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId,
+			List<EnterpriseHangupAction> pushActionList = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId,
 					Const.ENTERPRISE_PUSH_TYPE_CLIENT_STATUS), EnterpriseHangupAction.class);
 			if (pushActionList != null) {
 				for (EnterpriseHangupAction pushAction : pushActionList) {
@@ -104,7 +100,7 @@ public class AmiEventPublisher {
 
 					// 获取curl级别
 					int level = 0;
-					EnterpriseSetting setting = ContextUtil.getBean(RedisService.class).get(String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
+					EnterpriseSetting setting = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
 							enterpriseId, Const.ENTERPRISE_SETTING_NAME_CURL_LEVEL), EnterpriseSetting.class);
 
 					if (setting != null && StringUtils.isNumeric(setting.getValue())) {

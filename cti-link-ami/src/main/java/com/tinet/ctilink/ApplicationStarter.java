@@ -2,8 +2,9 @@ package com.tinet.ctilink;
 
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
+import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.inc.Macro;
-import com.tinet.ctilink.model.SystemSetting;
+import com.tinet.ctilink.conf.model.SystemSetting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,7 @@ public class ApplicationStarter implements ApplicationListener<ContextRefreshedE
 		// http://docs.amazonaws.cn/AWSSdkDocsJava/latest/DeveloperGuide/java-dg-jvm-ttl.html
 		java.security.Security.setProperty("networkaddress.cache.ttl", "60");
 
-		List<SystemSetting> systemSettings = redisService.getList(CacheKey.SYSTEM_SETTING, SystemSetting.class);
+		List<SystemSetting> systemSettings = redisService.getList(Const.REDIS_DB_CONF_INDEX, CacheKey.SYSTEM_SETTING, SystemSetting.class);
 		Macro.loadSystemSettings(systemSettings);
 
 		// 启动与Asterisk的AMI连接

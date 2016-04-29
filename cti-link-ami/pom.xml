@@ -24,6 +24,11 @@
         </dependency>
         <dependency>
             <groupId>com.tinet</groupId>
+            <artifactId>cti-link-conf-api</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tinet</groupId>
             <artifactId>cti-link-curl-engine-api</artifactId>
             <version>0.0.1</version>
         </dependency>

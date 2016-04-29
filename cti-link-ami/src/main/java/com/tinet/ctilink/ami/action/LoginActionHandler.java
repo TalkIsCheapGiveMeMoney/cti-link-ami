@@ -94,7 +94,6 @@ public class LoginActionHandler extends AbstractActionHandler {
 		ctiAgent.setCrmId(crmId);
 		ctiAgent.setBindType(bindType);
 		ctiAgent.setTel(tel); // 绑定电话
-		ctiAgent.setPower(power); // 座席权限（班长、普通座席）
 		ctiAgent.setLocation(location);
 		ctiAgent.setLoginStartTime(new Date().getTime());
 		ctiAgent.setDeviceStatus(CtiAgent.IDLE);// FIXME 座席登录时可能设备正忙，是否需要检测状态？

@@ -10,7 +10,7 @@ import com.tinet.ctilink.ami.util.SipHeaderUtil;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.model.QueueMember;
+import com.tinet.ctilink.conf.model.QueueMember;
 import com.tinet.ctilink.util.LocalIpUtil;
 import com.tinet.ctilink.util.RedisLock;
 import com.tinet.ctilink.util.RedisLockUtil;
@@ -19,8 +19,6 @@ import org.asteriskjava.manager.action.OriginateAction;
 import org.asteriskjava.manager.response.ManagerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.alibaba.dubbo.config.annotation.Reference;
 
 /**
  * 预览式外呼
@@ -176,7 +174,7 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 			originate.setCallerId(clidRight);
 			originate.setVariables(variables);
 			originate.setTimeout(45000L);
-			originate.setPriority(new Integer(1)); // set priority
+			originate.setPriority(1); // set priority
 			originate.setExten(ctiAgent.getEnterpriseId() + ctiAgent.getCno());
 			originate.setAccount(Integer.toString(ctiAgent.getEnterpriseId()));
 
@@ -227,7 +225,8 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 			if (CtiAgent.ONLINE.equals(loginStatus) || (CtiAgent.PAUSE.equals(loginStatus)
 					&& CtiAgent.PAUSE_DESCRIPTION_WRAPUP.equals(pauseDescription))) {
 				List<String> qList = new ArrayList<>();
-				List<QueueMember> list = redisService.getList(String.format(CacheKey.QUEUE_MEMBER_AGENT_ID, ctiAgent.getClientId()), QueueMember.class);
+				List<QueueMember> list = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.QUEUE_MEMBER_ENTERPRISE_ID_CNO
+						, ctiAgent.getEnterpriseId(), ctiAgent.getCno()), QueueMember.class);
 				for (int i = 0; i < list.size(); i++) {
 					qList.add(list.get(i).getQno());
 				}
@@ -248,7 +247,8 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 			if (CtiAgent.ONLINE.equals(loginStatus) || (CtiAgent.PAUSE.equals(loginStatus)
 					&& CtiAgent.PAUSE_DESCRIPTION_WRAPUP.equals(pauseDescription))) {
 				List<String> qList = new ArrayList<>();
-				List<QueueMember> list = redisService.getList(String.format(CacheKey.QUEUE_MEMBER_AGENT_ID, ctiAgent.getClientId()), QueueMember.class);
+				List<QueueMember> list = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.QUEUE_MEMBER_ENTERPRISE_ID_CNO
+						, ctiAgent.getEnterpriseId(), ctiAgent.getCno()), QueueMember.class);
 				for (int i = 0; i < list.size(); i++) {
 					qList.add(list.get(i).getQno());
 				}

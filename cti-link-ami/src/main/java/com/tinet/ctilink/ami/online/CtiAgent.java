@@ -1,12 +1,12 @@
 package com.tinet.ctilink.ami.online;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.util.DateUtil;
 import org.apache.commons.lang3.StringUtils;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 呼叫中心坐席封装类。
@@ -26,7 +26,6 @@ public class CtiAgent implements Serializable {
 	public static final String ONLINE = "online";
 	public static final String OFFLINE = "offline";
 	public static final String PAUSE = "pause";
-	public static final String NOCARE = "noCare";
 	public static final String PAUSE_DESCRIPTION_WRAPUP = "pauseWrapup";
 	public static final String PAUSE_DESCRIPTION_OUTCALLING = "pauseOutCalling";// 主动外呼中
 	public static final String OFFHOOK = "offHook";
@@ -61,7 +60,6 @@ public class CtiAgent implements Serializable {
 	private String curQueue;
 	private String tel; // can be changed during use.
 	private Integer bindType;
-	private Integer power;
 	private int ctiId;
 	private Date loginUpdateTime = new Date();
 	private Date deviceUpdateTime = new Date();
@@ -128,13 +126,6 @@ public class CtiAgent implements Serializable {
 		this.bindType = bindType;
 	}
 
-	public Integer getPower() {
-		return power;
-	}
-
-	public void setPower(Integer power) {
-		this.power = power;
-	}
 
 	public CtiAgent() {
 
@@ -641,8 +632,8 @@ public class CtiAgent implements Serializable {
 				+ ", monitoredObject=" + monitoredObject + ", monitoredObjectType=" + monitoredObjectType
 				+ ", customerNumber=" + customerNumber + ", customerNumberTpye=" + customerNumberTpye + ", numberTrunk="
 				+ numberTrunk + ", callType=" + callType + ", taskId=" + taskId + ", customerAreaCode="
-				+ customerAreaCode + ", curQueue=" + curQueue + ", tel=" + tel + ", bindType=" + bindType + ", power="
-				+ power + ", ctiId=" + ctiId + ", loginUpdateTime=" + loginUpdateTime + ", deviceUpdateTime="
+				+ customerAreaCode + ", curQueue=" + curQueue + ", tel=" + tel + ", bindType=" + bindType
+				+ ", ctiId=" + ctiId + ", loginUpdateTime=" + loginUpdateTime + ", deviceUpdateTime="
 				+ deviceUpdateTime + ", wrapup=" + wrapup + ", hotline=" + hotline + ", loginStartTime="
 				+ loginStartTime + ", transferCno=" + transferCno + ", consulterCno=" + consulterCno
 				+ ", taskInventoryId=" + taskInventoryId + ", uniqueId=" + uniqueId + ", obClid=" + obClid

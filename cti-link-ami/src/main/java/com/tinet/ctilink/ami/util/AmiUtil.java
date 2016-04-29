@@ -1,24 +1,23 @@
 package com.tinet.ctilink.ami.util;
 
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.cache.CacheService;
 import com.tinet.ctilink.ami.online.CtiAgent;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
 import com.tinet.ctilink.curl.CurlData;
 import com.tinet.ctilink.curl.CurlPushClient;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.model.EnterpriseHangupAction;
-import com.tinet.ctilink.model.EnterpriseSetting;
+import com.tinet.ctilink.conf.model.EnterpriseHangupAction;
+import com.tinet.ctilink.conf.model.EnterpriseSetting;
 import com.tinet.ctilink.util.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.live.AsteriskChannel;
 import org.asteriskjava.manager.event.QueueMemberEvent;
+
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -29,8 +28,8 @@ import org.asteriskjava.manager.event.QueueMemberEvent;
 public class AmiUtil {
 
 	public static void pushCurl(AsteriskChannel channel, Map<String, String> event, int enterpriseId, int pushType, int curlType) {
-		List<EnterpriseHangupAction> pushActionList = ContextUtil.getBean(RedisService.class).getList(String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId,
-				pushType), EnterpriseHangupAction.class);
+		List<EnterpriseHangupAction> pushActionList = ContextUtil.getBean(RedisService.class).getList(Const.REDIS_DB_CONF_INDEX
+				, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId, pushType), EnterpriseHangupAction.class);
 
 		if (pushActionList != null) {
 			for (EnterpriseHangupAction pushAction : pushActionList) {
@@ -105,7 +104,8 @@ public class AmiUtil {
 
 				// 获取curl级别
 				int level = 0;
-				EnterpriseSetting setting = ContextUtil.getBean(RedisService.class).get(String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
+				EnterpriseSetting setting = ContextUtil.getBean(RedisService.class).get(Const.REDIS_DB_CONF_INDEX
+						, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
 						enterpriseId, Const.ENTERPRISE_SETTING_NAME_CURL_LEVEL), EnterpriseSetting.class);
 				if (setting != null && setting.getId() != null) {
 					level = Integer.parseInt(setting.getValue());
