@@ -904,6 +904,15 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 	 */
 	public void onManagerEvent(ManagerEvent event) {
 		logger.info("Manager Event:{}", event);
+		if (event instanceof NewExtenEvent) // new exten used to log
+			// dialplan execute flow
+		{
+			
+		}
+		else{
+			logger.info("Manager Event:{}", event);
+			System.out.println("Manager Event:{}"+event);
+		}
 		// Handle Channel related events
 		if (event instanceof ConnectEvent) // ami tcp connect
 		{

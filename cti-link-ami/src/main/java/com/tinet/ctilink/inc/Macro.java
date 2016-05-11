@@ -166,48 +166,7 @@ public class Macro extends PropertyPlaceholderConfigurer {
 	 * @param systemSetting
 	 */
 	public static void loadSystemSettings(SystemSetting systemSetting) {
-		if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_ANTIHARASS_UNIT_TIME)) {
-			Macro.ANTIHARASS_TIME = Integer.parseInt(systemSetting.getValue());
-			Macro.ANTIHARASS_UNIT = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_LOCK_IP_TIME)) {
-			Macro.LOCK_IP_TIME = Integer.parseInt(systemSetting.getValue());
-			Macro.LOCK_IP_UNIT = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_LOCK_COOKIENAME_TIME)) {
-			Macro.LOCK_COOKIENAME_TIME = Integer.parseInt(systemSetting.getValue());
-			Macro.LOCK_COOKIENAME_UNIT = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_LOCK_TEL_TIME)) {
-			Macro.LOCK_TEL_TIME = Integer.parseInt(systemSetting.getValue());
-			Macro.LOCK_TEL_UNIT = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_LOCK_LOGIN_TIME)) {
-			Macro.LOCK_LOGIN_TIME = Integer.parseInt(systemSetting.getValue());
-			Macro.LOCK_LOGIN_UNIT = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_CALL_FAILURE_MAX_TIMES)) {
-			Macro.CALL_FAILURE_MAX_TIMES = Integer.parseInt(systemSetting.getValue());
-			Macro.CALL_FAILURE_MAX_UNIT = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_CALL_MAX_TIMES)) {
-			Macro.CALL_MAX_TIMES = Integer.parseInt(systemSetting.getValue());
-			Macro.CALL_MAX_UNIT = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_SMS_MAX_TIMES)) {
-			Macro.SMS_MAX_TIMES = Integer.parseInt(systemSetting.getValue());
-			Macro.SMS_MAX_UNIT = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_RADIUS_SERVER_AUTH)) {
-			Macro.RADIUS_SERVER_AUTH_PORT = Integer.parseInt(systemSetting.getValue());
-			Macro.RADIUS_SERVER_AUTH = Integer.parseInt(systemSetting.getProperty());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_RADIUS_SERVER_ACCT)) {
-			Macro.RADIUS_SERVER_ACCT_PORT = Integer.parseInt(systemSetting.getValue());
-			Macro.RADIUS_SERVER_ACCT = Integer.parseInt(systemSetting.getProperty());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_LOGIN_FAILED_WHEN_EMAIL_TIMES)) {
-			Macro.LOGIN_FAILED_WHEN_EMAIL_TIMES = Integer.parseInt(systemSetting.getValue());
-			Macro.LOGIN_FAILED_WHEN_EMAIL_UNIT = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_LOGIN_FAILED_FORBIDDEN_TIMES)) {
-			Macro.LOGIN_FAILED_FORBIDDEN_TIMES = Integer.parseInt(systemSetting.getValue());
-			Macro.LOGIN_FAILED_FORBIDDEN_UNIT = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_INTERFACE_AUTH)) {
-			Macro.INTERFACE_AUTH_USERNAME = systemSetting.getValue();
-			Macro.INTERFACE_AUTH_PASSWORD = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_AGI_SERVER_PORT)) {
-			Macro.AGI_SERVER_PORT = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_DEFAULT_ROUTER)) {
+		if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_DEFAULT_ROUTER)) {
 			Macro.DEFAULT_ROUTER = Integer.parseInt(systemSetting.getValue());
 		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_IB_CALL_REMEMBER_TIME)) {
 			Macro.IB_CALL_REMEMBER_TIME = Integer.parseInt(systemSetting.getValue());
@@ -218,40 +177,8 @@ public class Macro extends PropertyPlaceholderConfigurer {
 		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_AMI_RESPONSE_TIMEOUT)) {
 			Macro.AMI_RESPONSE_TIMEOUT = Integer.parseInt(systemSetting.getValue());
 			Macro.AMI_RESPONSE_UNIT = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_BOSS_DB_INFO)) {
-			Macro.BOSS_DB_INFO = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_BOSS_URL_INFO)) {
-			Macro.BOSS_URL_INFO = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_BOSS_INTERFACE_URL)) {
-			Macro.BOSS_INTERFACE_URL = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_TIMED_TASK_EMAIL_ADDRESS)) {
+		}  else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_TIMED_TASK_EMAIL_ADDRESS)) {
 			Macro.TIMED_TASK_EMAIL_ADDRESS = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_AGI)) {
-			Macro.MOD_AGI = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_AMI)) {
-			Macro.MOD_AMI = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_RADIUS)) {
-			Macro.MOD_RADIUS = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_WEBSOCKET)) {
-			Macro.MOD_WEBSOCKET = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_SBC)) {
-			Macro.MOD_SBC = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MONEY_CALL_ALERT_THRESHOLD)) {
-			Macro.MONEY_CALL_ALERT_THRESHOLD = Integer.parseInt(systemSetting.getValue());
-		}
-		// JBE监控模块值的定义
-		else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_MONITOR)) {
-			Macro.MOD_MONITOR = systemSetting.getValue();
-		}
-		// JBE监控模块值的定义
-		else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_MONITOR_QUEUE)) {
-			Macro.MOD_MONITOR_QUEUE = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_MONITOR_IVR)) {
-			Macro.MOD_MONITOR_IVR = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_AGENDA)) { // 预约任务，日程提醒字段数据初始化
-			Macro.MOD_AGENDA_SEND = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_BOSS_CONN_POOL)) {
-			Macro.BOSS_CONN_POOL = systemSetting.getValue();
 		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_SMS_URL)) {
 			Macro.SMS_URL = systemSetting.getValue();
 			String[] infoArr = systemSetting.getProperty().split(",");
@@ -260,120 +187,22 @@ public class Macro extends PropertyPlaceholderConfigurer {
 				Macro.SMS_MESSAGE_NAME = infoArr[1];
 				Macro.SMS_CELL_NAME = infoArr[2];
 			}
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_CDR_EXPIRE_MONTH)) {
-			Macro.CDR_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_CDR_SMS_EXPIRE_MONTH)) {
-			Macro.CDR_SMS_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_LOG_ACTION_EXPIRE_MONTH)) {
-			Macro.LOG_ACTION_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_LOG_CLIENT_EXPIRE_MONTH)) {
-			Macro.LOG_CLIENT_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_LOG_CRONTAB_EXPIRE_MONTH)) {
-			Macro.LOG_CRONTAB_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_LOG_EMAIL_EXPIRE_MONTH)) {
-			Macro.LOG_EMAIL_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_LOG_LOGIN_EXPIRE_MONTH)) {
-			Macro.LOG_LOGIN_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_LOG_WEB400_CALL_EXPIRE_MONTH)) {
-			Macro.LOG_WEB400_CALL_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_REPORT_DAY_EXPIRE_MONTH)) {
-			Macro.REPORT_DAY_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_REPORT_MONTH_EXPIRE_MONTH)) {
-			Macro.REPORT_MONTH_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_REPORT_WEEK_EXPIRE_MONTH)) {
-			Macro.REPORT_WEEK_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_STATISTIC_CALL_IB_DAY_EXPIRE_MONTH)) {
-			Macro.STATISTIC_CALL_IB_DAY_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_STATISTIC_CALL_IB_DAY_AREA_EXPIRE_MONTH)) {
-			Macro.STATISTIC_CALL_IB_DAY_AREA_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_STATISTIC_CALL_OB_DAY_EXPIRE_MONTH)) {
-			Macro.STATISTIC_CALL_OB_DAY_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName()
-				.equals(Const.SYSTEM_SETTING_NAME_STATISTIC_CLIENT_WORKLOAD_DAY_EXPIRE_MONTH)) {
-			Macro.STATISTIC_CLIENT_WORKLOAD_DAY_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_STATISTIC_INVESTIGATION_DAY_EXPIRE_MONTH)) {
-			Macro.STATISTIC_INVESTIGATION_DAY_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_STATISTIC_IVR_DAY_EXPIRE_MONTH)) {
-			Macro.STATISTIC_IVR_DAY_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_STATISTIC_QUEUE_HOUR_EXPIRE_MONTH)) {
-			Macro.STATISTIC_QUEUE_HOUR_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_STATISTIC_SMS_DAY_EXPIRE_MONTH)) {
-			Macro.STATISTIC_SMS_DAY_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_STATISTIC_WEB400_DAY_EXPIRE_MONTH)) {
-			Macro.STATISTIC_WEB400_DAY_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_WEB400_VISITOR_EXPIRE_MONTH)) {
-			Macro.WEB400_VISITOR_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MONITOR_SERVER_EXPIRE_MONTH)) {
-			Macro.MONITOR_SERVER_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_CASE_LIB_EXPIRE_MONTH)) {
-			Macro.CASE_LIB_EXPIRE_MONTH = Integer.parseInt(systemSetting.getValue());
 		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_SERVICE_LEVEL)) {
 			Macro.SERVICE_LEVEL = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_CCIC_JSP_TITLE)) {
-			Macro.CCIC_JSP_TITLE = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_PREDICTIVE)) {
-			Macro.MOD_PREDICTIVE = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_PREDICTIVE_OUT_CALL_MODE)) {
-			Macro.PREDICTIVE_OUT_CALL_MODE = systemSetting.getValue();
-			String property = systemSetting.getProperty();
-			if (Const.PREDICTIVE_OUT_CALL_MODE_AMI.equals(Macro.PREDICTIVE_OUT_CALL_MODE)) {
-				if (StringUtils.isNumeric(property)) {
-					Macro.PREDICTIVE_CAPS = Integer.parseInt(property);
-				} else {
-					Macro.PREDICTIVE_CAPS = 5;
-				}
-			}
-			if (Const.PREDICTIVE_OUT_CALL_MODE_SBC.equals(Macro.PREDICTIVE_OUT_CALL_MODE)) {
-				if (StringUtils.isNumeric(property)) {
-					Macro.PREDICTIVE_CAPS = Integer.parseInt(property);
-				} else {
-					Macro.PREDICTIVE_CAPS = 30;
-				}
-			}
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_PREDICTIVE_CHANNEL_LIMIT)) {
-			Macro.PREDICTIVE_CHANNEL_LIMIT = Integer.parseInt(systemSetting.getValue());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_FAXC_URL)) {
-			Macro.FAXC_URL = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_OUTBOUND_PROXY)) {
-			if (systemSetting.getValue().equals("1")) {
-				Macro.OUTBOUND_PROXY = systemSetting.getProperty();
-			} else {
-				Macro.OUTBOUND_PROXY = null;
-			}
 		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_UNICOM_SEGMENT)) {
 			Macro.UNICOM_SEGMENT = StringUtils.split(systemSetting.getValue(), ",");
 		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_TELECOM_SEGMENT)) {
 			Macro.TELECOM_SEGMENT = StringUtils.split(systemSetting.getValue(), ",");
 		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOBILE_SEGMENT)) {
 			Macro.MOBILE_SEGMENT = StringUtils.split(systemSetting.getValue(), ",");
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_CURL)) {
-			Macro.MOD_CURL = systemSetting.getValue();
-			String[] property = systemSetting.getProperty().split(",");
-			Macro.MOD_CURL_THREAD = Integer.parseInt(property[0]);
-			if (property.length > 1) {
-				Macro.MOD_CURL_MAX_THREAD = Integer.parseInt(property[1]);
-			} else {
-				Macro.MOD_CURL_MAX_THREAD = 20;
-			}
 		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_WEBRTC_WEBSOCKET_URL)) {
 			Macro.WEBRTC_BREAKER = systemSetting.getValue();
 			Macro.WEBRTC_WEBSOCKET_URL = systemSetting.getProperty();
 		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_WEBRTC_STUN_SERVER)) {
 			Macro.WEBRTC_STUN_SERVER = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_TAOBAO_APP)) {
-			Macro.TAOBAO_APP_KEY = systemSetting.getValue();
-			Macro.TAOBAO_APP_SECRET = systemSetting.getProperty();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_SPEECH)) {
-			Macro.MOD_SPEECH = Integer.parseInt(systemSetting.getValue());
-			Macro.MOD_SPEECH_THREAD = Integer.parseInt(systemSetting.getProperty());
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_MOD_WEBCALL)) {
-			Macro.MOD_WEBCALL = systemSetting.getValue();
-			Macro.WEBCALL_CAPS = Integer.parseInt(systemSetting.getProperty());
 		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_SPEECH_ENGINE)) {
 			Macro.SPEECH_ENGINE = systemSetting.getValue();
-		} else if (systemSetting.getName().equals(Const.SYSTEM_SETTING_NAME_IFLYTEK_ICS)) {
-			Macro.IFLYTEK_ICS_URL = systemSetting.getValue();
-		}
+		} 
 	}
 
 	/**
@@ -382,8 +211,8 @@ public class Macro extends PropertyPlaceholderConfigurer {
 	 * @param systemSettings
 	 */
 	public static void loadSystemSettings(List<SystemSetting> systemSettings) {
-		for (SystemSetting systemSetting : systemSettings) {
-			loadSystemSettings(systemSetting);
-		}
+//		for (SystemSetting systemSetting : systemSettings) {
+//			loadSystemSettings(systemSetting);
+//		}
 	}
 }
