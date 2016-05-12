@@ -33,7 +33,7 @@ public abstract class AbstractAmiEventHandler {
 	 * @param event
 	 */
 	protected void publishEvent(final Map<String, String> event) {
-		amiEventPublisher.publish(event);
+//		amiEventPublisher.publish(event);
 	}
 
 	

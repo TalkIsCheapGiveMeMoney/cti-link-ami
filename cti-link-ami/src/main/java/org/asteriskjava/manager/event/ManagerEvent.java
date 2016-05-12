@@ -311,7 +311,14 @@ public abstract class ManagerEvent extends EventObject {
 		if (value == null) {
 			sb.append("null");
 		} else {
-			sb.append("'").append(value).append("'");
+			if (value instanceof Map) {
+				sb.append("'");
+				for (Map.Entry<String, String> entry : ((Map<String, String>) value).entrySet()) {
+					sb.append("(").append(entry.getKey()).append("=").append(entry.getValue()).append(")");
+				}
+				sb.append("'");
+			} else
+				sb.append("'").append(value).append("'");
 		}
 		sb.append(",");
 

@@ -330,8 +330,8 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		}
 
 		channelManager.initialize();
-		agentManager.initialize();
-		meetMeManager.initialize();
+//		agentManager.initialize();
+//		meetMeManager.initialize();
 
 		if (asyncEventHandling && managerEventListenerProxy == null) {
 			managerEventListenerProxy = new ManagerEventListenerProxy(this);
@@ -916,7 +916,7 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		} else if (event instanceof NewExtenEvent) // new exten used to log
 													// dialplan execute flow
 		{
-			amiEventHandlerService.handleChannelEvent(event, channelManager);
+//			amiEventHandlerService.handleChannelEvent(event, channelManager);
 		} else if (event instanceof NewStateEvent) {
 			amiEventHandlerService.handleChannelEvent(event, channelManager);
 		} else if (event instanceof NewCallerIdEvent) {
