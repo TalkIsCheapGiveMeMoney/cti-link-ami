@@ -31,7 +31,6 @@ import org.asteriskjava.AsteriskVersion;
 import org.asteriskjava.config.ConfigFile;
 import org.asteriskjava.live.AsteriskAgent;
 import org.asteriskjava.live.AsteriskChannel;
-import org.asteriskjava.live.AsteriskQueue;
 import org.asteriskjava.live.AsteriskQueueEntry;
 import org.asteriskjava.live.AsteriskServer;
 import org.asteriskjava.live.AsteriskServerListener;
@@ -164,7 +163,7 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 	private AmiEventHandlerService amiEventHandlerService;
 	private final ChannelManager channelManager;
 	private final MeetMeManager meetMeManager;
-	private final QueueManager queueManager;
+	
 	private final AgentManager agentManager;
 
 	/**
@@ -212,7 +211,6 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		channelManager = new ChannelManager(this);
 		agentManager = new AgentManager(this);
 		meetMeManager = new MeetMeManager(this, channelManager);
-		queueManager = new QueueManager(this, channelManager);
 		amiEventHandlerService = ContextUtil.getBean(AmiEventHandlerService.class);
 
 
@@ -334,10 +332,6 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		channelManager.initialize();
 		agentManager.initialize();
 		meetMeManager.initialize();
-
-		if (!skipQueues) {
-			queueManager.initialize();
-		}
 
 		if (asyncEventHandling && managerEventListenerProxy == null) {
 			managerEventListenerProxy = new ManagerEventListenerProxy(this);
@@ -526,14 +520,6 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		return meetMeManager.getOrCreateRoomImpl(name);
 	}
 
-	public Collection<AsteriskQueue> getQueues() throws ManagerCommunicationException {
-		initializeIfNeeded();
-		return queueManager.getQueues();
-	}
-
-	public void handleQueueParamsEvent(QueueParamsEvent event) {
-		queueManager.handleQueueParamsEvent(event);
-	}
 
 	public synchronized String getVersion() throws ManagerCommunicationException {
 		final ManagerResponse response;
@@ -957,37 +943,7 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 			amiEventHandlerService.handleChannelEvent(event, channelManager);
 		}
 		// End of channel related events
-		// Handle queue related event
-		else if (event instanceof QueueParamsEvent) {
-			amiEventHandlerService.handleQueueEvent(event, queueManager);
-		} else if (event instanceof JoinEvent) // join queue
-		{
-			amiEventHandlerService.handleQueueEvent(event, queueManager);
-		} else if (event instanceof LeaveEvent) // leave queue
-		{
-			amiEventHandlerService.handleQueueEvent(event, queueManager);
-		} else if (event instanceof QueueMemberStatusEvent) // queue member
-															// status change
-		{
-			amiEventHandlerService.handleQueueEvent(event, queueManager);
-		} else if (event instanceof QueueMemberPenaltyEvent) {
-			amiEventHandlerService.handleQueueEvent(event, queueManager);
-		} else if (event instanceof QueueMemberAddedEvent) // queue member add
-		{
-			amiEventHandlerService.handleQueueEvent(event, queueManager);
-		} else if (event instanceof QueueMemberRemovedEvent) // queue member
-																// remove
-		{
-			amiEventHandlerService.handleQueueEvent(event, queueManager);
-		} else if (event instanceof QueueMemberPausedEvent) // queue member
-															// pause
-		{
-			amiEventHandlerService.handleQueueEvent(event, queueManager);
-		} else if (event instanceof QueueMemberEvent) {
-			amiEventHandlerService.handleQueueEvent(event, queueManager);
-		} else if (event instanceof QueueLogEvent) {
-			amiEventHandlerService.handleQueueEvent(event, queueManager);
-		} else if (event instanceof OriginateResponseEvent) {
+		else if (event instanceof OriginateResponseEvent) {
 			// 这个地方要用线程执行
 			handleOriginateEvent((OriginateResponseEvent) event);
 		} else if (event instanceof UserEvent) {
@@ -1013,7 +969,6 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		channelManager.disconnected();
 		agentManager.disconnected();
 		meetMeManager.disconnected();
-		queueManager.disconnected();
 		initialized = false;
 	}
 

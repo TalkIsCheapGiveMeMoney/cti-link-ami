@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.inc.Const;
 
 /**
@@ -46,7 +46,7 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 		String ivrId =  ((IncomingEvent) event).getIvrId();
 
 		Map<String, String> pushEvent = new HashMap<String, String>();
-		pushEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.INCOMING);
+		pushEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.INCOMING);
 		pushEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		pushEvent.put(AmiAction.VARIABLE_CALL_TYPE, callType);
 		pushEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER, customerNumber);

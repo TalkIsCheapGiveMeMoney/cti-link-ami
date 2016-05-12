@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.online.CtiAgent;
 import com.tinet.ctilink.ami.online.CtiAgentService;
 import com.tinet.ctilink.ami.util.AmiUtil;
@@ -538,7 +538,7 @@ public class ChannelManager {
 					}
 
 					Map<String, String> pushEvent = new HashMap<String, String>();
-					pushEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.RINGING);
+					pushEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.RINGING);
 					pushEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, String.valueOf(enterpriseId));
 					pushEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER, channelCustomerNumber);
 					pushEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);

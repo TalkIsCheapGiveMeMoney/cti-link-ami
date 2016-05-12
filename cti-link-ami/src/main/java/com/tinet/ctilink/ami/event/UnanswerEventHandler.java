@@ -9,7 +9,8 @@ import org.asteriskjava.manager.userevent.UnanswerEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
+
 
 
 /**
@@ -40,7 +41,7 @@ public class UnanswerEventHandler extends AbstractAmiEventHandler implements Ami
 
 		Map<String, String> userEvent = new HashMap<String, String>();
 		userEvent.put("type", AmiAction.VARIABLE_EVENT);
-		userEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.UNANSWER);
+		userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.UNANSWER);
 		userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiAction.VARIABLE_CALL_TYPE, callType);
 		userEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER, customerNumber);

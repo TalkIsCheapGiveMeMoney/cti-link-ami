@@ -10,7 +10,7 @@ import org.asteriskjava.manager.userevent.PressKeysEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.inc.Const;
 
 /**
@@ -38,7 +38,7 @@ public class PressKeysEventHandler extends AbstractAmiEventHandler implements Am
 		String callType = ((PressKeysEvent) event).getCallType();
 
 		Map<String, String> userEvent = new HashMap<String, String>();
-		userEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.PRESS_KEYS);
+		userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.PRESS_KEYS);
 		userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER, customerNumber);
 		userEvent.put(AmiAction.VARIABLE_IVR_ID, ivrId);

@@ -8,7 +8,7 @@ import org.asteriskjava.manager.userevent.ConsultErrorEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.online.CtiAgent;
 import com.tinet.ctilink.util.RedisLock;
 import com.tinet.ctilink.util.RedisLockUtil;
@@ -35,7 +35,7 @@ public class ConsultErrorEventHandler extends AbstractAmiEventHandler implements
 
 		Map<String, String> userEvent = new HashMap<String, String>();
 		userEvent.put("type", AmiAction.VARIABLE_EVENT);
-		userEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.CONSULT_ERROR);
+		userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.CONSULT_ERROR);
 		userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiAction.VARIABLE_CNO, cno);
 		publishEvent(userEvent);

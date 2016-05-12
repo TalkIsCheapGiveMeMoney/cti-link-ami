@@ -8,7 +8,8 @@ import org.asteriskjava.manager.userevent.ConsultThreewayUnlinkEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
+
 
 /**
  * 咨询第三方挂断事件
@@ -32,7 +33,7 @@ public class ConsultThreewayUnlinkEventHandler extends AbstractAmiEventHandler i
 		
 		Map<String, String> userEvent = new HashMap<String, String>();
 		userEvent.put("type", AmiAction.VARIABLE_EVENT);
-		userEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.CONSULT_THREEWAY_UNLINK);
+		userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.CONSULT_THREEWAY_UNLINK);
 		userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiAction.VARIABLE_CNO, cno);
 		publishEvent(userEvent);

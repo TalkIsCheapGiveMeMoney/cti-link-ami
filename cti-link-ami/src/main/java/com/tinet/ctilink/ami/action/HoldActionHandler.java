@@ -9,7 +9,7 @@ import org.asteriskjava.manager.action.IndicateAction;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.online.CtiAgent;
 import com.tinet.ctilink.util.RedisLock;
 import com.tinet.ctilink.util.RedisLockUtil;
@@ -73,7 +73,7 @@ public class HoldActionHandler extends AbstractActionHandler {
 		// 广播座席状态
 		Map<String, String> event = new HashMap<String, String>();
 		event.put(AmiAction.VARIABLE_TYPE, AmiAction.VARIABLE_EVENT);
-		event.put(AmiAction.VARIABLE_NAME, AmiEvent.STATUS);
+		event.put(AmiAction.VARIABLE_NAME, AmiEventConst.STATUS);
 		event.put(AmiAction.VARIABLE_ENTERPRISE_ID, String.valueOf(ctiAgent.getEnterpriseId()));
 		event.put(AmiAction.VARIABLE_CNO, ctiAgent.getCno());
 		event.put(AmiAction.VARIABLE_CRM_ID, ctiAgent.getCrmId());

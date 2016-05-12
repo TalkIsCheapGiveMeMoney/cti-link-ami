@@ -3,7 +3,7 @@ package com.tinet.ctilink.ami.event;
 import java.util.*;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
 import com.tinet.ctilink.curl.CurlData;
@@ -39,7 +39,7 @@ public class AmiEventPublisher {
 		redisService.convertAndSend(Const.REDIS_DB_CONF_INDEX, Const.REDIS_CHANNEL_AMIEVENT, event);
 
 		// 根据企业设置推送AMI状态
-		if (event.get(AmiAction.VARIABLE_NAME).equals(AmiEvent.STATUS)) {
+		if (event.get(AmiAction.VARIABLE_NAME).equals(AmiEventConst.STATUS)) {
 			Integer enterpriseId = Integer.parseInt(event.get(AmiAction.VARIABLE_ENTERPRISE_ID));
 			List<EnterpriseHangupAction> pushActionList = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId,
 					Const.ENTERPRISE_PUSH_TYPE_CLIENT_STATUS), EnterpriseHangupAction.class);

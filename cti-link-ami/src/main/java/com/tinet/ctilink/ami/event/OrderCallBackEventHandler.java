@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.ordercallback.OrderCallBackEngine;
 
 /**
@@ -52,7 +52,7 @@ public class OrderCallBackEventHandler extends AbstractAmiEventHandler implement
 
 		Map<String, String> userEvent = new HashMap<String, String>();
 		userEvent.put("type", AmiAction.VARIABLE_EVENT);
-		userEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.ORDER_CALL_BACK);
+		userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.ORDER_CALL_BACK);
 		userEvent.put(AmiAction.VARIABLE_ADD_OR_REDUCE, "1");
 		userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiAction.VARIABLE_QID, queueName);

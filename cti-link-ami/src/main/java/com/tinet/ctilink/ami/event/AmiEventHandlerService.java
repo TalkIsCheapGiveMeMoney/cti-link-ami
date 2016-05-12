@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.live.internal.ChannelManager;
-import org.asteriskjava.live.internal.QueueManager;
+
 import org.asteriskjava.manager.event.BridgeEvent;
 import org.asteriskjava.manager.event.CdrEvent;
 import org.asteriskjava.manager.event.DialEvent;
@@ -55,11 +55,9 @@ public class AmiEventHandlerService {
 	private List<AmiUserEventHandler> userEventHandlers;
 	@Autowired
 	private List<AmiChannelEventHandler> channelEventHandlers;
-	@Autowired
-	private List<AmiQueueEventHandler> queueEventHandlers;
+	
 	private Map<Class<?>, AmiUserEventHandler> userEventHandlerMap;
 	private Map<Class<?>, AmiChannelEventHandler> channelEventHandlerMap;
-	private Map<Class<?>, AmiQueueEventHandler> queueEventHandlerMap;
 	private Map<String, String> enterpriseIds;
 	private Map<String, ExecutorService> executors;
 
@@ -110,26 +108,6 @@ public class AmiEventHandlerService {
 				logger.info("channelManager.handleNewChannelEvent((NewChannelEvent) event)");
 				channelManager.handleNewChannelEvent((NewChannelEvent) event);
 			}
-		}
-	}
-
-	/**
-	 * 以多线程的方式处理QueueEvent
-	 * 
-	 * @param event
-	 */
-	public void handleQueueEvent(ManagerEvent event, QueueManager queueManager) {
-		String enterpriseId = getEnterpriseId(event);
-		if (StringUtils.isNotEmpty(enterpriseId)) {
-			String tail = enterpriseId.substring(enterpriseId.length() - 1);
-
-			getExecutor(tail).execute(new Runnable() {
-				@Override
-				public void run() {
-					getQueueEventHandler(event).handle(event, queueManager);
-				}
-			});
-
 		}
 	}
 
@@ -210,30 +188,6 @@ public class AmiEventHandlerService {
 		return handler;
 	}
 
-	/**
-	 * 根据event类型获取对应的队列事件处理器
-	 * 
-	 * @param event
-	 * @return
-	 */
-	private AmiQueueEventHandler getQueueEventHandler(ManagerEvent event) {
-		if (queueEventHandlerMap == null) {
-			queueEventHandlerMap = new HashMap<Class<?>, AmiQueueEventHandler>();
-			for (AmiQueueEventHandler handler : queueEventHandlers) {
-				queueEventHandlerMap.put(handler.getEventClass(), handler);
-			}
-		}
-
-		AmiQueueEventHandler handler = queueEventHandlerMap.get(event.getClass());
-
-		if (handler == null) {
-			logger.error("AmiQueueEventHandler for Event: " + event.getClass() + " not found.");
-			throw new UnsupportedOperationException(
-					"AmiQueueEventHandler for Event: " + event.getClass() + " not found.");
-		}
-
-		return handler;
-	}
 
 	/**
 	 * 从Event中解析企业Id

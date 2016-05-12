@@ -8,7 +8,7 @@ import org.asteriskjava.manager.userevent.SpyUnlinkEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.online.CtiAgent;
 import com.tinet.ctilink.util.RedisLock;
 import com.tinet.ctilink.util.RedisLockUtil;
@@ -59,7 +59,7 @@ public class SpyUnlinkEventHandler extends AbstractAmiEventHandler implements Am
 			if (null != cno && !cno.equals("")) {
 				Map<String, String> userEvent = new HashMap<String, String>();
 				userEvent.put("type", AmiAction.VARIABLE_EVENT);
-				userEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.SPY_UNLINK);
+				userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.SPY_UNLINK);
 				userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 				userEvent.put(AmiAction.VARIABLE_CNO, cno);
 				userEvent.put(AmiAction.VARIABLE_SPY_OBJECT, spyObject);

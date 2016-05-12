@@ -151,15 +151,6 @@ public class AmiManager {
 		return sum;
 	}
 
-	@ManagedAttribute(description = "队列数")
-	public int getQueueCount() {
-		int sum = 0;
-		if (amiListener != null) {
-			sum = amiListener.getAsteriskServer().getQueues().size();
-		}
-		return sum;
-	}
-
 	@ManagedAttribute(description = "座席数")
 	public int getAgentCount() {
 		int sum = 0;

@@ -11,7 +11,8 @@ import org.asteriskjava.manager.userevent.IbBridgeEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
+
 
 /**
  *
@@ -39,7 +40,7 @@ public class IbBridgeEventHandler extends AbstractAmiEventHandler implements Ami
 		String callType = ((IbBridgeEvent) event).getCallType();
 
 		Map<String, String> pushEvent = new HashMap<String, String>();
-		pushEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.IB_BRIDGE);
+		pushEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.BRIDGED);
 		pushEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		pushEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER, customerNumber);
 		pushEvent.put(AmiAction.VARIABLE_CNO, cno);
