@@ -18,6 +18,7 @@ public class NewChannelEventHandler extends AbstractAmiEventHandler  implements 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
 		logger.info("channelManager.handleNewChannelEvent((NewChannelEvent) event)");
+		System.out.println("cdr_main_unique_id:"+((NewChannelEvent) event).getChanVarialbe("cdr_main_unique_id"));
 		channelManager.handleNewChannelEvent((NewChannelEvent) event);
 	}
 }
