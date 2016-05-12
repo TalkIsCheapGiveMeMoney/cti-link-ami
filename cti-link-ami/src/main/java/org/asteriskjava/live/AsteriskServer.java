@@ -24,7 +24,6 @@ import org.asteriskjava.config.ConfigFile;
 import org.asteriskjava.manager.ManagerConnection;
 import org.asteriskjava.manager.action.ManagerAction;
 import org.asteriskjava.manager.action.OriginateAction;
-import org.asteriskjava.manager.event.QueueParamsEvent;
 import org.asteriskjava.manager.response.ManagerResponse;
 
 /**
@@ -346,16 +345,6 @@ public interface AsteriskServer {
 	 */
 	MeetMeRoom getMeetMeRoom(String roomNumber) throws ManagerCommunicationException;
 
-	/**
-	 * Returns the queues served by the Asterisk server.
-	 * 
-	 * @return a Collection of queues.
-	 * @throws ManagerCommunicationException
-	 *             if there is a problem communication with Asterisk
-	 */
-	Collection<AsteriskQueue> getQueues() throws ManagerCommunicationException;
-
-	void handleQueueParamsEvent(QueueParamsEvent event);
 
 	/**
 	 * Return the agents, registered at Asterisk server. (Consider remarks for

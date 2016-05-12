@@ -9,7 +9,8 @@ import org.asteriskjava.manager.userevent.ConsultThreewayLinkEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
+
 
 /**
  * 咨询三方事件
@@ -36,7 +37,7 @@ public class ConsultThreewayLinkEventHandler extends AbstractAmiEventHandler imp
 		if (StringUtils.isNotEmpty(consulteeCno)) {
 			Map<String, String> userEvent = new HashMap<String, String>();
 			userEvent.put("type", AmiAction.VARIABLE_EVENT);
-			userEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.CONSULT_THREEWAY);
+			userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.CONSULT_THREEWAY);
 			userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 			userEvent.put(AmiAction.VARIABLE_CNO, consulteeCno);
 			userEvent.put(AmiAction.VARIABLE_CONSULTER_CNO, consulterCno);
@@ -46,7 +47,7 @@ public class ConsultThreewayLinkEventHandler extends AbstractAmiEventHandler imp
 		//发送事件到咨询发起者的那个人
 		Map<String, String> userEvent = new HashMap<String, String>();
 		userEvent.put("type", AmiAction.VARIABLE_EVENT);
-		userEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.CONSULT_THREEWAY);
+		userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.CONSULT_THREEWAY);
 		userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiAction.VARIABLE_CNO, consulterCno);
 		publishEvent(userEvent);

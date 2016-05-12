@@ -10,6 +10,15 @@ public class IncomingEvent extends UserEvent {
 	private String customerAreaCode;
 	private String ivrId;
 	private String enterpriseIdIvrIdCount;
+	private String channel;
+
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
 
 	public IncomingEvent(Object source) {
 		super(source);

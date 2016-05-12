@@ -8,7 +8,7 @@ import org.asteriskjava.manager.userevent.WhisperLinkEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.online.CtiAgent;
 import com.tinet.ctilink.util.RedisLock;
 import com.tinet.ctilink.util.RedisLockUtil;
@@ -60,7 +60,7 @@ public class WhisperLinkEventHandler extends AbstractAmiEventHandler implements 
 			if (null != cno && !cno.equals("")) {
 				Map<String, String> userEvent = new HashMap<String, String>();
 				userEvent.put("type", AmiAction.VARIABLE_EVENT);
-				userEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.WHISPER_LINK);
+				userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.WHISPER_LINK);
 				userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 				userEvent.put(AmiAction.VARIABLE_CNO, cno);
 				userEvent.put(AmiAction.VARIABLE_WHISPER_OBJECT, whisperObject);

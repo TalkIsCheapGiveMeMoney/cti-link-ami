@@ -8,7 +8,7 @@ import org.asteriskjava.manager.userevent.InteractReturnEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.online.CtiAgent;
 
 /**
@@ -35,7 +35,7 @@ public class InteractReturnEventHandler extends AbstractAmiEventHandler implemen
 		if (member != null) {
 			Map<String, String> userEvent = new HashMap<String, String>();
 			userEvent.put("type", AmiAction.VARIABLE_EVENT);
-			userEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.INTERACT_RETURN);
+			userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.INTERACT_RETURN);
 			userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 			userEvent.put(AmiAction.VARIABLE_CNO, cno);
 			publishEvent(userEvent);
