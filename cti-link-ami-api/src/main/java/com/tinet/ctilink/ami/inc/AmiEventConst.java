@@ -7,7 +7,7 @@ package com.tinet.ctilink.ami.inc;
  * <p>
  * Copyright (c) 2006-2010 T&I Net Communication CO.,LTD. All rights reserved.
  * 
- * @author 洪志奎
+ * @author hongzk
  * @since 1.0
  * @version 1.0
  * 
@@ -15,7 +15,11 @@ package com.tinet.ctilink.ami.inc;
 
 public class AmiEventConst {
 	
+	public static final String AMI_EVENT_LIST = "cti-link.ami.event.other";
+	public static final int AMI_EVENT_DBINDEX = 3;
 
+	
+	// 事件类型
 	public static final String INCOMING = "incoming"; // 事件类型：来电
 	public static final String ANSWER = "answer"; // 事件类型：系统应答
 	public static final String UNANSWER = "unanswer"; // 事件类型：未接来电	

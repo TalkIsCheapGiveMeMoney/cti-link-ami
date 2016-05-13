@@ -7,28 +7,13 @@ package com.tinet.ctilink.ami.inc;
  * <p>
  * Copyright (c) 2006-2016 T&I Net Communication CO.,LTD. All rights reserved.
  * 
- * @author 洪志奎
+ * @author hongzk
  * @since 1.0
  * @version 1.0
  * 
  */
 
 public class AmiChannelStatusConst {
-	
-	/*
-		ChannelStateDesc
-		Down
-		Rsrvd
-		OffHook
-		Dialing
-		Ring
-		Ringing
-		Up
-		Busy
-		Dialing Offhook
-		Pre-ring
-		Unknown
-	 */
 	
 	public static final String DOWN = "Down"; // 事件类型：空闲 ，0
 	public static final String RSRVD = "Rsrvd"; // 事件类型：空闲 ，1

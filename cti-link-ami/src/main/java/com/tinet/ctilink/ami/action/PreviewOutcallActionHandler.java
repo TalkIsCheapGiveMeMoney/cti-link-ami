@@ -28,10 +28,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PreviewOutcallActionHandler extends AbstractActionHandler {
 
-	@Autowired
-	private PauseActionHandler pauseActionHandler;
-	@Autowired
-	private UnPauseActionHandler unPauseActionHandler;
+
 	@Autowired
 	private AmiLogQueueEngine amiLogQueueEngine;
 
@@ -114,16 +111,16 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 
 		try {
 			// 置忙外呼就不再置忙preivewoutcalling，如果在整理要调用置忙让整理结束
-			if (ctiAgent.getLoginStatus().equals(CtiAgent.ONLINE) || (ctiAgent.getLoginStatus().equals(CtiAgent.PAUSE)
-					&& ctiAgent.getPauseDescription().equals(CtiAgent.PAUSE_DESCRIPTION_WRAPUP))) {
-				Map<String, String> pauseToken = new HashMap<String, String>();
-				pauseToken.put(AmiAction.VARIABLE_ENTERPRISE_ID, String.valueOf(ctiAgent.getEnterpriseId()));
-				pauseToken.put(AmiAction.VARIABLE_CNO, ctiAgent.getCno());
-				pauseToken.put(AmiAction.VARIABLE_CID, ctiAgent.getCid());
-				pauseToken.put(AmiAction.VARIABLE_PAUSE_DESCRIPTION, CtiAgent.PAUSE_DESCRIPTION_OUTCALLING);
-				pauseToken.put(AmiAction.VARIABLE_LOGIN_TYPE, "backend");
-				pauseActionHandler.handle(pauseToken);
-			}
+//			if (ctiAgent.getLoginStatus().equals(CtiAgent.ONLINE) || (ctiAgent.getLoginStatus().equals(CtiAgent.PAUSE)
+//					&& ctiAgent.getPauseDescription().equals(CtiAgent.PAUSE_DESCRIPTION_WRAPUP))) {
+//				Map<String, String> pauseToken = new HashMap<String, String>();
+//				pauseToken.put(AmiAction.VARIABLE_ENTERPRISE_ID, String.valueOf(ctiAgent.getEnterpriseId()));
+//				pauseToken.put(AmiAction.VARIABLE_CNO, ctiAgent.getCno());
+//				pauseToken.put(AmiAction.VARIABLE_CID, ctiAgent.getCid());
+//				pauseToken.put(AmiAction.VARIABLE_PAUSE_DESCRIPTION, CtiAgent.PAUSE_DESCRIPTION_OUTCALLING);
+//				pauseToken.put(AmiAction.VARIABLE_LOGIN_TYPE, "backend");
+//				pauseActionHandler.handle(pauseToken);
+//			}
 
 			Map<String, String> variables = new HashMap<String, String>();
 			variables.put("dial_interface", ctiAgent.getLocation());
@@ -222,22 +219,22 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 		if (null != response && response.getResponse().equals("Success")) {
 			uniqueId = response.getMessage();
 
-			if (CtiAgent.ONLINE.equals(loginStatus) || (CtiAgent.PAUSE.equals(loginStatus)
-					&& CtiAgent.PAUSE_DESCRIPTION_WRAPUP.equals(pauseDescription))) {
-				List<String> qList = new ArrayList<>();
-				List<QueueMember> list = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.QUEUE_MEMBER_ENTERPRISE_ID_CNO
-						, ctiAgent.getEnterpriseId(), ctiAgent.getCno()), QueueMember.class);
-				for (int i = 0; i < list.size(); i++) {
-					qList.add(list.get(i).getQno());
-				}
-				Map<String, String> unpauseToken = new HashMap<String, String>();
-				unpauseToken.put(AmiAction.VARIABLE_LOGIN_TYPE, "backend");
-				unpauseToken.put(AmiAction.VARIABLE_ENTERPRISE_ID, String.valueOf(ctiAgent.getEnterpriseId()));
-				unpauseToken.put(AmiAction.VARIABLE_CNO, ctiAgent.getCno());
-				unpauseToken.put(AmiAction.VARIABLE_CID, cid);
-				unpauseToken.put("queues", StringUtils.join(qList,","));
-				unPauseActionHandler.handle(unpauseToken);
-			}
+//			if (CtiAgent.ONLINE.equals(loginStatus) || (CtiAgent.PAUSE.equals(loginStatus)
+//					&& CtiAgent.PAUSE_DESCRIPTION_WRAPUP.equals(pauseDescription))) {
+//				List<String> qList = new ArrayList<>();
+//				List<QueueMember> list = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.QUEUE_MEMBER_ENTERPRISE_ID_CNO
+//						, ctiAgent.getEnterpriseId(), ctiAgent.getCno()), QueueMember.class);
+//				for (int i = 0; i < list.size(); i++) {
+//					qList.add(list.get(i).getQno());
+//				}
+//				Map<String, String> unpauseToken = new HashMap<String, String>();
+//				unpauseToken.put(AmiAction.VARIABLE_LOGIN_TYPE, "backend");
+//				unpauseToken.put(AmiAction.VARIABLE_ENTERPRISE_ID, String.valueOf(ctiAgent.getEnterpriseId()));
+//				unpauseToken.put(AmiAction.VARIABLE_CNO, ctiAgent.getCno());
+//				unpauseToken.put(AmiAction.VARIABLE_CID, cid);
+//				unpauseToken.put("queues", StringUtils.join(qList,","));
+//				unPauseActionHandler.handle(unpauseToken);
+//			}
 			res.put("result", "true");
 		} else {
 			if (response != null) {
@@ -252,13 +249,13 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 				for (int i = 0; i < list.size(); i++) {
 					qList.add(list.get(i).getQno());
 				}
-				Map<String, String> unpauseToken = new HashMap<String, String>();
-				unpauseToken.put(AmiAction.VARIABLE_LOGIN_TYPE, "backend");
-				unpauseToken.put(AmiAction.VARIABLE_ENTERPRISE_ID, String.valueOf(ctiAgent.getEnterpriseId()));
-				unpauseToken.put(AmiAction.VARIABLE_CNO, ctiAgent.getCno());
-				unpauseToken.put(AmiAction.VARIABLE_CID, cid);
-				unpauseToken.put("queues", StringUtils.join(qList,","));
-				unPauseActionHandler.handle(unpauseToken);
+//				Map<String, String> unpauseToken = new HashMap<String, String>();
+//				unpauseToken.put(AmiAction.VARIABLE_LOGIN_TYPE, "backend");
+//				unpauseToken.put(AmiAction.VARIABLE_ENTERPRISE_ID, String.valueOf(ctiAgent.getEnterpriseId()));
+//				unpauseToken.put(AmiAction.VARIABLE_CNO, ctiAgent.getCno());
+//				unpauseToken.put(AmiAction.VARIABLE_CID, cid);
+//				unpauseToken.put("queues", StringUtils.join(qList,","));
+//				unPauseActionHandler.handle(unpauseToken);
 			} else { // 置忙外呼的情况
 				if (StringUtils.isNotEmpty("" + callStartTime)) {
 					long duration = (new Date().getTime() / 1000) - callStartTime;

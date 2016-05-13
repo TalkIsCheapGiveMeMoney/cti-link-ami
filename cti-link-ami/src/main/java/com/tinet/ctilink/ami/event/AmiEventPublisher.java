@@ -9,6 +9,7 @@ import com.tinet.ctilink.cache.RedisService;
 import com.tinet.ctilink.curl.CurlData;
 import com.tinet.ctilink.curl.CurlPushClient;
 import com.tinet.ctilink.inc.Const;
+import com.tinet.ctilink.json.JSONObject;
 import com.tinet.ctilink.conf.model.EnterpriseHangupAction;
 import com.tinet.ctilink.conf.model.EnterpriseSetting;
 import com.tinet.ctilink.util.ContextUtil;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * AMI事件推送器，通过Redis的pub/sub广播
+ * AMI事件推送器
  * 
  * @author Jiangsl
  *
@@ -30,15 +31,32 @@ import org.springframework.stereotype.Component;
 public class AmiEventPublisher {
 	@Autowired
 	private RedisService redisService;
+	
+	public void publish(JSONObject event) {
+		if (!event.containsKey(AmiAction.VARIABLE_TYPE)) {
+			event.put(AmiAction.VARIABLE_TYPE, AmiAction.VARIABLE_EVENT);
+		}
+		
+
+		redisService.lpush(AmiEventConst.AMI_EVENT_DBINDEX, AmiEventConst.AMI_EVENT_LIST, event.toString());
+		// 根据企业设置推送AMI状态
+//		pushevent(event);
+	}
 
 	public void publish(Map<String, String> event) {
 		if (!event.containsKey(AmiAction.VARIABLE_TYPE)) {
 			event.put(AmiAction.VARIABLE_TYPE, AmiAction.VARIABLE_EVENT);
 		}
 
-		redisService.convertAndSend(Const.REDIS_DB_CONF_INDEX, Const.REDIS_CHANNEL_AMIEVENT, event);
-
+		redisService.lpush(AmiEventConst.AMI_EVENT_DBINDEX, AmiEventConst.AMI_EVENT_LIST, event.toString());
 		// 根据企业设置推送AMI状态
+//		pushevent(event);
+	}
+	
+	
+	
+
+	private void pushevent(Map<String, String> event) {
 		if (event.get(AmiAction.VARIABLE_NAME).equals(AmiEventConst.STATUS)) {
 			Integer enterpriseId = Integer.parseInt(event.get(AmiAction.VARIABLE_ENTERPRISE_ID));
 			List<EnterpriseHangupAction> pushActionList = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId,

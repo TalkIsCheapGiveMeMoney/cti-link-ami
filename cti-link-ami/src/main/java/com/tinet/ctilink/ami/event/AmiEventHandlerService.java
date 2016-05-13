@@ -73,8 +73,10 @@ public class AmiEventHandlerService {
 	 */
 	public void handleUserEvent(ManagerEvent event) {
 		String enterpriseId = getEnterpriseId(event);
-		if (StringUtils.isNotEmpty(enterpriseId)) {
-			String tail = enterpriseId.substring(enterpriseId.length() - 1);
+		String channel = ((UserEvent) event).getChannel();
+		if (StringUtils.isNotEmpty(channel)) {
+			String tail = channel.substring(channel.length() - 1);
+//			String tail = enterpriseId.substring(enterpriseId.length() - 1);
 
 			getExecutor(tail).execute(new Runnable() {
 				@Override
@@ -185,7 +187,7 @@ public class AmiEventHandlerService {
 			throw new UnsupportedOperationException(
 					"AmiChannelEventHandler for Event: " + event.getClass() + " not found.");
 		}
-		logger.error("AmiChannelEventHandler for Event: " + event.getClass()+ ", and Handler is "+ handler.getClass());
+		
 		return handler;
 	}
 

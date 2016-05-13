@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.inc.Const;
+import com.tinet.ctilink.json.JSONObject;
 
 /**
  * 来电事件处理
@@ -45,7 +46,8 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 		String customerAreaCode = ((IncomingEvent) event).getCustomerAreaCode();
 		String ivrId =  ((IncomingEvent) event).getIvrId();
 
-		Map<String, String> pushEvent = new HashMap<String, String>();
+//		Map<String, String> pushEvent = new HashMap<String, String>();
+		JSONObject pushEvent=new JSONObject();
 		pushEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.INCOMING);
 		pushEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		pushEvent.put(AmiAction.VARIABLE_CALL_TYPE, callType);
@@ -56,8 +58,8 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 		publishEvent(pushEvent);
 
 		// 根据企业设置推送Curl
-		AmiUtil.pushCurl(((UserEvent) event).getAsteriskChannel(), pushEvent, Integer.parseInt(enterpriseId), Const.ENTERPRISE_PUSH_TYPE_INCOMING_IB,
-				Const.CURL_TYPE_INCOMING);
+//		AmiUtil.pushCurl(((UserEvent) event).getAsteriskChannel(), pushEvent, Integer.parseInt(enterpriseId), Const.ENTERPRISE_PUSH_TYPE_INCOMING_IB,
+//				Const.CURL_TYPE_INCOMING);
 		// ivr来电数统计
 		if(callType != null && (callType.equals(String.valueOf(Const.CDR_CALL_TYPE_IB)) || callType.equals(String.valueOf(Const.CDR_CALL_TYPE_OB_WEBCALL)) || callType.equals(String.valueOf(Const.CDR_CALL_TYPE_PREDICTIVE_OB)))){
 			EnterpriseSetting enterpriseSetting = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,

@@ -141,7 +141,7 @@ public class CtiAgentService {
 	 */
 	private HashOperations<String, String, CtiAgent> ctiAgentOperations() {
 		if (this.ctiAgentOperation == null) {
-			this.ctiAgentOperation = redisService.opsForHash();
+//			this.ctiAgentOperation = redisService.opsForHash();
 		}
 
 		return this.ctiAgentOperation;
@@ -154,7 +154,7 @@ public class CtiAgentService {
 	 */
 	private HashOperations<String, String, Integer> integerOperations() {
 		if (this.integerOperation == null) {
-			this.integerOperation = redisService.opsForHash();
+//			this.integerOperation = redisService.opsForHash();
 		}
 
 		return this.integerOperation;

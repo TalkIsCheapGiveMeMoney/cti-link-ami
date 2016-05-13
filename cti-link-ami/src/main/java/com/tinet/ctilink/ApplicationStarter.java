@@ -17,7 +17,7 @@ import com.tinet.ctilink.ami.log.AmiLogQueueEngine;
 import com.tinet.ctilink.ami.ordercallback.OrderCallBackEngine;
 import com.tinet.ctilink.ami.webcall.WebCallEngine;
 import com.tinet.ctilink.ami.webcall.WebCallLogEngine;
-import com.tinet.ctilink.ami.wrapup.AmiWrapupEngine;
+
 
 import java.util.List;
 
@@ -34,9 +34,7 @@ public class ApplicationStarter implements ApplicationListener<ContextRefreshedE
 	@Autowired
 	private AmiManager amiManager;
 
-	@Autowired
-	private AmiWrapupEngine amiWrapupEngine;
-
+	
 	@Autowired
 	private OrderCallBackEngine orderCallBackEngine;
 
@@ -65,10 +63,7 @@ public class ApplicationStarter implements ApplicationListener<ContextRefreshedE
 		// 启动与Asterisk的AMI连接
 		amiManager.command("start");
 
-		// 启动座席状态整理引擎
-		amiWrapupEngine.setName("AmiWrapupEngine");
-		amiWrapupEngine.start();
-
+		
 		// 启动预约回呼处理引擎
 		orderCallBackEngine.setName("OrderCallBackEngine");
 		orderCallBackEngine.start();
