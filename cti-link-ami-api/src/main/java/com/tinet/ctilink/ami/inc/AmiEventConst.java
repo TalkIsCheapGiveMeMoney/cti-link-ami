@@ -30,6 +30,7 @@ public class AmiEventConst {
 	public static final String SPY_UNLINK = "spyUnlink"; // 事件类型: 监听挂断
 	public static final String SPY_ERROR = "spyError"; // 事件类型: 监听错误
 	public static final String CONSULT_LINK = "consultLink"; // 事件类型: 咨询接听
+	public static final String HOLD = "hold";
 	public static final String UNCONSULT = "unconsult"; // 事件类型: 咨询挂断
 	public static final String CONSULT_ERROR = "consultError"; // 事件类型: 咨询错误
 	public static final String CONSULT_TRANSFER = "consultTransfer"; // 事件类型:咨询转接
@@ -42,12 +43,14 @@ public class AmiEventConst {
 	public static final String THREEWAY_LINK = "threewayLink"; // 事件类型: 三方接听
 	public static final String THREEWAY_UNLINK = "threewayUnlink"; // 事件类型: 三方挂断
 	public static final String THREEWAY_ERROR = "threewayError"; // 事件类型: 三方错误
+	public static final String DISCONNECT_UNLINK = "disconnectUnlink"; // 事件类型:强拆
 	public static final String BARGE_LINK = "bargeLink"; // 事件类型: 强插接听
 	public static final String BARGE_UNLINK = "bargeUnlink"; // 事件类型: 强插挂断
 	public static final String BARGE_ERROR = "bargeError"; // 事件类型: 强插错误
-	public static final String PREVIEW_OUTCALL_ERROR = "previewOutcallError"; // 事件类型:外呼错误
+	public static final String PREVIEW_OUTCALL_ERROR = "previewOutcallError";
 	public static final String PREVIEW_OUTCALL_BRIDGE = "previewOutcallBridge"; // 事件类型：预览外呼客户接听
 	public static final String ORDER_CALL_BACK = "orderCallBack"; // 事件类型：预约回呼
+	public static final String QUEUE_CALL = "queueCall"; // 事件类型: 来电在队列中开始呼叫座席了
 	public static final String PRESS_KEYS = "pressKeys"; // 事件类型：按键
 
 	public static final String INTERACT_ERROR = "interactError"; // 事件类型: 交互错误
