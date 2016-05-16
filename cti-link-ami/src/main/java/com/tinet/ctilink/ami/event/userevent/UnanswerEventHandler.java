@@ -43,8 +43,9 @@ public class UnanswerEventHandler extends AbstractAmiEventHandler implements Ami
 		String startTime = ((UnanswerEvent) event).getStartTime();
 
 		JSONObject userEvent=new JSONObject();
-		userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.UNANSWER);
+		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventConst.UNANSWER);
+//		userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
+//		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.UNANSWER);
 		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
 		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);

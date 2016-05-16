@@ -1,26 +1,12 @@
 package com.tinet.ctilink;
 
-public class AmiConst {
-	 public static final int ASTERISK_AMI_PORT = 5038;
-
-    public static final String ASTERISK_AMI_HOST = "54.222.195.242";
-
-    public static final String ASTERISK_AMI_MANAGER_USER = "manager";
-
-    public static final String ASTERISK_AMI_MANAGER_PWD = "CCIC_AMI_manager";
-
-    public static final String ASTERISK_AMI_ACTION_USER = "action";
-
-    public static final String ASTERISK_AMI_ACTION_PWD = "CCIC_AMI_action";
-    
+public class AmiChanVarNameConst {    
     
     //通道变量定义
     
     public static final String TRANSFEE_CNO = "transfee_cno";
     public static final String TRANSFER_CHANNEL = "transfer_channel";
-
     public static final String DISCONNECT_CHAN = "disconnect_chan";
-
     public static final String SPY_CHAN = "spy_chan";
     public static final String SPYER_CNO = "spyer_cno";
     public static final String SPIED_CNO = "spied_cno";
@@ -52,6 +38,7 @@ public class AmiConst {
     public static final String CDR_HOTLINE = "cdr_hotline";
     public static final String CDR_ENTERPRISE_ID = "cdr_enterprise_id";
     public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id";
+    public static final	String UNIQUEID = "UNIQUEID";
     public static final String CDR_START_TIME = "cdr_start_time";
     public static final String CDR_DETAIL_CNO = "cdr_detail_cno";
     public static final String CDR_DETAIL_CALL_TYPE = "cdr_detail_call_type";

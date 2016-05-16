@@ -53,6 +53,14 @@ public class AmiEventConst {
 	public static final String PRESS_KEYS = "pressKeys"; // 事件类型：按键
 	public static final String INTERACT_ERROR = "interactError"; // 事件类型: 交互错误
 	public static final String INTERACT_RETURN = "interactReturn"; // 事件类型: 交互返回
+	
+	public static final String DISCONNECT = "disConnect"; // 事件类型: 挂断
+	public static final String HOLD = "hold"; // 事件类型: 保持
+//	public static final String QUEUE_CALL = "queue_call"; // 事件类型: 队列呼叫
+	
+	
+	
+//	DISCONNECT
 
 
 }

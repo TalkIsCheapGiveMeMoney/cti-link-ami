@@ -49,8 +49,8 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 		String ivrId =  ((IncomingEvent) event).getIvrId();
 
 		JSONObject pushEvent=new JSONObject();
-		pushEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-		pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.INCOMING);
+		pushEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventConst.INCOMING);
+//		pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.INCOMING);
 		pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		pushEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
 		pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);

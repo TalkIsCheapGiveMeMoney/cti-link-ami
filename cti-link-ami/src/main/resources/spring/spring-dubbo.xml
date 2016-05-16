@@ -20,5 +20,7 @@
 	<context:component-scan base-package="com.tinet.ctilink">
 		<context:include-filter type="annotation" expression="com.alibaba.dubbo.config.annotation.Service" />
 	</context:component-scan>
+	
+	<!--<context:component-scan base-package="org.asteriskjava"></context:component-scan>-->
 
 </beans>

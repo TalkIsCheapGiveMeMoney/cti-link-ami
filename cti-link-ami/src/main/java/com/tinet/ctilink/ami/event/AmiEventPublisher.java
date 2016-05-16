@@ -33,11 +33,6 @@ public class AmiEventPublisher {
 	private RedisService redisService;
 	
 	public void publish(JSONObject event) {
-		if (!event.containsKey(AmiParamConst.VARIABLE_TYPE)) {
-			event.put(AmiParamConst.VARIABLE_TYPE, AmiParamConst.VARIABLE_EVENT);
-		}
-		
-
 		redisService.lpush(AmiEventConst.AMI_EVENT_DBINDEX, AmiEventConst.AMI_EVENT_LIST, event.toString());
 		// 根据企业设置推送AMI状态
 //		pushevent(event);

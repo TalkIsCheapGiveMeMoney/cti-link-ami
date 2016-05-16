@@ -16,6 +16,9 @@ package com.tinet.ctilink.ami.inc;
 public class AmiParamConst {
 	
 	public static final String CHANNEL = "channel"; // 事件参数：通道名
+	public static final String CHANNELSTATE = "channelstate"; // 事件参数：通道状态
+	public static final String CHANNELSTATEDESC = "channelstatedesc"; // 事件参数：通道状态描述
+	
 	public static final String UNIQUEID = "uniqueId"; // 事件参数：当前通道唯一Id
 	public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id"; // 事件参数：主通道唯一Id
 	public static final String ENTERPRISEID = "enterpriseId"; // 事件参数：企业Id	

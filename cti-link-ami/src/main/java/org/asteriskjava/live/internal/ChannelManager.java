@@ -27,7 +27,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-
+import com.tinet.ctilink.AmiChanVarNameConst;
+import com.tinet.ctilink.ami.AmiEventListener;
+import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
 
@@ -67,6 +69,7 @@ import org.asteriskjava.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -75,11 +78,14 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author srt
  * @version $Id: ChannelManager.java 1381 2009-10-19 19:48:15Z srt $
  */
-public class ChannelManager {
+
+public class ChannelManager  {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	 
 	   private RedisService redisService;
+	   
+	   private AmiEventListener amiEventListener;
 
 	
 
@@ -91,6 +97,8 @@ public class ChannelManager {
 	private static final long SLEEP_TIME_BEFORE_GET_VAR = 50L;
 
 	private final AsteriskServerImpl server;
+	
+//	private final AmiServerImpl observer;
 
 	/**
 	 * A map of all active channel by their unique id.
@@ -107,6 +115,7 @@ public class ChannelManager {
 		this.channels = new HashSet<AsteriskChannelImpl>();
 
 		this.redisService = ContextUtil.getBean(RedisService.class);
+		this.amiEventListener = ContextUtil.getBean(AmiEventListener.class);
 	}
 
 	void initialize() throws ManagerCommunicationException {
@@ -503,119 +512,57 @@ public class ChannelManager {
 		// *******ringing 电话组推送***************/
 		if (event.getChannelState() != null) {
 			if (!channel.getState().equals(ChannelState.valueOf(event.getChannelState()))) {
-
-//				CtiAgent ctiAgent = ctiAgentService.getByChannel(channel.getName());
-				if (ChannelState.valueOf(event.getChannelState()).equals(ChannelState.RINGING) 
-						&& (channel.getVariable(Const.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_IB + "") || channel
-								.getVariable(Const.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_OB_WEBCALL + ""))) {
-					
-					
-					
+				if ((channel.getVariable(Const.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_IB + "") 
+						|| channel.getVariable(Const.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_OB_WEBCALL + ""))) 	//ChannelState.valueOf(event.getChannelState()).equals(ChannelState.RINGING)  
+				{
 					
 					String channelCustomerNumber = "";
 					String channelCustomerNumberType = "";
 					String channelCustomerAreaCode = "";
 					String channelUniqueId = "";
+					String channelMainUniqueId = "";
 					String channelNumberTrunk = "";
 					String channelCallType = "";
 					String channelCalleeNumber = "";
 					String channelTaskInventoryId = "";
-					String channelTaskId = "";
+
+					String enterpriseId = "";
+					String cno = "";
+					String channelState = "";
+					String channelStateDesc = "";
 					
-					channelCustomerNumber = channel.getVariable(Const.CDR_CUSTOMER_NUMBER);
-					channelCustomerNumberType = channel.getVariable(Const.CDR_CUSTOMER_NUMBER_TYPE);
-					channelCustomerAreaCode = channel.getVariable(Const.CDR_CUSTOMER_AREA_CODE);
-					channelUniqueId = channel.getVariable(Const.CDR_MAIN_UNIQUE_ID);
-//					enterpriseId = Integer.parseInt(channel.getVariable(Const.CDR_ENTERPRISE_ID));
-					channelNumberTrunk = channel.getVariable(Const.CDR_NUMBER_TRUNK);
-					channelCallType = channel.getVariable(Const.CDR_CALL_TYPE);
-					channelTaskInventoryId = channel.getVariable(Const.CDR_TASK_INVENTORY_ID);
-					channelTaskId = channel.getVariable(Const.CDR_TASK_ID);
-					channelCalleeNumber = channel.getVariable(AmiParamConst.CDR_CALLEE_NUMBER);
+			
+					
+					channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
+					channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);
+					channelCustomerAreaCode = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_AREA_CODE);
+					channelMainUniqueId = channel.getVariable(AmiChanVarNameConst.CDR_MAIN_UNIQUE_ID);
+					channelUniqueId = channel.getVariable(AmiChanVarNameConst.UNIQUEID);
+					enterpriseId = channel.getVariable(Const.CDR_ENTERPRISE_ID);
+					channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
+					channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);
+					cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
+					channelState = event.getChannelState().toString();
+					channelStateDesc = event.getChannelState().toString();
 					
 					
-					JSONObject j=new JSONObject();
+					JSONObject j=new JSONObject();					
+					j.put(AmiParamConst.VARIABLE_EVENT, AmiEventConst.STATUS);
+					j.put(AmiParamConst.CHANNELSTATE, channelState);
+					j.put(AmiParamConst.CHANNELSTATEDESC, channelStateDesc);
 					j.put(AmiParamConst.CHANNEL, event.getChannel());
+					j.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);					
 					j.put(AmiParamConst.CDR_CUSTOMER_NUMBER, channelCustomerNumber);
 					j.put(AmiParamConst.CDR_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
 					j.put(AmiParamConst.CDR_CUSTOMER_AREA_CODE, channelCustomerAreaCode);
-					
-					j.put(AmiParamConst.CDR_MAIN_UNIQUE_ID, channelUniqueId);
+					j.put(AmiParamConst.CDR_MAIN_UNIQUE_ID, channelMainUniqueId);
+					j.put(AmiParamConst.UNIQUEID, channelUniqueId);
 					j.put(AmiParamConst.CDR_CALL_TYPE, channelCallType);
-					
 					j.put(AmiParamConst.CDR_CALLEE_NUMBER, channelCalleeNumber);
+					j.put(AmiParamConst.CNO, cno);
+					j.put(AmiParamConst.ENTERPRISEID, enterpriseId);					
+					amiEventListener.publishEvent(j);
 					
-					System.out.println("input into list"+j.toString());
-					
-					redisService.lpush(3, "queue.bigqueue.channelevent", j.toString());
-					
-					
-					
-//					Channel	通道名	
-//					Uniqueid	从（坐席）通道唯一id	
-//					EnterpriseId	企业id	
-//					CustomerNumber	客户号码	
-//					CustomerNumberType	客户号码类型	
-//					CustomerAreaCode	客户区号	
-//					CallType	呼叫类型	
-//					DialTime	呼叫时间	
-//					CalleeNumber	被叫号码	
-//					cno	坐席号	
-//					Main_Uniqueid	从通道唯一id	
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					int enterpriseId = 0;
-					
-					try {
-						channelCustomerNumber = channel.getVariable(Const.CDR_CUSTOMER_NUMBER);
-						channelCustomerNumberType = channel.getVariable(Const.CDR_CUSTOMER_NUMBER_TYPE);
-						channelCustomerAreaCode = channel.getVariable(Const.CDR_CUSTOMER_AREA_CODE);
-						channelUniqueId = channel.getVariable(Const.CDR_MAIN_UNIQUE_ID);
-						enterpriseId = Integer.parseInt(channel.getVariable(Const.CDR_ENTERPRISE_ID));
-						channelNumberTrunk = channel.getVariable(Const.CDR_NUMBER_TRUNK);
-						channelCallType = channel.getVariable(Const.CDR_CALL_TYPE);
-						channelTaskInventoryId = channel.getVariable(Const.CDR_TASK_INVENTORY_ID);
-						channelTaskId = channel.getVariable(Const.CDR_TASK_ID);
-					} catch (Exception e) {
-
-					}
-
-					// 来电推送
-					int pushType = 0;
-					int curlType = 0;
-
-					if ((Const.CDR_CALL_TYPE_OB_WEBCALL + "").equals(channelCallType)
-							&& StringUtils.isEmpty(channelUniqueId)) {
-						pushType = Const.ENTERPRISE_PUSH_TYPE_RINGING_WEB_CALL;
-						curlType = Const.CURL_TYPE_RINGING_WEBCALL;
-					} else {
-						pushType = Const.ENTERPRISE_PUSH_TYPE_RINGING_IB;
-						curlType = Const.CURL_TYPE_RINGING_IB;
-					}
-
-					Map<String, String> pushEvent = new HashMap<String, String>();
-					pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.RINGING);
-					pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, String.valueOf(enterpriseId));
-					pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, channelCustomerNumber);
-					pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
-					pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE, channelCustomerAreaCode);
-					pushEvent.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);
-					pushEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, channelCallType);
-					pushEvent.put(AmiParamConst.VARIABLE_RINGING_TIME, com.tinet.ctilink.util.DateUtil
-							.format(new Date(), com.tinet.ctilink.util.DateUtil.FMT_DATE_YYYY_MM_DD_HH_mm_ss));
-					pushEvent.put(AmiParamConst.VARIABLE_UNIQUEID, channelUniqueId);
-					pushEvent.put(AmiParamConst.VARIABLE_TASK_INVENTORY_ID, channelTaskInventoryId);
-					pushEvent.put(AmiParamConst.VARIABLE_TASK_ID, channelTaskId);
-
-					// 根据企业设置推送Curl
-					AmiUtil.pushCurl(channel, pushEvent, enterpriseId, pushType, curlType);
 				}
 			}
 		}
