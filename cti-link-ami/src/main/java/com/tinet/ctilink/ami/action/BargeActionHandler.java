@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.online.CtiAgent;
+
 import com.tinet.ctilink.ami.util.SipHeaderUtil;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.util.LocalIpUtil;
@@ -40,21 +40,21 @@ public class BargeActionHandler extends AbstractActionHandler {
 		String gwIp = params.get(AmiAction.VARIABLE_GWIP);
 		String clid = params.get(AmiAction.VARIABLE_CLID);// 外显号码
 
-		CtiAgent ctiAgent = getCtiAgent(params);
-		if (ctiAgent == null) {
-			return ERROR_BAD_PARAM;
-		}
-
-//		if (!CtiAgent.IDLE.equals(ctiAgent.getDeviceStatus())) {
-//			return AmiActionResponse.createFailResponse(AmiAction.ERRORCODR_BAD_DEVICE_STATUS,
-//					"device status not idle");
+//		CtiAgent ctiAgent = getCtiAgent(params);
+//		if (ctiAgent == null) {
+//			return ERROR_BAD_PARAM;
 //		}
-
-		CtiAgent bargedAgent = ctiAgentService.get(ctiAgent.getEnterpriseId() + bargedCno);
-		if (bargedAgent == null) {
-			return AmiActionResponse.createFailResponse(AmiAction.ERRORCODE_NO_SUCH_CNO, "no such cno");
-		}
-
+//
+////		if (!CtiAgent.IDLE.equals(ctiAgent.getDeviceStatus())) {
+////			return AmiActionResponse.createFailResponse(AmiAction.ERRORCODR_BAD_DEVICE_STATUS,
+////					"device status not idle");
+////		}
+//
+//		CtiAgent bargedAgent = ctiAgentService.get(ctiAgent.getEnterpriseId() + bargedCno);
+//		if (bargedAgent == null) {
+//			return AmiActionResponse.createFailResponse(AmiAction.ERRORCODE_NO_SUCH_CNO, "no such cno");
+//		}
+/*
 		if (StringUtils.isEmpty(bargedAgent.getMainChannel()) || !CtiAgent.BUSY.equals(bargedAgent.getDeviceStatus())) {
 			return AmiActionResponse.createFailResponse(AmiAction.ERRORCODE_NO_CHANNEL, "no barged channel");
 		}
@@ -117,7 +117,7 @@ public class BargeActionHandler extends AbstractActionHandler {
 		if (sendAction(originateAction, 60000) == null) {
 			return ERROR_EXCEPTION;
 		}
-
+*/
 		return SUCCESS;
 	}
 

@@ -17,8 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.event.AmiEventPublisher;
 import com.tinet.ctilink.ami.log.AmiLogQueueEngine;
-import com.tinet.ctilink.ami.online.CtiAgent;
-import com.tinet.ctilink.ami.online.CtiAgentService;
+
 
 /**
  * AMI动作抽象基类
@@ -37,8 +36,7 @@ public abstract class AbstractActionHandler implements AmiActionHandler {
 	@Autowired
 	protected AmiLogQueueEngine amiLogQueueEngine;
 
-	@Autowired
-	protected CtiAgentService ctiAgentService;
+
 
 	protected final AmiActionResponse SUCCESS = AmiActionResponse.createSuccessResponse();
 	protected final AmiActionResponse ERROR_BAD_PARAM = AmiActionResponse.createFailResponse(AmiAction.ERRORCODE_BAD_PARAM,"无效参数");
@@ -122,19 +120,5 @@ public abstract class AbstractActionHandler implements AmiActionHandler {
 		return true;
 	}
 
-	/**
-	 * 获取CtiAgent
-	 * 
-	 * @param params
-	 * @return CtiAgent
-	 */
-	protected CtiAgent getCtiAgent(Map<String, String> params) {
-		String cid = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_CID));
-		if (StringUtils.isEmpty(cid)) {
-			String enterpriseId = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_ENTERPRISE_ID));
-			String cno = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_CNO));
-			cid = enterpriseId + cno;
-		}
-		return ctiAgentService.get(cid);
-	}
+	
 }

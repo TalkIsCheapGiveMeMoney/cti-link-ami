@@ -1,4 +1,4 @@
-package com.tinet.ctilink.ami.event;
+package com.tinet.ctilink.ami.event.userevent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
+import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.json.JSONObject;
@@ -46,8 +48,8 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 		String customerAreaCode = ((IncomingEvent) event).getCustomerAreaCode();
 		String ivrId =  ((IncomingEvent) event).getIvrId();
 
-//		Map<String, String> pushEvent = new HashMap<String, String>();
 		JSONObject pushEvent=new JSONObject();
+		pushEvent.put("type", AmiAction.VARIABLE_EVENT);
 		pushEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.INCOMING);
 		pushEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		pushEvent.put(AmiAction.VARIABLE_CALL_TYPE, callType);

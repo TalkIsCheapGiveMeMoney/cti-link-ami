@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.online.CtiAgent;
+
 
 /**
  * 监听挂断
@@ -26,7 +26,7 @@ public class UnSpyActionHandler extends AbstractActionHandler {
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		CtiAgent ctiAgent = getCtiAgent(params);
+/*		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
 		}
@@ -48,6 +48,7 @@ public class UnSpyActionHandler extends AbstractActionHandler {
 		if (sendAction(hangupAction) == null) {
 			return ERROR_EXCEPTION;
 		}
+		*/
 		return SUCCESS;
 	}
 

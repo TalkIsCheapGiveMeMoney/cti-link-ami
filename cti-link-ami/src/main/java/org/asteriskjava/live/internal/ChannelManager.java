@@ -30,7 +30,7 @@ import java.util.Set;
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.ami.online.CtiAgentService;
+
 import com.tinet.ctilink.ami.util.AmiUtil;
 import com.tinet.ctilink.cache.RedisService;
 import com.tinet.ctilink.inc.Const;
@@ -81,7 +81,7 @@ public class ChannelManager {
 	 
 	   private RedisService redisService;
 
-	private CtiAgentService ctiAgentService;
+	
 
 	/**
 	 * How long we wait before we remove hung up channels from memory (in
@@ -106,7 +106,6 @@ public class ChannelManager {
 		this.server = server;
 		this.channels = new HashSet<AsteriskChannelImpl>();
 
-		this.ctiAgentService = ContextUtil.getBean(CtiAgentService.class);
 		this.redisService = ContextUtil.getBean(RedisService.class);
 	}
 

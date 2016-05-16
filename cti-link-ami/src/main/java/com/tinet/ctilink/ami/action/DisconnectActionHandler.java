@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.ami.online.CtiAgent;
+
 
 /**
  * 强拆
@@ -28,7 +28,7 @@ public class DisconnectActionHandler extends AbstractActionHandler {
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		CtiAgent ctiAgent = getCtiAgent(params);
+/*		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
 		}
@@ -71,7 +71,7 @@ public class DisconnectActionHandler extends AbstractActionHandler {
 		if (sendAction(hangupAction) == null) {
 			return ERROR_EXCEPTION;
 		}
-
+*/
 		return SUCCESS;
 	}
 

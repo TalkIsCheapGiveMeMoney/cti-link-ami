@@ -1,4 +1,4 @@
-package com.tinet.ctilink.ami.event;
+package com.tinet.ctilink.ami.event.userevent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.action.CallLocalActionHandler;
+import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
+import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 
 /**
  *

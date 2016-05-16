@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
-import com.tinet.ctilink.ami.online.CtiAgent;
 import com.tinet.ctilink.util.RedisLock;
 import com.tinet.ctilink.util.RedisLockUtil;
 
@@ -31,7 +30,7 @@ public class HoldActionHandler extends AbstractActionHandler {
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.debug("handle {} action : {}", this.getAction(), params);
 
-		CtiAgent ctiAgent = getCtiAgent(params);
+/*		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
 		}
@@ -85,7 +84,7 @@ public class HoldActionHandler extends AbstractActionHandler {
 		event.put(AmiAction.VARIABLE_CLIENT_ID, ctiAgent.getClientId().toString());
 
 		publishEvent(event);
-
+*/
 		return SUCCESS;
 	}
 }

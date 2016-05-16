@@ -7,7 +7,7 @@ import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.online.CtiAgent;
+
 
 /**
  * 三方挂断
@@ -27,7 +27,7 @@ public class UnThreewayActionHandler extends AbstractActionHandler {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
 		String threewayCno = StringUtils.trimToEmpty(params.get("threewayedCno")); // 正在通话的座席
-
+/*
 		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
@@ -48,6 +48,7 @@ public class UnThreewayActionHandler extends AbstractActionHandler {
 		if (sendAction(hangupAction) == null) {
 			return ERROR_EXCEPTION;
 		}
+		*/
 		return SUCCESS;
 	}
 

@@ -7,7 +7,7 @@ import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.online.CtiAgent;
+
 
 /**
  * 挂断
@@ -25,7 +25,7 @@ public class UnlinkActionHandler extends AbstractActionHandler {
 	@Override
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
-
+/*
 		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
@@ -41,7 +41,7 @@ public class UnlinkActionHandler extends AbstractActionHandler {
 		if (sendAction(hangupAction) == null) {
 			return ERROR_EXCEPTION;
 		}
-
+*/
 		return SUCCESS;
 	}
 

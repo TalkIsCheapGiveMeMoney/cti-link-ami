@@ -5,7 +5,7 @@ import java.util.*;
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.action.callback.PreviewOutcallCallback;
 import com.tinet.ctilink.ami.log.AmiLogQueueEngine;
-import com.tinet.ctilink.ami.online.CtiAgent;
+
 import com.tinet.ctilink.ami.util.SipHeaderUtil;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
@@ -80,7 +80,7 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 
 		long callStartTime = new Date().getTime() / 1000;
 
-		CtiAgent ctiAgent = null;
+/*		CtiAgent ctiAgent = null;
 		RedisLock redisLock = RedisLockUtil.lock(CtiAgent.getLockKey(cid));
 		if (redisLock != null) {
 			try {
@@ -207,7 +207,7 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 					RedisLockUtil.unLock(redisLock);
 				}
 			}
-		}
+		}*/
 
 		return SUCCESS;
 	}
@@ -215,7 +215,7 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 	public Map<String, String> handleResponse(ManagerResponse response, String cid, Long callStartTime, String orderCallBackId,String loginStatus,String pauseDescription) {
 		HashMap<String, String> res = new HashMap<String, String>();
 		String uniqueId = "";
-		CtiAgent ctiAgent = ctiAgentService.get(cid);
+		/*CtiAgent ctiAgent = ctiAgentService.get(cid);
 		if (null != response && response.getResponse().equals("Success")) {
 			uniqueId = response.getMessage();
 
@@ -269,7 +269,7 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 			res.put("result", "false");
 		}
 
-		res.put("uniqueId", uniqueId);
+		res.put("uniqueId", uniqueId);*/
 		return res;
 	}
 }

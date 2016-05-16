@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.util.SipHeaderUtil;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.ami.online.CtiAgent;
 import com.tinet.ctilink.util.LocalIpUtil;
 
 /**
@@ -42,7 +41,7 @@ public class SpyActionHandler extends AbstractActionHandler {
 																								// 3：IVR
 																								// id
 		String destInterface = params.get("destInterface");
-
+/*
 		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
@@ -129,7 +128,7 @@ public class SpyActionHandler extends AbstractActionHandler {
 		ManagerResponse managerResponse = sendAction(originateAction, 60000);
 		if (managerResponse == null) {
 			return ERROR_EXCEPTION;
-		}
+		}*/
 		return SUCCESS;
 	}
 

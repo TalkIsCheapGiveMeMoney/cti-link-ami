@@ -1,4 +1,4 @@
-package com.tinet.ctilink.ami.event;
+package com.tinet.ctilink.ami.event.userevent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +10,8 @@ import org.asteriskjava.manager.userevent.PressKeysEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
+import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.inc.Const;
 

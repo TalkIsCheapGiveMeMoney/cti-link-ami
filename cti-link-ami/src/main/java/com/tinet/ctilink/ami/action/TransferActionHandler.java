@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.ami.online.CtiAgent;
+
 
 /**
  * 转移
@@ -27,7 +27,7 @@ public class TransferActionHandler extends AbstractActionHandler {
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		CtiAgent ctiAgent = getCtiAgent(params);
+/*		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
 		}
@@ -52,7 +52,7 @@ public class TransferActionHandler extends AbstractActionHandler {
 		if (sendAction(transferAction) == null) {
 			return ERROR_EXCEPTION;
 		}
-
+*/
 		return SUCCESS;
 	}
 

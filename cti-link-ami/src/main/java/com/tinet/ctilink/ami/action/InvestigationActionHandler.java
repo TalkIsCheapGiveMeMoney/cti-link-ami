@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.ami.online.CtiAgent;
+
 
 /**
  * 满意度调查
@@ -28,7 +28,7 @@ public class InvestigationActionHandler extends AbstractActionHandler {
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		CtiAgent ctiAgent = getCtiAgent(params);
+/*		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
 		}
@@ -48,7 +48,7 @@ public class InvestigationActionHandler extends AbstractActionHandler {
 		if (sendAction(setVarAction) == null || sendAction(hangupAction) == null) {
 			return ERROR_EXCEPTION;
 		}
-
+*/
 		return SUCCESS;
 	}
 

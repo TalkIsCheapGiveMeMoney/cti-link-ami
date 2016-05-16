@@ -6,7 +6,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.online.CtiAgent;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
@@ -31,7 +30,7 @@ public class ConsultTransferActionHandler extends AbstractActionHandler {
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		CtiAgent ctiAgent = getCtiAgent(params);
+	/*	CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
 		}
@@ -71,7 +70,7 @@ public class ConsultTransferActionHandler extends AbstractActionHandler {
 				scheduledExecutor.schedule(task, (limitSecond - alertSecond), TimeUnit.SECONDS);
 			}
 		}
-
+*/
 		return SUCCESS;
 	}
 }

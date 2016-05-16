@@ -1,4 +1,4 @@
-package com.tinet.ctilink.ami.event;
+package com.tinet.ctilink.ami.event.userevent;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
+import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.ordercallback.OrderCallBackEngine;
 

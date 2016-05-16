@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.ami.online.CtiAgent;
+
 
 /**
  * 摘机直呼送客户号码
@@ -28,7 +28,7 @@ public class DirectCallStartActionHandler extends AbstractActionHandler {
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		CtiAgent ctiAgent = getCtiAgent(params);
+/*		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
 		}
@@ -65,7 +65,7 @@ public class DirectCallStartActionHandler extends AbstractActionHandler {
 		} else {
 			return AmiActionResponse.createFailResponse(AmiAction.ERRORCODE_EXCEPTION, "回调已超时");
 		}
-
+*/
 		return SUCCESS;
 	}
 

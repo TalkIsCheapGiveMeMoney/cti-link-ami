@@ -1,4 +1,4 @@
-package com.tinet.ctilink.ami.event;
+package com.tinet.ctilink.ami.event.userevent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,10 @@ import org.asteriskjava.manager.userevent.AnswerEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
+import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
+import com.tinet.ctilink.json.JSONObject;
 
 
 /**
@@ -34,7 +37,7 @@ public class AnswerEventHandler extends AbstractAmiEventHandler implements AmiUs
 		String customerNumberType = ((AnswerEvent) event).getCustomerNumberType();
 		String customerAreaCode = ((AnswerEvent) event).getCustomerAreaCode();
 		
-		Map<String, String> userEvent = new HashMap<String, String>();
+		JSONObject userEvent=new JSONObject();
 		userEvent.put("type", AmiAction.VARIABLE_EVENT);
 		userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.ANSWER);
 		userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);

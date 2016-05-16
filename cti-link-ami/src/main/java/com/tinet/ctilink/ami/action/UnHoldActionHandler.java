@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
-import com.tinet.ctilink.ami.online.CtiAgent;
 import com.tinet.ctilink.util.RedisLock;
 import com.tinet.ctilink.util.RedisLockUtil;
 
@@ -30,7 +29,7 @@ public class UnHoldActionHandler extends AbstractActionHandler {
 	@Override
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.debug("handle {} action : {}", this.getAction(), params);
-
+/*
 		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
@@ -80,7 +79,7 @@ public class UnHoldActionHandler extends AbstractActionHandler {
 		// 记录Ami日志
 		amiLogQueueEngine.insertLogQueue(null, new Date(), null, ctiAgent.getCid(), "UNHOLD", null, null, null, null,
 				null);
-
+*/
 		return SUCCESS;
 	}
 

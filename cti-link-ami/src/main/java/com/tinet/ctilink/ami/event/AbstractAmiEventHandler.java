@@ -3,7 +3,7 @@ package com.tinet.ctilink.ami.event;
 import java.util.Map;
 
 import com.tinet.ctilink.ami.cache.CacheService;
-import com.tinet.ctilink.ami.online.CtiAgentService;
+
 import com.tinet.ctilink.json.JSONObject;
 
 import org.slf4j.Logger;
@@ -23,9 +23,6 @@ public abstract class AbstractAmiEventHandler {
 
 	@Autowired
 	protected AmiEventPublisher amiEventPublisher;
-
-	@Autowired
-	protected CtiAgentService ctiAgentService;
 
 	@Autowired
 	protected CacheService cacheService;

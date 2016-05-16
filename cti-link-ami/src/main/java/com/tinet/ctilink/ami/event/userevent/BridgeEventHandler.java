@@ -1,16 +1,20 @@
-package com.tinet.ctilink.ami.event;
+package com.tinet.ctilink.ami.event.userevent;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.tinet.ctilink.ami.util.AmiUtil;
 import com.tinet.ctilink.inc.Const;
+import com.tinet.ctilink.json.JSONObject;
+
 import org.asteriskjava.manager.event.ManagerEvent;
 import org.asteriskjava.manager.event.UserEvent;
 import org.asteriskjava.manager.userevent.IbBridgeEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
+import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 
 
@@ -19,7 +23,7 @@ import com.tinet.ctilink.ami.inc.AmiEventConst;
  * @author tianzp
  */
 @Component
-public class IbBridgeEventHandler extends AbstractAmiEventHandler implements AmiUserEventHandler {
+public class BridgeEventHandler extends AbstractAmiEventHandler implements AmiUserEventHandler {
 
 	@Override
 	public Class<?> getEventClass() {
@@ -39,7 +43,8 @@ public class IbBridgeEventHandler extends AbstractAmiEventHandler implements Ami
 		String detailCallType = ((IbBridgeEvent) event).getDetailCallType();
 		String callType = ((IbBridgeEvent) event).getCallType();
 
-		Map<String, String> pushEvent = new HashMap<String, String>();
+		JSONObject pushEvent=new JSONObject();
+		pushEvent.put("type", AmiAction.VARIABLE_EVENT);
 		pushEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.BRIDGED);
 		pushEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		pushEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER, customerNumber);
@@ -49,10 +54,11 @@ public class IbBridgeEventHandler extends AbstractAmiEventHandler implements Ami
 		pushEvent.put(AmiAction.VARIABLE_USER_FIELD, userField);
 		pushEvent.put(AmiAction.VARIABLE_DETAIL_CALLTYPE, detailCallType);
 		pushEvent.put(AmiAction.VARIABLE_CALL_TYPE, callType);
+		publishEvent(pushEvent);
 
-		// 根据企业设置推送Curl
-		AmiUtil.pushCurl(((UserEvent) event).getAsteriskChannel(), pushEvent, Integer.parseInt(enterpriseId),
-				Const.ENTERPRISE_PUSH_TYPE_BRIDGE_IB, Const.CURL_TYPE_BRIDGE_IB);
+//		// 根据企业设置推送Curl
+//		AmiUtil.pushCurl(((UserEvent) event).getAsteriskChannel(), pushEvent, Integer.parseInt(enterpriseId),
+//				Const.ENTERPRISE_PUSH_TYPE_BRIDGE_IB, Const.CURL_TYPE_BRIDGE_IB);
 	}
 
 	
