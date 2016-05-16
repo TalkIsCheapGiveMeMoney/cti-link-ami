@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.util.SipHeaderUtil;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.ami.online.CtiAgent;
 import com.tinet.ctilink.util.LocalIpUtil;
 
 /**
@@ -42,7 +41,7 @@ public class WhisperActionHandler extends AbstractActionHandler {
 		if (destInterface.isEmpty()) {
 			return ERROR_BAD_PARAM;
 		}
-
+/*
 		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
@@ -125,7 +124,7 @@ public class WhisperActionHandler extends AbstractActionHandler {
 		if (sendAction(originateAction, 60000) == null) {
 			return ERROR_EXCEPTION;
 		}
-
+*/
 		return SUCCESS;
 	}
 

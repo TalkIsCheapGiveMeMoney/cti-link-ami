@@ -28,11 +28,13 @@ import java.util.Map;
 import java.util.Set;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.AmiEvent;
-import com.tinet.ctilink.ami.online.CtiAgent;
-import com.tinet.ctilink.ami.online.CtiAgentService;
+import com.tinet.ctilink.ami.inc.AmiEventConst;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
+
 import com.tinet.ctilink.ami.util.AmiUtil;
+import com.tinet.ctilink.cache.RedisService;
 import com.tinet.ctilink.inc.Const;
+import com.tinet.ctilink.json.JSONObject;
 import com.tinet.ctilink.util.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.live.AsteriskChannel;
@@ -64,6 +66,7 @@ import org.asteriskjava.manager.response.ManagerError;
 import org.asteriskjava.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
@@ -74,8 +77,11 @@ import org.slf4j.LoggerFactory;
  */
 public class ChannelManager {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
+	
+	 
+	   private RedisService redisService;
 
-	private CtiAgentService ctiAgentService;
+	
 
 	/**
 	 * How long we wait before we remove hung up channels from memory (in
@@ -100,7 +106,7 @@ public class ChannelManager {
 		this.server = server;
 		this.channels = new HashSet<AsteriskChannelImpl>();
 
-		this.ctiAgentService = ContextUtil.getBean(CtiAgentService.class);
+		this.redisService = ContextUtil.getBean(RedisService.class);
 	}
 
 	void initialize() throws ManagerCommunicationException {
@@ -497,19 +503,75 @@ public class ChannelManager {
 		if (event.getChannelState() != null) {
 			if (!channel.getState().equals(ChannelState.valueOf(event.getChannelState()))) {
 
-				CtiAgent ctiAgent = ctiAgentService.getByChannel(channel.getName());
-				if (ChannelState.valueOf(event.getChannelState()).equals(ChannelState.RINGING) && ctiAgent == null
+//				CtiAgent ctiAgent = ctiAgentService.getByChannel(channel.getName());
+				if (ChannelState.valueOf(event.getChannelState()).equals(ChannelState.RINGING) 
 						&& (channel.getVariable(Const.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_IB + "") || channel
 								.getVariable(Const.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_OB_WEBCALL + ""))) {
-					int enterpriseId = 0;
+					
+					
+					
+					
 					String channelCustomerNumber = "";
 					String channelCustomerNumberType = "";
 					String channelCustomerAreaCode = "";
 					String channelUniqueId = "";
 					String channelNumberTrunk = "";
 					String channelCallType = "";
+					String channelCalleeNumber = "";
 					String channelTaskInventoryId = "";
 					String channelTaskId = "";
+					
+					channelCustomerNumber = channel.getVariable(Const.CDR_CUSTOMER_NUMBER);
+					channelCustomerNumberType = channel.getVariable(Const.CDR_CUSTOMER_NUMBER_TYPE);
+					channelCustomerAreaCode = channel.getVariable(Const.CDR_CUSTOMER_AREA_CODE);
+					channelUniqueId = channel.getVariable(Const.CDR_MAIN_UNIQUE_ID);
+//					enterpriseId = Integer.parseInt(channel.getVariable(Const.CDR_ENTERPRISE_ID));
+					channelNumberTrunk = channel.getVariable(Const.CDR_NUMBER_TRUNK);
+					channelCallType = channel.getVariable(Const.CDR_CALL_TYPE);
+					channelTaskInventoryId = channel.getVariable(Const.CDR_TASK_INVENTORY_ID);
+					channelTaskId = channel.getVariable(Const.CDR_TASK_ID);
+					channelCalleeNumber = channel.getVariable(AmiParamConst.CDR_CALLEE_NUMBER);
+					
+					
+					JSONObject j=new JSONObject();
+					j.put(AmiParamConst.CHANNEL, event.getChannel());
+					j.put(AmiParamConst.CDR_CUSTOMER_NUMBER, channelCustomerNumber);
+					j.put(AmiParamConst.CDR_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
+					j.put(AmiParamConst.CDR_CUSTOMER_AREA_CODE, channelCustomerAreaCode);
+					
+					j.put(AmiParamConst.CDR_MAIN_UNIQUE_ID, channelUniqueId);
+					j.put(AmiParamConst.CDR_CALL_TYPE, channelCallType);
+					
+					j.put(AmiParamConst.CDR_CALLEE_NUMBER, channelCalleeNumber);
+					
+					System.out.println("input into list"+j.toString());
+					
+					redisService.lpush(3, "queue.bigqueue.channelevent", j.toString());
+					
+					
+					
+//					Channel	通道名	
+//					Uniqueid	从（坐席）通道唯一id	
+//					EnterpriseId	企业id	
+//					CustomerNumber	客户号码	
+//					CustomerNumberType	客户号码类型	
+//					CustomerAreaCode	客户区号	
+//					CallType	呼叫类型	
+//					DialTime	呼叫时间	
+//					CalleeNumber	被叫号码	
+//					cno	坐席号	
+//					Main_Uniqueid	从通道唯一id	
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					int enterpriseId = 0;
+					
 					try {
 						channelCustomerNumber = channel.getVariable(Const.CDR_CUSTOMER_NUMBER);
 						channelCustomerNumberType = channel.getVariable(Const.CDR_CUSTOMER_NUMBER_TYPE);
@@ -538,7 +600,7 @@ public class ChannelManager {
 					}
 
 					Map<String, String> pushEvent = new HashMap<String, String>();
-					pushEvent.put(AmiAction.VARIABLE_NAME, AmiEvent.RINGING);
+					pushEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.RINGING);
 					pushEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, String.valueOf(enterpriseId));
 					pushEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER, channelCustomerNumber);
 					pushEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);

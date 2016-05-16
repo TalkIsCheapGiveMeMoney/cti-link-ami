@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.formattool.AmiStaticParameters;
-import com.tinet.ctilink.ami.online.CtiAgent;
+
 import com.tinet.ctilink.inc.Const;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.HangupAction;
@@ -29,11 +29,11 @@ public class ConsultCancelActionHandler extends AbstractActionHandler {
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		CtiAgent ctiAgent = getCtiAgent(params);
-		if (ctiAgent == null) {
-			return ERROR_BAD_PARAM;
-		}
-
+//		CtiAgent ctiAgent = getCtiAgent(params);
+//		if (ctiAgent == null) {
+//			return ERROR_BAD_PARAM;
+//		}
+/*
 		if (StringUtils.isEmpty(ctiAgent.getConsultChannel())) {
 			return AmiActionResponse.createFailResponse(AmiAction.ERRORCODE_NO_CHANNEL, "没有正确拿到此座席咨询取消的channel");
 		}
@@ -50,7 +50,7 @@ public class ConsultCancelActionHandler extends AbstractActionHandler {
 		if (sendAction(hangupAction) == null || sendAction(setVarAction) == null) {
 			return ERROR_EXCEPTION;
 		}
-
+*/
 		return SUCCESS;
 	}
 

@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.tinet.ctilink.AmiConst;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.json.JSONObject;
 import org.asteriskjava.manager.ManagerConnectionState;
@@ -69,8 +70,8 @@ public class AmiManager {
 	 */
 	private String start() {
 		logger.info("正在启动AmiListenerManager");
-		amiListener = new AmiListener(Const.ASTERISK_AMI_HOST, Const.ASTERISK_AMI_PORT, Const.ASTERISK_AMI_MANAGER_USER,
-				Const.ASTERISK_AMI_MANAGER_PWD, Const.ASTERISK_AMI_ACTION_USER, Const.ASTERISK_AMI_ACTION_PWD);
+		amiListener = new AmiListener(AmiConst.ASTERISK_AMI_HOST, AmiConst.ASTERISK_AMI_PORT, AmiConst.ASTERISK_AMI_MANAGER_USER,
+				AmiConst.ASTERISK_AMI_MANAGER_PWD, AmiConst.ASTERISK_AMI_ACTION_USER, AmiConst.ASTERISK_AMI_ACTION_PWD);
 		try {
 			amiListener.start();
 		} catch (Exception e) {
@@ -96,7 +97,7 @@ public class AmiManager {
 		JSONObject object = new JSONObject();
 
 		if(amiListener != null){
-			object.put("ctiIp", Const.ASTERISK_AMI_HOST);
+			object.put("ctiIp", AmiConst.ASTERISK_AMI_HOST);
 			String status;
 			if(amiListener.getAsteriskServer().getManagerConnection().getState().equals(ManagerConnectionState.CONNECTED)){
 				status = "1";
@@ -108,7 +109,7 @@ public class AmiManager {
 			object.put("channels", amiListener.getAsteriskServer().getChannels().size());
 			object.put("dedicateConnectionCount", amiListener.getDedicateConnectionCount());
 		}else{
-			object.put("ctiIp", Const.ASTERISK_AMI_HOST);
+			object.put("ctiIp", AmiConst.ASTERISK_AMI_HOST);
 			object.put("status", "0");
 		}
 
@@ -146,15 +147,6 @@ public class AmiManager {
 		int sum = 0;
 		if (amiListener != null) {
 			sum = amiListener.getAsteriskServer().getChannels().size();
-		}
-		return sum;
-	}
-
-	@ManagedAttribute(description = "队列数")
-	public int getQueueCount() {
-		int sum = 0;
-		if (amiListener != null) {
-			sum = amiListener.getAsteriskServer().getQueues().size();
 		}
 		return sum;
 	}

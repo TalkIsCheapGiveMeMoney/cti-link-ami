@@ -2,7 +2,7 @@
 <configuration>
 	<contextName>cti-link-ami</contextName>
 	<property name="contextName" value="cti-link-ami" />
-	<property name="logHome" value="/var/log/cti-link" />
+	<property name="logHome" value="e:/workspace" />
 	<jmxConfigurator />
 
 	<!-- 输出到控制台 -->

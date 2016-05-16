@@ -2,6 +2,7 @@ package com.tinet.ctilink.ami.webcall;
 
 import java.util.*;
 
+import com.tinet.ctilink.AmiConst;
 import com.tinet.ctilink.ami.AmiManager;
 import com.tinet.ctilink.ami.util.*;
 import com.tinet.ctilink.cache.CacheKey;
@@ -575,7 +576,7 @@ public class WebCallExecutor {
         }
         if (StringUtils.isNotEmpty(text)) {
             Date ttsStart = new Date();
-            String res = AgiShellWrapperClient.execute(Const.ASTERISK_AMI_HOST, Macro.AGI_SHELL_PORT, "ttsc_break_send.sh",
+            String res = AgiShellWrapperClient.execute(AmiConst.ASTERISK_AMI_HOST, Macro.AGI_SHELL_PORT, "ttsc_break_send.sh",
                     "'" + webCall.getUniqueId() + "'" + text);
             Date ttsEnd = new Date();
             webCall.setTtsDuration((int) (ttsEnd.getTime() - ttsStart.getTime()) / 1000);

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.ami.online.CtiAgent;
+
 
 /**
  * 咨询
@@ -33,7 +33,7 @@ public class ConsultActionHandler extends AbstractActionHandler {
 		String objectType = params.get(AmiAction.VARIABLE_OBJECT_TYPE); // 0.电话
 																		// 1.座席号
 																		// 2.分机
-
+/*
 		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
@@ -57,11 +57,11 @@ public class ConsultActionHandler extends AbstractActionHandler {
 				return AmiActionResponse.createFailResponse(AmiAction.ERRORCODE_NOT_ONLINE, "座席不在线，请稍后咨询此座席");
 			}
 		}
-
+*/
 		AtxferAction transferAction = new AtxferAction();
-		transferAction.setChannel(ctiAgent.getChannel());
+//		transferAction.setChannel(ctiAgent.getChannel());
 		transferAction.setContext(Const.DIALPLAN_CONTEXT_CONSULT);
-		transferAction.setExten(extension);
+//		transferAction.setExten(extension);
 
 		if (sendAction(transferAction, 30000) == null) {
 			return ERROR_EXCEPTION;

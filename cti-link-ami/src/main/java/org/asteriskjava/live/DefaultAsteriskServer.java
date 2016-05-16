@@ -198,9 +198,6 @@ public class DefaultAsteriskServer implements AsteriskServer {
 		return impl.getMeetMeRoom(name);
 	}
 
-	public Collection<AsteriskQueue> getQueues() throws ManagerCommunicationException {
-		return impl.getQueues();
-	}
 
 	public String getVersion() throws ManagerCommunicationException {
 		return impl.getVersion();
@@ -270,8 +267,4 @@ public class DefaultAsteriskServer implements AsteriskServer {
 		return impl.getAgents();
 	}
 
-	@Override
-	public void handleQueueParamsEvent(QueueParamsEvent event) {
-		impl.handleQueueParamsEvent(event);
-	}
 }

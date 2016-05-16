@@ -3,7 +3,6 @@ package com.tinet.ctilink.ami.action;
 import java.util.Map;
 
 import com.tinet.ctilink.ami.AmiAction;
-import com.tinet.ctilink.ami.online.CtiAgent;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
@@ -25,7 +24,7 @@ public class PreviewOutcallCancelActionHandler extends AbstractActionHandler {
 	@Override
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.debug("handle {} action : {}", this.getAction(), params);
-		
+	/*	
 		CtiAgent ctiAgent = getCtiAgent(params);
 		if (ctiAgent == null) {
 			return ERROR_BAD_PARAM;
@@ -42,7 +41,7 @@ public class PreviewOutcallCancelActionHandler extends AbstractActionHandler {
 		if(sendAction(hangupAction)==null){
 			return ERROR_EXCEPTION;
 		}
-		
+*/		
 		return SUCCESS;
 	}
 

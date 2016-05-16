@@ -3,7 +3,9 @@ package com.tinet.ctilink.ami.event;
 import java.util.Map;
 
 import com.tinet.ctilink.ami.cache.CacheService;
-import com.tinet.ctilink.ami.online.CtiAgentService;
+
+import com.tinet.ctilink.json.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,6 @@ public abstract class AbstractAmiEventHandler {
 	protected AmiEventPublisher amiEventPublisher;
 
 	@Autowired
-	protected CtiAgentService ctiAgentService;
-
-	@Autowired
 	protected CacheService cacheService;
 	/**
 	 * 推送AMI事件
@@ -33,6 +32,10 @@ public abstract class AbstractAmiEventHandler {
 	 * @param event
 	 */
 	protected void publishEvent(final Map<String, String> event) {
+		amiEventPublisher.publish(event);
+	}
+	
+	protected void publishEvent(final JSONObject event) {
 		amiEventPublisher.publish(event);
 	}
 
