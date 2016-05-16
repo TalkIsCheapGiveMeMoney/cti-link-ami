@@ -18,8 +18,6 @@ public class AmiEventConst {
 	public static final String AMI_EVENT_LIST = "cti-link.ami.event.other";
 	public static final int AMI_EVENT_DBINDEX = 3;
 
-	
-	// 事件类型
 	public static final String INCOMING = "incoming"; // 事件类型：来电
 	public static final String ANSWER = "answer"; // 事件类型：系统应答
 	public static final String UNANSWER = "unanswer"; // 事件类型：未接来电	
@@ -31,6 +29,7 @@ public class AmiEventConst {
 	public static final String SPY_UNLINK = "spyUnlink"; // 事件类型: 监听挂断
 	public static final String SPY_ERROR = "spyError"; // 事件类型: 监听错误
 	public static final String CONSULT_LINK = "consultLink"; // 事件类型: 咨询接听
+	public static final String HOLD = "hold";
 	public static final String UNCONSULT = "unconsult"; // 事件类型: 咨询挂断
 	public static final String CONSULT_ERROR = "consultError"; // 事件类型: 咨询错误
 	public static final String CONSULT_TRANSFER = "consultTransfer"; // 事件类型:咨询转接
@@ -61,6 +60,5 @@ public class AmiEventConst {
 	
 	
 //	DISCONNECT
-
 
 }
