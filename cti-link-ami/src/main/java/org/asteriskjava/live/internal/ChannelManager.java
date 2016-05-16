@@ -27,7 +27,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import com.tinet.ctilink.ami.AmiAction;
+
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
 
@@ -459,6 +459,7 @@ public class ChannelManager {
 						event.getCallerIdNum(), event.getCallerIdName(), ChannelState.valueOf(event.getChannelState()),
 						null /* account code not available */);
 			}
+			
 		}
 
 		// NewStateEvent can provide a new CallerIdNum or CallerIdName not
@@ -600,18 +601,18 @@ public class ChannelManager {
 					}
 
 					Map<String, String> pushEvent = new HashMap<String, String>();
-					pushEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.RINGING);
-					pushEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, String.valueOf(enterpriseId));
-					pushEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER, channelCustomerNumber);
-					pushEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
-					pushEvent.put(AmiAction.VARIABLE_CUSTOMER_AREA_CODE, channelCustomerAreaCode);
-					pushEvent.put(AmiAction.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);
-					pushEvent.put(AmiAction.VARIABLE_CALL_TYPE, channelCallType);
-					pushEvent.put(AmiAction.VARIABLE_RINGING_TIME, com.tinet.ctilink.util.DateUtil
+					pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.RINGING);
+					pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, String.valueOf(enterpriseId));
+					pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, channelCustomerNumber);
+					pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
+					pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE, channelCustomerAreaCode);
+					pushEvent.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);
+					pushEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, channelCallType);
+					pushEvent.put(AmiParamConst.VARIABLE_RINGING_TIME, com.tinet.ctilink.util.DateUtil
 							.format(new Date(), com.tinet.ctilink.util.DateUtil.FMT_DATE_YYYY_MM_DD_HH_mm_ss));
-					pushEvent.put(AmiAction.VARIABLE_UNIQUEID, channelUniqueId);
-					pushEvent.put(AmiAction.VARIABLE_TASK_INVENTORY_ID, channelTaskInventoryId);
-					pushEvent.put(AmiAction.VARIABLE_TASK_ID, channelTaskId);
+					pushEvent.put(AmiParamConst.VARIABLE_UNIQUEID, channelUniqueId);
+					pushEvent.put(AmiParamConst.VARIABLE_TASK_INVENTORY_ID, channelTaskInventoryId);
+					pushEvent.put(AmiParamConst.VARIABLE_TASK_ID, channelTaskId);
 
 					// 根据企业设置推送Curl
 					AmiUtil.pushCurl(channel, pushEvent, enterpriseId, pushType, curlType);

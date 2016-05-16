@@ -7,7 +7,7 @@ import org.asteriskjava.manager.action.AtxferAction;
 import org.asteriskjava.manager.action.SetVarAction;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.inc.Const;
 
 
@@ -21,7 +21,7 @@ public class InteractActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.INTERACT;
+		return AmiParamConst.INTERACT;
 	}
 
 	@Override

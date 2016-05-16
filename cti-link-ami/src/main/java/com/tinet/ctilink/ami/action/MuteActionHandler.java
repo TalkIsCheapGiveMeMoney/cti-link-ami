@@ -6,7 +6,7 @@ import org.asteriskjava.manager.action.MuteAudioAction;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.inc.Const;
 
 
@@ -20,15 +20,15 @@ public class MuteActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.MUTE;
+		return AmiParamConst.MUTE;
 	}
 
 	@Override
 	public AmiActionResponse handle( Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 		
-		String direction = params.get(AmiAction.VARIABLE_MUTE_DIRECTION);
-		String state = params.get(AmiAction.VARIABLE_MUTE_STATE);
+		String direction = params.get(AmiParamConst.VARIABLE_MUTE_DIRECTION);
+		String state = params.get(AmiParamConst.VARIABLE_MUTE_STATE);
 
 //		CtiAgent ctiAgent = getCtiAgent(params);
 //		if (ctiAgent == null) {

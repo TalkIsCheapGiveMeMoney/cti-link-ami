@@ -10,9 +10,9 @@ import org.asteriskjava.manager.userevent.OrderCallBackEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.ordercallback.OrderCallBackEngine;
 
@@ -53,12 +53,12 @@ public class OrderCallBackEventHandler extends AbstractAmiEventHandler implement
 		orderCallBackEngine.saveEvent(orderCallBack);
 
 		Map<String, String> userEvent = new HashMap<String, String>();
-		userEvent.put("type", AmiAction.VARIABLE_EVENT);
-		userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.ORDER_CALL_BACK);
-		userEvent.put(AmiAction.VARIABLE_ADD_OR_REDUCE, "1");
-		userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiAction.VARIABLE_QID, queueName);
-		userEvent.put(AmiAction.VARIABLE_AGENT_QUEUE, queueName);
+		userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
+		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.ORDER_CALL_BACK);
+		userEvent.put(AmiParamConst.VARIABLE_ADD_OR_REDUCE, "1");
+		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.VARIABLE_QID, queueName);
+		userEvent.put(AmiParamConst.VARIABLE_AGENT_QUEUE, queueName);
 		publishEvent(userEvent);
 
 	}

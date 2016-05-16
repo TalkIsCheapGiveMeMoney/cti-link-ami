@@ -14,9 +14,9 @@ import org.asteriskjava.manager.userevent.IncomingEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.json.JSONObject;
@@ -49,13 +49,13 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 		String ivrId =  ((IncomingEvent) event).getIvrId();
 
 		JSONObject pushEvent=new JSONObject();
-		pushEvent.put("type", AmiAction.VARIABLE_EVENT);
-		pushEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.INCOMING);
-		pushEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		pushEvent.put(AmiAction.VARIABLE_CALL_TYPE, callType);
-		pushEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER, customerNumber);
-		pushEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER_TYPE, customerNumberType);
-		pushEvent.put(AmiAction.VARIABLE_CUSTOMER_AREA_CODE, customerAreaCode);
+		pushEvent.put("type", AmiParamConst.VARIABLE_EVENT);
+		pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.INCOMING);
+		pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
+		pushEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
+		pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
+		pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER_TYPE, customerNumberType);
+		pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE, customerAreaCode);
 
 		publishEvent(pushEvent);
 

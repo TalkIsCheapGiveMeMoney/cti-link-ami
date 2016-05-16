@@ -14,8 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.event.AmiEventPublisher;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.log.AmiLogQueueEngine;
 
 
@@ -39,8 +39,8 @@ public abstract class AbstractActionHandler implements AmiActionHandler {
 
 
 	protected final AmiActionResponse SUCCESS = AmiActionResponse.createSuccessResponse();
-	protected final AmiActionResponse ERROR_BAD_PARAM = AmiActionResponse.createFailResponse(AmiAction.ERRORCODE_BAD_PARAM,"无效参数");
-	protected final AmiActionResponse ERROR_EXCEPTION = AmiActionResponse.createFailResponse(AmiAction.ERRORCODE_EXCEPTION,"发生异常");
+	protected final AmiActionResponse ERROR_BAD_PARAM = AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_BAD_PARAM,"无效参数");
+	protected final AmiActionResponse ERROR_EXCEPTION = AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_EXCEPTION,"发生异常");
 
 	/**
 	 * 执行AMI特定动作

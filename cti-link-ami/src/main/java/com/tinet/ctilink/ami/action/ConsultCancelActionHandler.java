@@ -2,9 +2,8 @@ package com.tinet.ctilink.ami.action;
 
 import java.util.Map;
 
-import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.formattool.AmiStaticParameters;
-
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.inc.Const;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.HangupAction;
@@ -22,7 +21,7 @@ public class ConsultCancelActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.CONSULTCANCEL;
+		return AmiParamConst.CONSULTCANCEL;
 	}
 
 	@Override

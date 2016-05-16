@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.inc.Const;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.RedirectAction;
@@ -24,7 +24,7 @@ public class ConsultThreewayActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.CONSULT_THREEWAY;
+		return AmiParamConst.CONSULT_THREEWAY;
 	}
 
 	@Override

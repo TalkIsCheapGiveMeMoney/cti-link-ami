@@ -12,9 +12,9 @@ import org.asteriskjava.manager.event.UserEvent;
 import org.asteriskjava.manager.userevent.IbBridgeEvent;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 
 
@@ -44,16 +44,16 @@ public class BridgeEventHandler extends AbstractAmiEventHandler implements AmiUs
 		String callType = ((IbBridgeEvent) event).getCallType();
 
 		JSONObject pushEvent=new JSONObject();
-		pushEvent.put("type", AmiAction.VARIABLE_EVENT);
-		pushEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.BRIDGED);
-		pushEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		pushEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER, customerNumber);
-		pushEvent.put(AmiAction.VARIABLE_CNO, cno);
-		pushEvent.put(AmiAction.VARIABLE_BRIDGE_TIME, bridgeTime);
-		pushEvent.put(AmiAction.VARIABLE_CALLEE_NUMBER, calleeNumber);
-		pushEvent.put(AmiAction.VARIABLE_USER_FIELD, userField);
-		pushEvent.put(AmiAction.VARIABLE_DETAIL_CALLTYPE, detailCallType);
-		pushEvent.put(AmiAction.VARIABLE_CALL_TYPE, callType);
+		pushEvent.put("type", AmiParamConst.VARIABLE_EVENT);
+		pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.BRIDGED);
+		pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
+		pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
+		pushEvent.put(AmiParamConst.VARIABLE_CNO, cno);
+		pushEvent.put(AmiParamConst.VARIABLE_BRIDGE_TIME, bridgeTime);
+		pushEvent.put(AmiParamConst.VARIABLE_CALLEE_NUMBER, calleeNumber);
+		pushEvent.put(AmiParamConst.VARIABLE_USER_FIELD, userField);
+		pushEvent.put(AmiParamConst.VARIABLE_DETAIL_CALLTYPE, detailCallType);
+		pushEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
 		publishEvent(pushEvent);
 
 //		// 根据企业设置推送Curl

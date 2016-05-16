@@ -5,7 +5,7 @@ import java.util.Map;
 import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 
 
 /**
@@ -18,7 +18,7 @@ public class RefuseActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.REFUSE;
+		return AmiParamConst.REFUSE;
 	}
 
 	@Override

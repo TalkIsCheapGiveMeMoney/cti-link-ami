@@ -8,9 +8,9 @@ import org.asteriskjava.manager.event.ManagerEvent;
 import org.asteriskjava.manager.userevent.ConsultThreewayLinkEvent;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 
 
@@ -38,20 +38,20 @@ public class ConsultThreewayLinkEventHandler extends AbstractAmiEventHandler imp
 		// 发送事件到被咨询的那个人，通知被咨询那个人是谁咨询的他，所以需要发送给前台，前台需要显示谁咨询的。
 		if (StringUtils.isNotEmpty(consulteeCno)) {
 			Map<String, String> userEvent = new HashMap<String, String>();
-			userEvent.put("type", AmiAction.VARIABLE_EVENT);
-			userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.CONSULT_THREEWAY);
-			userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
-			userEvent.put(AmiAction.VARIABLE_CNO, consulteeCno);
-			userEvent.put(AmiAction.VARIABLE_CONSULTER_CNO, consulterCno);
+			userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
+			userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.CONSULT_THREEWAY);
+			userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
+			userEvent.put(AmiParamConst.VARIABLE_CNO, consulteeCno);
+			userEvent.put(AmiParamConst.VARIABLE_CONSULTER_CNO, consulterCno);
 			publishEvent(userEvent);
 		}
 
 		//发送事件到咨询发起者的那个人
 		Map<String, String> userEvent = new HashMap<String, String>();
-		userEvent.put("type", AmiAction.VARIABLE_EVENT);
-		userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.CONSULT_THREEWAY);
-		userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiAction.VARIABLE_CNO, consulterCno);
+		userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
+		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.CONSULT_THREEWAY);
+		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.VARIABLE_CNO, consulterCno);
 		publishEvent(userEvent);
 
 	}

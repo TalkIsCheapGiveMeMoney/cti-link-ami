@@ -3,10 +3,11 @@ package com.tinet.ctilink.ami.cache;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.tinet.ctilink.ami.AmiAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 
 
 /**
@@ -33,7 +34,7 @@ public class CacheService {
 	 * @param map
 	 */
 	public void setQueueCall(HashMap<String, String> map) {
-		String uniqueId = map.get(AmiAction.VARIABLE_UNIQUEID);
+		String uniqueId = map.get(AmiParamConst.VARIABLE_UNIQUEID);
 		queueCallMap.put(uniqueId, map);
 	}
 	

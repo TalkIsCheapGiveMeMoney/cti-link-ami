@@ -6,8 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.OriginateAction;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.action.AmiActionResponse;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 
 /**
  * 呼叫内部分机
@@ -19,7 +19,7 @@ public class CallLocalActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.CALLLOCAL;
+		return AmiParamConst.CALLLOCAL;
 	}
 
 	@Override

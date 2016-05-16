@@ -8,7 +8,7 @@ import org.asteriskjava.manager.action.RedirectAction;
 import org.asteriskjava.manager.action.SetVarAction;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.inc.Const;
 
 /**
@@ -21,14 +21,14 @@ public class IvrCallbackActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.IVR_CALLBACK;
+		return AmiParamConst.IVR_CALLBACK;
 	}
 
 	@Override
 	public AmiActionResponse handle(Map<String, String> params) {
-		String uniqueId = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_UNIQUEID));
-		String paramNames = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_PARAM_NAMES));
-		String paramValues = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_PARAM_VALUES));
+		String uniqueId = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_UNIQUEID));
+		String paramNames = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_PARAM_NAMES));
+		String paramValues = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_PARAM_VALUES));
 
 		if (StringUtils.isEmpty(uniqueId)) {
 			return ERROR_BAD_PARAM;

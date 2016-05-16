@@ -1,6 +1,6 @@
 package com.tinet.ctilink.ami.util;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
 import com.tinet.ctilink.curl.CurlData;
@@ -63,7 +63,7 @@ public class AmiUtil {
 							boolean flag = false;
 							String variable = new String(Base64.getDecoder().decode(paramVariable[i]));
 							for (String key : event.keySet()) {
-								if (key.equals(AmiAction.VARIABLE_TYPE) || key.equals(AmiAction.VARIABLE_NAME)) {
+								if (key.equals(AmiParamConst.VARIABLE_TYPE) || key.equals(AmiParamConst.VARIABLE_NAME)) {
 									continue;
 								}
 

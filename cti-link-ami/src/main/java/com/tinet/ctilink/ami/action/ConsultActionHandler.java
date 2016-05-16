@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.AtxferAction;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.inc.Const;
 
 
@@ -20,17 +20,17 @@ public class ConsultActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.CONSULT;
+		return AmiParamConst.CONSULT;
 	}
 
 	@Override
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		String consultObject = params.get(AmiAction.VARIABLE_CONSULT_OBJECT); // 电话号码
+		String consultObject = params.get(AmiParamConst.VARIABLE_CONSULT_OBJECT); // 电话号码
 																				// 座席号
 																				// 分机号
-		String objectType = params.get(AmiAction.VARIABLE_OBJECT_TYPE); // 0.电话
+		String objectType = params.get(AmiParamConst.VARIABLE_OBJECT_TYPE); // 0.电话
 																		// 1.座席号
 																		// 2.分机
 /*

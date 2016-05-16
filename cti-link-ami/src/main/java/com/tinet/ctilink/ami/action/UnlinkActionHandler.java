@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 
 
 /**
@@ -19,7 +19,7 @@ public class UnlinkActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.UNLINK;
+		return AmiParamConst.UNLINK;
 	}
 
 	@Override

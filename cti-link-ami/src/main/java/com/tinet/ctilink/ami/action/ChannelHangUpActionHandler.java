@@ -7,7 +7,7 @@ import org.asteriskjava.live.ChannelState;
 import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.inc.Const;
 
 /**
@@ -20,7 +20,7 @@ public class ChannelHangUpActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.CHANNELHANGUP;
+		return AmiParamConst.CHANNELHANGUP;
 	}
 
 	@Override

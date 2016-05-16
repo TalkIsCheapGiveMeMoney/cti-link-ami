@@ -6,7 +6,7 @@ import java.util.Map;
 import org.asteriskjava.manager.action.OriginateAction;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.util.SipHeaderUtil;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.util.LocalIpUtil;
@@ -21,7 +21,7 @@ public class SelfRecordActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.SELF_RECORD;
+		return AmiParamConst.SELF_RECORD;
 	}
 
 	@Override

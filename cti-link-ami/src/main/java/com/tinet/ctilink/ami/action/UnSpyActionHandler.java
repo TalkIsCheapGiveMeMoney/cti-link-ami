@@ -6,7 +6,7 @@ import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 
 
 /**
@@ -19,7 +19,7 @@ public class UnSpyActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.UNSPY;
+		return AmiParamConst.UNSPY;
 	}
 
 	@Override

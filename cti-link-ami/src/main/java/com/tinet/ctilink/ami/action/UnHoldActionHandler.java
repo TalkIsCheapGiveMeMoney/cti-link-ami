@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.IndicateAction;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.util.RedisLock;
 import com.tinet.ctilink.util.RedisLockUtil;
@@ -23,7 +23,7 @@ public class UnHoldActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.UNHOLD;
+		return AmiParamConst.UNHOLD;
 	}
 
 	@Override

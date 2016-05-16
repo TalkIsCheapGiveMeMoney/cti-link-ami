@@ -11,7 +11,7 @@ import org.asteriskjava.manager.response.GetVarResponse;
 import org.asteriskjava.manager.response.ManagerResponse;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.util.SipHeaderUtil;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.util.LocalIpUtil;
@@ -26,17 +26,17 @@ public class SpyActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.SPY;
+		return AmiParamConst.SPY;
 	}
 
 	@Override
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		String clid = params.get(AmiAction.VARIABLE_CLID);
-		String gwIp = params.get(AmiAction.VARIABLE_GWIP);
-		String spyObject = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_SPY_OBJECT)); // 监听者
-		String objectType = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_OBJECT_TYPE)); // 0：普通电话1：座席号
+		String clid = params.get(AmiParamConst.VARIABLE_CLID);
+		String gwIp = params.get(AmiParamConst.VARIABLE_GWIP);
+		String spyObject = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_SPY_OBJECT)); // 监听者
+		String objectType = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_OBJECT_TYPE)); // 0：普通电话1：座席号
 																								// 2：IVR节点
 																								// 3：IVR
 																								// id

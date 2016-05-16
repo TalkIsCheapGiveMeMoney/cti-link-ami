@@ -2,8 +2,8 @@ package com.tinet.ctilink.ami.action;
 
 import java.util.*;
 
-import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.action.callback.PreviewOutcallCallback;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.log.AmiLogQueueEngine;
 
 import com.tinet.ctilink.ami.util.SipHeaderUtil;
@@ -37,30 +37,30 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.PREVIEW_OUTCALL;
+		return AmiParamConst.PREVIEW_OUTCALL;
 	}
 
 	@Override
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.debug("handle {} action : {}", this.getAction(), params);
 
-		String previewOutcallTel = params.get(AmiAction.VARIABLE_PREVIEW_OUTCAL_TEL);// 外呼要拨打的电话号码
-		String callType = params.get(AmiAction.VARIABLE_CALL_TYPE);// 外呼要拨打的电话号码类型
-		String taskId = params.get(AmiAction.VARIABLE_TASK_ID); // 外呼任务id
-		String taskInventoryId = params.get(AmiAction.VARIABLE_TASK_INVENTORY_ID);// 外呼任务清单id
-		String orderCallBackId = params.get(AmiAction.VARIABLE_ORDER_CALL_BACK_ID);
-		String customerCrmId = params.get(AmiAction.VARIABLE_CUSTOMER_CRM_ID);
-		String isInvestigationAuto = params.get(AmiAction.VARIABLE_IS_INVESTIGATION_AUTO);
-		String obSmsTail = params.get(AmiAction.VARIABLE_OB_SMS_TAIL);
-		String clidRight = params.get(AmiAction.VARIABLE_CLID_RIGHT);// 呼叫座席侧外显号码
-		String amiType = params.get(AmiAction.VARIABLE_AMI_TYPE);
-		String gwIp = params.get(AmiAction.VARIABLE_GWIP);
-		String obClid = params.get(AmiAction.VARIABLE_OB_CLID);
-		String userField = params.get(AmiAction.VARIABLE_USER_FIELD);
-		String callerNumber = params.get(AmiAction.VARIABLE_CALLER_NUMBER);
-		String areaCode = params.get(AmiAction.VARIABLE_CUSTOMER_AREA_CODE);
-		String telType = params.get(AmiAction.VARIABLE_TEL_TYPE);
-		String sync = params.get(AmiAction.VARIABLE_SYNC);
+		String previewOutcallTel = params.get(AmiParamConst.VARIABLE_PREVIEW_OUTCAL_TEL);// 外呼要拨打的电话号码
+		String callType = params.get(AmiParamConst.VARIABLE_CALL_TYPE);// 外呼要拨打的电话号码类型
+		String taskId = params.get(AmiParamConst.VARIABLE_TASK_ID); // 外呼任务id
+		String taskInventoryId = params.get(AmiParamConst.VARIABLE_TASK_INVENTORY_ID);// 外呼任务清单id
+		String orderCallBackId = params.get(AmiParamConst.VARIABLE_ORDER_CALL_BACK_ID);
+		String customerCrmId = params.get(AmiParamConst.VARIABLE_CUSTOMER_CRM_ID);
+		String isInvestigationAuto = params.get(AmiParamConst.VARIABLE_IS_INVESTIGATION_AUTO);
+		String obSmsTail = params.get(AmiParamConst.VARIABLE_OB_SMS_TAIL);
+		String clidRight = params.get(AmiParamConst.VARIABLE_CLID_RIGHT);// 呼叫座席侧外显号码
+		String amiType = params.get(AmiParamConst.VARIABLE_AMI_TYPE);
+		String gwIp = params.get(AmiParamConst.VARIABLE_GWIP);
+		String obClid = params.get(AmiParamConst.VARIABLE_OB_CLID);
+		String userField = params.get(AmiParamConst.VARIABLE_USER_FIELD);
+		String callerNumber = params.get(AmiParamConst.VARIABLE_CALLER_NUMBER);
+		String areaCode = params.get(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE);
+		String telType = params.get(AmiParamConst.VARIABLE_TEL_TYPE);
+		String sync = params.get(AmiParamConst.VARIABLE_SYNC);
 		String loginStatus = null;
 		String pauseDescription = null;
 
@@ -71,10 +71,10 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 			}
 		}
 
-		String cid = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_CID));
+		String cid = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_CID));
 		if (StringUtils.isEmpty(cid)) {
-			String enterpriseId = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_ENTERPRISE_ID));
-			String cno = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_CNO));
+			String enterpriseId = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_ENTERPRISE_ID));
+			String cno = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_CNO));
 			cid = enterpriseId + cno;
 		}
 

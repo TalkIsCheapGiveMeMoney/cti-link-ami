@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 
 
 /**
@@ -19,7 +19,7 @@ public class UnThreewayActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.UNTHREEWAY;
+		return AmiParamConst.UNTHREEWAY;
 	}
 
 	@Override

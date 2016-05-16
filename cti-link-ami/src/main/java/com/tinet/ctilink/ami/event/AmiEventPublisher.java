@@ -2,7 +2,7 @@ package com.tinet.ctilink.ami.event;
 
 import java.util.*;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
@@ -33,8 +33,8 @@ public class AmiEventPublisher {
 	private RedisService redisService;
 	
 	public void publish(JSONObject event) {
-		if (!event.containsKey(AmiAction.VARIABLE_TYPE)) {
-			event.put(AmiAction.VARIABLE_TYPE, AmiAction.VARIABLE_EVENT);
+		if (!event.containsKey(AmiParamConst.VARIABLE_TYPE)) {
+			event.put(AmiParamConst.VARIABLE_TYPE, AmiParamConst.VARIABLE_EVENT);
 		}
 		
 
@@ -44,8 +44,8 @@ public class AmiEventPublisher {
 	}
 
 	public void publish(Map<String, String> event) {
-		if (!event.containsKey(AmiAction.VARIABLE_TYPE)) {
-			event.put(AmiAction.VARIABLE_TYPE, AmiAction.VARIABLE_EVENT);
+		if (!event.containsKey(AmiParamConst.VARIABLE_TYPE)) {
+			event.put(AmiParamConst.VARIABLE_TYPE, AmiParamConst.VARIABLE_EVENT);
 		}
 
 		redisService.lpush(AmiEventConst.AMI_EVENT_DBINDEX, AmiEventConst.AMI_EVENT_LIST, event.toString());
@@ -57,8 +57,8 @@ public class AmiEventPublisher {
 	
 
 	private void pushevent(Map<String, String> event) {
-		if (event.get(AmiAction.VARIABLE_NAME).equals(AmiEventConst.STATUS)) {
-			Integer enterpriseId = Integer.parseInt(event.get(AmiAction.VARIABLE_ENTERPRISE_ID));
+		if (event.get(AmiParamConst.VARIABLE_NAME).equals(AmiEventConst.STATUS)) {
+			Integer enterpriseId = Integer.parseInt(event.get(AmiParamConst.VARIABLE_ENTERPRISE_ID));
 			List<EnterpriseHangupAction> pushActionList = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId,
 					Const.ENTERPRISE_PUSH_TYPE_CLIENT_STATUS), EnterpriseHangupAction.class);
 			if (pushActionList != null) {
@@ -90,7 +90,7 @@ public class AmiEventPublisher {
 
 					Map<String, String> nvParams = new HashMap<String, String>();
 					for (String key : event.keySet()) {
-						if (key.equals(AmiAction.VARIABLE_TYPE) || key.equals(AmiAction.VARIABLE_NAME)) {
+						if (key.equals(AmiParamConst.VARIABLE_TYPE) || key.equals(AmiParamConst.VARIABLE_NAME)) {
 							continue;
 						}
 						for (int i = 0; i < paramName.length; i++) {

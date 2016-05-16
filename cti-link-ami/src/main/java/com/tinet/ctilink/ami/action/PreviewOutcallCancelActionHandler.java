@@ -2,10 +2,11 @@ package com.tinet.ctilink.ami.action;
 
 import java.util.Map;
 
-import com.tinet.ctilink.ami.AmiAction;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
+
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 
 
 /**
@@ -18,7 +19,7 @@ public class PreviewOutcallCancelActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.PREVIEW_OUTCALL_CANCEL;
+		return AmiParamConst.PREVIEW_OUTCALL_CANCEL;
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import org.asteriskjava.manager.action.OriginateAction;
 import org.asteriskjava.manager.response.GetVarResponse;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.util.SipHeaderUtil;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.util.LocalIpUtil;
@@ -25,18 +25,18 @@ public class WhisperActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.WHISPER;
+		return AmiParamConst.WHISPER;
 	}
 
 	@Override
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		String whisperObject = params.get(AmiAction.VARIABLE_WHISPER_OBJECT);
-		String objectType = params.get(AmiAction.VARIABLE_OBJECT_TYPE);
-		String destInterface = params.get(AmiAction.VARIABLE_DEST_INTERFACE);
-		String gwIp = params.get(AmiAction.VARIABLE_GWIP);
-		String clid = params.get(AmiAction.VARIABLE_CLID);
+		String whisperObject = params.get(AmiParamConst.VARIABLE_WHISPER_OBJECT);
+		String objectType = params.get(AmiParamConst.VARIABLE_OBJECT_TYPE);
+		String destInterface = params.get(AmiParamConst.VARIABLE_DEST_INTERFACE);
+		String gwIp = params.get(AmiParamConst.VARIABLE_GWIP);
+		String clid = params.get(AmiParamConst.VARIABLE_CLID);
 
 		if (destInterface.isEmpty()) {
 			return ERROR_BAD_PARAM;

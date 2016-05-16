@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.FeatureAction;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.inc.Const;
 
 
@@ -20,7 +20,7 @@ public class TransferActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.TRANSFER;
+		return AmiParamConst.TRANSFER;
 	}
 
 	@Override

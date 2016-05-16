@@ -10,7 +10,7 @@ import org.asteriskjava.manager.action.OriginateAction;
 import org.asteriskjava.manager.response.GetVarResponse;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.util.SipHeaderUtil;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.util.LocalIpUtil;
@@ -25,16 +25,16 @@ public class PickUpActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.PICKUP;
+		return AmiParamConst.PICKUP;
 	}
 
 	@Override
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		String gwIp = params.get(AmiAction.VARIABLE_GWIP);
-		String clid = params.get(AmiAction.VARIABLE_CLID);
-		String pickupCno = params.get(AmiAction.VARIABLE_PICKUP_CNO);
+		String gwIp = params.get(AmiParamConst.VARIABLE_GWIP);
+		String clid = params.get(AmiParamConst.VARIABLE_CLID);
+		String pickupCno = params.get(AmiParamConst.VARIABLE_PICKUP_CNO);
 		
 //		CtiAgent ctiAgent = getCtiAgent(params);
 //		if (ctiAgent == null) {

@@ -10,7 +10,7 @@ import org.asteriskjava.manager.action.OriginateAction;
 import org.asteriskjava.manager.response.GetVarResponse;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.util.SipHeaderUtil;
 import com.tinet.ctilink.inc.Const;
 
@@ -26,23 +26,23 @@ public class ThreewayActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.THREEWAY;
+		return AmiParamConst.THREEWAY;
 	}
 
 	@Override
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		String threewayCno = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_THREEWAYED_CNO)); // 正在通话的座席
-		String threewayObject = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_THREEWAY_OBJECT)); // 管理员进行、发起三方通话
-		String objectType = StringUtils.trimToEmpty(params.get(AmiAction.VARIABLE_OBJECT_TYPE)); // 0：普通电话1：座席号
+		String threewayCno = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_THREEWAYED_CNO)); // 正在通话的座席
+		String threewayObject = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_THREEWAY_OBJECT)); // 管理员进行、发起三方通话
+		String objectType = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_OBJECT_TYPE)); // 0：普通电话1：座席号
 																									// 2：分机
 																									// 3：IVR节点
 																									// 4：IVR
-		String routerClidType = params.get(AmiAction.VARIABLE_ROUTER_CLID_TYPE);																							// Id
-		String destInterface = params.get(AmiAction.VARIABLE_DEST_INTERFACE);
-		String gwIp = params.get(AmiAction.VARIABLE_GWIP);
-		String clid = params.get(AmiAction.VARIABLE_CLID);
+		String routerClidType = params.get(AmiParamConst.VARIABLE_ROUTER_CLID_TYPE);																							// Id
+		String destInterface = params.get(AmiParamConst.VARIABLE_DEST_INTERFACE);
+		String gwIp = params.get(AmiParamConst.VARIABLE_GWIP);
+		String clid = params.get(AmiParamConst.VARIABLE_CLID);
 
 		if (destInterface.isEmpty()) {
 			return ERROR_BAD_PARAM;

@@ -8,7 +8,7 @@ import org.asteriskjava.manager.action.RedirectAction;
 import org.asteriskjava.manager.action.SetVarAction;
 import org.springframework.util.StringUtils;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.inc.Const;
 
 
@@ -21,7 +21,7 @@ public class DirectCallStartActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.DIRECT_CALL_START;
+		return AmiParamConst.DIRECT_CALL_START;
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 
 /**
  * 刷新队列状态
@@ -16,14 +16,14 @@ public class QueueShowActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiAction.QUEUE_SHOW;
+		return AmiParamConst.QUEUE_SHOW;
 	}
 
 	@Override
 	public AmiActionResponse handle(Map<String, String> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		String queue = params.get(AmiAction.VARIABLE_QUEUE);
+		String queue = params.get(AmiParamConst.VARIABLE_QUEUE);
 		
 		if(queue.isEmpty()){
 			return ERROR_BAD_PARAM;

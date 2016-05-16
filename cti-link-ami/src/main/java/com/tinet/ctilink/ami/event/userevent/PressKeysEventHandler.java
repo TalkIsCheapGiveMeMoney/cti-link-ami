@@ -9,9 +9,9 @@ import org.asteriskjava.manager.event.UserEvent;
 import org.asteriskjava.manager.userevent.PressKeysEvent;
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.AmiAction;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.inc.Const;
 
@@ -40,15 +40,15 @@ public class PressKeysEventHandler extends AbstractAmiEventHandler implements Am
 		String callType = ((PressKeysEvent) event).getCallType();
 
 		Map<String, String> userEvent = new HashMap<String, String>();
-		userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.PRESS_KEYS);
-		userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiAction.VARIABLE_CUSTOMER_NUMBER, customerNumber);
-		userEvent.put(AmiAction.VARIABLE_IVR_ID, ivrId);
-		userEvent.put(AmiAction.VARIABLE_IVR_NODE, ivrNode);
-		userEvent.put(AmiAction.VARIABLE_TIME, time);
-		userEvent.put(AmiAction.VARIABLE_USER_FIELD, userField);
-		userEvent.put(AmiAction.VARIABLE_KEYS, keys);
-		userEvent.put(AmiAction.VARIABLE_CALL_TYPE, callType);
+		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.PRESS_KEYS);
+		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
+		userEvent.put(AmiParamConst.VARIABLE_IVR_ID, ivrId);
+		userEvent.put(AmiParamConst.VARIABLE_IVR_NODE, ivrNode);
+		userEvent.put(AmiParamConst.VARIABLE_TIME, time);
+		userEvent.put(AmiParamConst.VARIABLE_USER_FIELD, userField);
+		userEvent.put(AmiParamConst.VARIABLE_KEYS, keys);
+		userEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
 
 		// 根据企业设置推送Curl
 		AmiUtil.pushCurl(((UserEvent) event).getAsteriskChannel(), userEvent, Integer.parseInt(enterpriseId),

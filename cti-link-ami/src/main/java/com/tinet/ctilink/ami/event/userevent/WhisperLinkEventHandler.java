@@ -6,9 +6,10 @@ import java.util.Map;
 import org.asteriskjava.manager.event.ManagerEvent;
 import org.asteriskjava.manager.userevent.WhisperLinkEvent;
 import org.springframework.stereotype.Component;
-import com.tinet.ctilink.ami.AmiAction;
+
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 
 /**
@@ -40,13 +41,13 @@ public class WhisperLinkEventHandler extends AbstractAmiEventHandler implements 
 		{
 			if (null != cno && !cno.equals("")) {
 				Map<String, String> userEvent = new HashMap<String, String>();
-				userEvent.put("type", AmiAction.VARIABLE_EVENT);
-				userEvent.put(AmiAction.VARIABLE_NAME, AmiEventConst.WHISPER_LINK);
-				userEvent.put(AmiAction.VARIABLE_ENTERPRISE_ID, enterpriseId);
-				userEvent.put(AmiAction.VARIABLE_CNO, cno);
-				userEvent.put(AmiAction.VARIABLE_WHISPER_OBJECT, whisperObject);
-				userEvent.put(AmiAction.VARIABLE_OBJECT_TYPE, objectType);
-				userEvent.put(AmiAction.VARIABLE_WHISPERED_CNO, whisperedCno);
+				userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
+				userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.WHISPER_LINK);
+				userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
+				userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
+				userEvent.put(AmiParamConst.VARIABLE_WHISPER_OBJECT, whisperObject);
+				userEvent.put(AmiParamConst.VARIABLE_OBJECT_TYPE, objectType);
+				userEvent.put(AmiParamConst.VARIABLE_WHISPERED_CNO, whisperedCno);
 				publishEvent(userEvent);
 			}
 		}
