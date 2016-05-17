@@ -1,17 +1,10 @@
 package com.tinet.ctilink.ami.action;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-import org.asteriskjava.manager.action.IndicateAction;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.ami.inc.AmiEventConst;
-import com.tinet.ctilink.util.RedisLock;
-import com.tinet.ctilink.util.RedisLockUtil;
 
 /**
  * 电话保持
@@ -86,5 +79,11 @@ public class HoldActionHandler extends AbstractActionHandler {
 		publishEvent(event);
 */
 		return SUCCESS;
+	}
+
+	@Override
+	public AmiActionResponse handle(Map<String, String> fixParams, Map<String, String> optionalParams) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

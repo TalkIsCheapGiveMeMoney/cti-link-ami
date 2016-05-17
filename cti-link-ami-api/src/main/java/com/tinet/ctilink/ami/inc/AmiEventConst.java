@@ -29,7 +29,6 @@ public class AmiEventConst {
 	public static final String SPY_UNLINK = "spyUnlink"; // 事件类型: 监听挂断
 	public static final String SPY_ERROR = "spyError"; // 事件类型: 监听错误
 	public static final String CONSULT_LINK = "consultLink"; // 事件类型: 咨询接听
-	public static final String HOLD = "hold";
 	public static final String UNCONSULT = "unconsult"; // 事件类型: 咨询挂断
 	public static final String CONSULT_ERROR = "consultError"; // 事件类型: 咨询错误
 	public static final String CONSULT_TRANSFER = "consultTransfer"; // 事件类型:咨询转接

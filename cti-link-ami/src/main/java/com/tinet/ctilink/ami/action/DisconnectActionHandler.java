@@ -2,13 +2,9 @@ package com.tinet.ctilink.ami.action;
 
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-import org.asteriskjava.manager.action.HangupAction;
-import org.asteriskjava.manager.action.SetVarAction;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.inc.Const;
 
 
 /**
@@ -73,6 +69,12 @@ public class DisconnectActionHandler extends AbstractActionHandler {
 		}
 */
 		return SUCCESS;
+	}
+
+	@Override
+	public AmiActionResponse handle(Map<String, String> fixParams, Map<String, String> optionalParams) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

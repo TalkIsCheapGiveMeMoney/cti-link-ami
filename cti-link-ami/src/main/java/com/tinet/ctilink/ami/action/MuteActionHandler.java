@@ -2,12 +2,9 @@ package com.tinet.ctilink.ami.action;
 
 import java.util.Map;
 
-import org.asteriskjava.manager.action.MuteAudioAction;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.inc.Const;
 
 
 /**
@@ -65,6 +62,12 @@ public class MuteActionHandler extends AbstractActionHandler {
 //			return ERROR_EXCEPTION;
 //		}
 		return SUCCESS;
+	}
+
+	@Override
+	public AmiActionResponse handle(Map<String, String> fixParams, Map<String, String> optionalParams) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

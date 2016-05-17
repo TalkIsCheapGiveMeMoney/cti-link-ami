@@ -1,24 +1,17 @@
 package com.tinet.ctilink.ami.action;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.tinet.ctilink.ami.action.callback.PreviewOutcallCallback;
-import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.ami.log.AmiLogQueueEngine;
-
-import com.tinet.ctilink.ami.util.SipHeaderUtil;
-import com.tinet.ctilink.cache.CacheKey;
-import com.tinet.ctilink.cache.RedisService;
-import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.conf.model.QueueMember;
-import com.tinet.ctilink.util.LocalIpUtil;
-import com.tinet.ctilink.util.RedisLock;
-import com.tinet.ctilink.util.RedisLockUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.asteriskjava.manager.action.OriginateAction;
 import org.asteriskjava.manager.response.ManagerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.tinet.ctilink.ami.inc.AmiParamConst;
+import com.tinet.ctilink.ami.log.AmiLogQueueEngine;
+import com.tinet.ctilink.cache.RedisService;
 
 /**
  * 预览式外呼
@@ -271,5 +264,11 @@ public class PreviewOutcallActionHandler extends AbstractActionHandler {
 
 		res.put("uniqueId", uniqueId);*/
 		return res;
+	}
+
+	@Override
+	public AmiActionResponse handle(Map<String, String> fixParams, Map<String, String> optionalParams) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

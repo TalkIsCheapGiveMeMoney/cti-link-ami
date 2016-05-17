@@ -15,24 +15,28 @@ package com.tinet.ctilink.ami.inc;
 
 public class AmiParamConst {
 	
+	//Action Type
+	
+	public static final String ORIGINATE = "Originate"; // 发起呼叫
+	public static final String HANGUP = "Hangup"; // 释放呼叫
+	public static final String MUTEAUDIO = "MuteAudio"; // 静音
+	public static final String CONSULTATIONCALL = "Atxfer"; // 咨询呼叫
+	public static final String CONSULTATIONTRANSFER = "Redirect"; // 咨询转移
+	
+	
+	
+	//event param
+	
+	
+
 	public static final String CHANNEL = "channel"; // 事件参数：通道名
 	public static final String CHANNELSTATE = "channelstate"; // 事件参数：通道状态
 	public static final String CHANNELSTATEDESC = "channelstatedesc"; // 事件参数：通道状态描述
-	
 	public static final String UNIQUEID = "uniqueId"; // 事件参数：当前通道唯一Id
 	public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id"; // 事件参数：主通道唯一Id
-	public static final String ENTERPRISEID = "enterpriseId"; // 事件参数：企业Id	
+	public static final String ENTERPRISEID = "enterpriseId"; // 事件参数：企业Id
 	
-	public static final String CDR_CUSTOMER_NUMBER = "cdr_customer_number"; // 事件参数：客户号码
-	public static final String CDR_CUSTOMER_NUMBER_TYPE = "cdr_customer_number_type"; // 事件参数：客户号码类型
-	
-	public static final String CDR_CUSTOMER_AREA_CODE = "cdr_customer_area_code"; // 事件参数：客户区号
-	public static final String CDR_CALL_TYPE = "cdr_call_type"; // 事件参数: 呼叫类型
-	
-	public static final String CNO = "cno"; // 事件参数: 坐席号
-	public static final String CDR_CALLEE_NUMBER = "cdr_callee_number"; // 事件参数: 被叫号码
-	
-	
+
 	public static final String LOGIN = "login"; // 登录
 	public static final String LOGOUT = "logout"; // 登出
 	public static final String PAUSE = "pause"; // 置忙
@@ -45,7 +49,7 @@ public class AmiParamConst {
 	public static final String HOLD = "hold"; // 保持
 	public static final String UNHOLD = "unhold"; // 保持挂断
 	public static final String CONSULT = "consult"; // 咨询 长动作
-	public static final String CONSULTCANCEL = "consultCancel";//咨询取消
+	public static final String CONSULTCANCEL = "consultCancel";// 咨询取消
 	public static final String UNCONSULT = "unconsult"; // 咨询挂断
 	public static final String CONSULT_TRANSFER = "consultTransfer"; // 咨询转接
 	public static final String CONSULT_THREEWAY = "consultThreeway"; // 咨询三方
@@ -82,8 +86,7 @@ public class AmiParamConst {
 	public static final String DIRECT_CALL_START = "directCallStart";
 	public static final String WEB_400_CALL = "web400call";
 	public static final String SELF_RECORD = "selfRecord"; // 咨询 长动作
-	
-	
+
 	/** 验证绑定电话 action */
 	public static final String VERIFY_BINDING_TEL = "verifyBindingTel";
 
@@ -110,7 +113,7 @@ public class AmiParamConst {
 	public static final int ERRORCODE_PERMISSION_DENIED = 20; // 没有权限
 	public static final int ERRORCODE_ALREADY_MONITORED = 21; // 座席已经被监控
 	public static final int ERRORCODE_CANNOT_MONITORE = 22; // 班长不能监控正在做监控的其他班长座席
-	public static final int ERRORCODE_DEFAULT_PAUSE = 23;//座席默认自定义置忙状态配置错误
+	public static final int ERRORCODE_DEFAULT_PAUSE = 23;// 座席默认自定义置忙状态配置错误
 	public static final int ERRORCODE_PAUSE_OR_BUSY = 24; // 咨询失败，座席置忙或者busy
 	public static final int ERRORCODE_BLACK_TEL = 25; // 号码为黑名单
 	public static final int ERRORCODE_PERMISSION_OUTCALL = 26; // 座席没有外呼权限
@@ -118,9 +121,9 @@ public class AmiParamConst {
 	public static final int ERRORCODE_NO_ROUTER = 28; // 没有路由
 	public static final int ERRORCODE_CLIENT_WEB_LIMIT = 29; // 座席在线数超过最大并发限制
 	public static final int ERRORCODE_AGENT_LOGIN = 30; // 此座席工号已经绑定别的电话号码或分机登录
-	public static final int ERRORCODE_AGENT_BUDY = 31; //座席busy 不能更改绑定电话
-	public static final int ERRORCODE_AGENT_OFFLINE = 34;//错误的断线重连，座席已经下线
-	public static final int ERRORCODE_AGENT_NOT_ACTIVE = 32;//座席未激活 不能登录电话
+	public static final int ERRORCODE_AGENT_BUDY = 31; // 座席busy 不能更改绑定电话
+	public static final int ERRORCODE_AGENT_OFFLINE = 34;// 错误的断线重连，座席已经下线
+	public static final int ERRORCODE_AGENT_NOT_ACTIVE = 32;// 座席未激活 不能登录电话
 	public static final int ERRORCODE_AGENT_IS_OUTCALLING = 33; // 座席正在使用外呼
 	public static final int ERRORCODE_DEAD_NUMBER = 35; // 外呼号码可能是空号
 	public static final int ERRORCODE_CALL_ALREADY = 36; // 已经被执行
@@ -156,7 +159,8 @@ public class AmiParamConst {
 	public static final String VARIABLE_HOTLINE = "hotline"; // action/event字段：热线号码
 	public static final String VARIABLE_CNO = "cno"; // action/event字段：座席号 2000
 	public static final String VARIABLE_CID = "cid"; // action/event字段：座席id
-	public static final String VARIABLE_CLIENT_ID = "clientId";	//client 的id												// 10000762000
+	public static final String VARIABLE_CLIENT_ID = "clientId"; // client 的id //
+																// 10000762000
 	public static final String VARIABLE_CNAME = "cname"; // action/event字段：座席姓名
 															// 张三
 	public static final String VARIABLE_CRM_ID = "crmId"; // action/event字段：crm
@@ -198,9 +202,9 @@ public class AmiParamConst {
 	public static final String VARIABLE_IS_TEL_REMEMBER = "is_tel_remember"; // 绑定电话类型
 	public static final String VARIABLE_IS_OUT_CALL = "isOutCall"; // 是否有外呼权限
 	public static final String VARIABLE_OB_RECORD = "obRecord"; // 外呼是否录音
-	public static final String VARIABLE_IS_INVESTIGATION_AUTO = "isInvestigationAuto"; 
-	public static final String VARIABLE_OB_SMS_TAIL = "obSmsTail"; 
-	
+	public static final String VARIABLE_IS_INVESTIGATION_AUTO = "isInvestigationAuto";
+	public static final String VARIABLE_OB_SMS_TAIL = "obSmsTail";
+
 	public static final String VARIABLE_CONSULT_OBJECT = "consultObject"; // action/event字段:咨询对象
 	public static final String VARIABLE_TRANSFER_OBJECT = "transferObject"; // action/event字段:
 																			// 转移对象
@@ -266,22 +270,22 @@ public class AmiParamConst {
 	public static final String VARIABLE_CALLEE_NUMBER = "calleeNumber"; // calleeNumber
 	public static final String VARIABLE_DETAIL_CALLTYPE = "detailCallType"; // detailCallType
 	public static final String VARIABLE_MAIN_UNIQUE_ID = "mainUniqueId"; // mainUniqueId
-	
-	public static final String VARIABLE_DEFAULT_PAUSE = "defaultPause"; 
-	public static final String VARIABLE_QUEUES = "queues"; 
-	public static final String VARIABLE_GWIP = "gwIp"; 
-	public static final String VARIABLE_CALLER_NUMBER = "callerNumber"; 
-	public static final String VARIABLE_CLID_RIGHT = "clidRight"; 
-	public static final String VARIABLE_TEL_TYPE = "telType"; 
-	public static final String VARIABLE_SYNC = "sync"; 
-	public static final String VARIABLE_DEST_INTERFACE = "destInterface"; 
-	public static final String VARIABLE_ROUTER_CLID_TYPE = "routerClidType"; 
-	public static final String VARIABLE_CLID = "clid"; 
-	public static final String VARIABLE_PARAM_NAMES = "paramNames"; 
-	public static final String VARIABLE_PARAM_VALUES = "paramValues"; 
-	public static final String VARIABLE_ORDER_CALL_BACK_ID = "orderCallBackId"; 
-	public static final String VARIABLE_AMI_TYPE = "amiType"; 
-	public static final String VARIABLE_QUEUE = "queue"; 
+
+	public static final String VARIABLE_DEFAULT_PAUSE = "defaultPause";
+	public static final String VARIABLE_QUEUES = "queues";
+	public static final String VARIABLE_GWIP = "gwIp";
+	public static final String VARIABLE_CALLER_NUMBER = "callerNumber";
+	public static final String VARIABLE_CLID_RIGHT = "clidRight";
+	public static final String VARIABLE_TEL_TYPE = "telType";
+	public static final String VARIABLE_SYNC = "sync";
+	public static final String VARIABLE_DEST_INTERFACE = "destInterface";
+	public static final String VARIABLE_ROUTER_CLID_TYPE = "routerClidType";
+	public static final String VARIABLE_CLID = "clid";
+	public static final String VARIABLE_PARAM_NAMES = "paramNames";
+	public static final String VARIABLE_PARAM_VALUES = "paramValues";
+	public static final String VARIABLE_ORDER_CALL_BACK_ID = "orderCallBackId";
+	public static final String VARIABLE_AMI_TYPE = "amiType";
+	public static final String VARIABLE_QUEUE = "queue";
 
 	/** 聊天系统--web_chat--消息 */
 	public static final String VARIABLE_WEBCHAT_MSG = "webchatMsg";
@@ -332,7 +336,7 @@ public class AmiParamConst {
 	public static final String VARIABLE_QUEUE_ENTRY = "queueEntry"; // action/event字段:
 																	// 队列等待客户
 	public static final String VARIABLE_QUEUE_WAITING_COUNT = "queueWaitingCount"; // action/event字段:
-																	// 队列等待客户的数目
+	// 队列等待客户的数目
 	public static final String VARIABLE_QUEUE_STATUS = "queueStatus"; // action/event字段:
 																		// 队列信息
 	public static final String VARIABLE_IVR_STATUS = "ivrStatus";
@@ -402,15 +406,82 @@ public class AmiParamConst {
 
 	/** mute相关参数 */
 	public static final String VARIABLE_MUTE_DIRECTION = "direction";
-	public static final String VARIABLE_MUTE_STATE = "state";	
+	public static final String VARIABLE_MUTE_STATE = "state";
 	/** 座席名称 */
 	public static final String VARIABLE_AGENT_NAME = "agentName";
 	public static final String VARIABLE_OB_CLID = "obClid";
 	public static final String VARIABLE_AGENT_LOCATION = "agentLocation";
 	public static final String VARIABLE_AGENT_QUEUE = "agentQueue";
-	
+
 	public static final String VARIABLE_CTIID = "ctiId";
 	
 	
+	//固定参数
+		public static final String DEST_CHANNEL = "dest_channel";
+//		public static final String ACTIONID = "actionId";
 	
+	//action parameter
+	//可变参数
+		public static final String CDR_CUSTOMER_NUMBER = "cdr_customer_number"; 			// 客户号码
+		public static final String CDR_CUSTOMER_NUMBER_TYPE = "cdr_customer_number_type"; 	// 客户号码类型
+		public static final String CDR_CUSTOMER_AREA_CODE = "cdr_customer_area_code"; 		// 客户区号
+		public static final String CDR_CALL_TYPE = "cdr_call_type"; 						// 呼叫类型
+		public static final String CNO = "cno"; 											// 坐席号
+		public static final String CDR_CALLEE_NUMBER = "cdr_callee_number"; 				// 被叫号码
+																							
+	
+		public static final String MAIN_CHANNEL = "main_channel";		
+		public static final String CDR_ENTERPRISE_ID = "cdr_enterprise_id";
+		public static final String CDR_HOTLINE = "cdr_hotline";
+//		public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id";
+		public static final String CDR_DETAIL_CALL_TYPE="cdr_detail_call_type";
+		public static final String CDR_DETAIL_GW_IP = "cdr_detail_gw_ip";
+		public static final String CDR_GW_IP = "cdr_gw_ip";
+//		public static final String CDR_CUSTOMER_NUMBER = "cdr_customer_number";
+//		public static final String CDR_CUSTOMER_NUMBER_TYPE = "cdr_customer_number_type";
+//		public static final String CDR_CUSTOMER_AREA_CODE = "cdr_customer_area_code";
+		public static final String CDR_NUMBER_TRUNK = "cdr_number_trunk";
+//		public static final String CDR_CALL_TYPE = "cdr_call_type";
+//		public static final String CDR_CALLEE_NUMBER = "cdr_callee_number";
+		public static final String CDR_CALLEE_AREA_CODE = "cdr_callee_area_code";
+		public static final String CDR_STATUS = "cdr_status";
+		public static final String RECORD_FILE = "record_file";
+		public static final String CDR_RECORD_FILE = "cdr_record_file";
+		public static final String CDR_IVR_ID = "cdr_ivr_id";
+		public static final String CDR_IVR_FLOW = "cdr_ivr_flow";
+		public static final String CDR_TELSET_NAME = "cdr_telset_name";
+		public static final String CDR_IVR_FLOW_SEC = "cdr_ivr_flow_sec";
+		public static final String CDR_USER_FIELD = "CDR(userfield)";
+		public static final String CDR_SIP_CAUSE = "cdr_sip_cause";
+		public static final String CDR_OB_CLID = "cdr_ob_clid";
+		public static final String CDR_REQUEST_UNIQUE_ID = "cdr_request_unique_id";
+		public static final String CDR_BRIDGE_TIME ="cdr_bridge_time";
+		public static final String CDR_START_TIME = "cdr_start_time";
+		public static final String CDR_START = "CDR(start)";
+		public static final String CDR_ANSWER_TIME = "cdr_answer_time";
+		public static final String CDR_END_TIME = "cdr_end_time";
+		public static final String CDR_END = "CDR(end)";
+		public static final String CDR_DIAL_TIME = "cdr_dial_time";
+		public static final String CDR_REQUEST_TIME = "cdr_request_time";
+		public static final String CDR_MONITOR_START_TIME = "cdr_monitor_start_time";
+		public static final String CDR_MONITOR_STOP_TIME = "cdr_monitor_stop_time";
+		public static final String CDR_MARK = "cdr_mark";
+		public static final String CDR_MARK_DATA = "cdr_mark_data";
+		public static final String CDR_HANGUP_CAUSE = "cdr_hangup_cause";
+			
+		public static final String CDR_DETAIL_CLID = "cdr_detail_clid";
+		public static final String CDR_DETAIL_CALLEE_NUMBER="cdr_detail_callee_number";
+		
+		public static final String WEBCALL_TEL = "webcall_tel";
+		public static final String IS_AMD_ON = "is_amd_on";
+		public static final String SUBTEL = "subtel";
+		
+		public static final String NUMBER_TRUNK = "number_trunk";
+		public static final String NUMBER_TRUNK_AREA_CODE="number_trunk_area_code";
+		
+		public static final String ENTERPRISE_ID="enterprise_id";
+		public static final String WEBCALL_IVR_ID = "webcall_ivr_id";
+
+		
+		public static final String DIALPLAN_CONTEXT = "context";
 }

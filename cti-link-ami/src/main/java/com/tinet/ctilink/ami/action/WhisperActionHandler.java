@@ -1,19 +1,10 @@
 package com.tinet.ctilink.ami.action;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-import org.asteriskjava.manager.action.GetVarAction;
-import org.asteriskjava.manager.action.OriginateAction;
-import org.asteriskjava.manager.response.GetVarResponse;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.ami.util.SipHeaderUtil;
-import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.util.LocalIpUtil;
 
 /**
  * 耳语
@@ -126,6 +117,12 @@ public class WhisperActionHandler extends AbstractActionHandler {
 		}
 */
 		return SUCCESS;
+	}
+
+	@Override
+	public AmiActionResponse handle(Map<String, String> fixParams, Map<String, String> optionalParams) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -44,4 +44,10 @@ public class ChannelHangUpActionHandler extends AbstractActionHandler {
 
 		return SUCCESS;
 	}
+
+	@Override
+	public AmiActionResponse handle(Map<String, String> fixParams, Map<String, String> optionalParams) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

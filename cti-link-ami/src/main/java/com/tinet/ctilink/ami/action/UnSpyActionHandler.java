@@ -2,9 +2,7 @@ package com.tinet.ctilink.ami.action;
 
 import java.util.Map;
 
-import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import com.tinet.ctilink.ami.inc.AmiParamConst;
 
@@ -50,6 +48,12 @@ public class UnSpyActionHandler extends AbstractActionHandler {
 		}
 		*/
 		return SUCCESS;
+	}
+
+	@Override
+	public AmiActionResponse handle(Map<String, String> fixParams, Map<String, String> optionalParams) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

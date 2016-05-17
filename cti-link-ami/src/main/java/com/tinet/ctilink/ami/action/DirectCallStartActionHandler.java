@@ -2,14 +2,7 @@ package com.tinet.ctilink.ami.action;
 
 import java.util.Map;
 
-import org.asteriskjava.live.AsteriskChannel;
-import org.asteriskjava.live.ChannelState;
-import org.asteriskjava.manager.action.RedirectAction;
-import org.asteriskjava.manager.action.SetVarAction;
-import org.springframework.util.StringUtils;
-
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.inc.Const;
 
 
 /**
@@ -67,6 +60,12 @@ public class DirectCallStartActionHandler extends AbstractActionHandler {
 		}
 */
 		return SUCCESS;
+	}
+
+	@Override
+	public AmiActionResponse handle(Map<String, String> fixParams, Map<String, String> optionalParams) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -3,10 +3,7 @@ package com.tinet.ctilink.ami.action;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.StringUtils;
-import org.asteriskjava.manager.action.HangupAction;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.inc.AmiParamConst;
@@ -73,5 +70,11 @@ public class ConsultTransferActionHandler extends AbstractActionHandler {
 		}
 */
 		return SUCCESS;
+	}
+
+	@Override
+	public AmiActionResponse handle(Map<String, String> fixParams, Map<String, String> optionalParams) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

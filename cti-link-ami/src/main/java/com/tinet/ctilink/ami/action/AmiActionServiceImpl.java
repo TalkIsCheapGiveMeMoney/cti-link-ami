@@ -56,4 +56,10 @@ public class AmiActionServiceImpl implements AmiActionService {
 
 		return this.getHandler(action).handle(params);
 	}
+
+	@Override
+	public AmiActionResponse handleAction(String action, Map<String, String> fixedParams, Map<String, String> optionalParams) {
+		// TODO Auto-generated method stub
+		return this.getHandler(action).handle(fixedParams,optionalParams);
+	}
 }
