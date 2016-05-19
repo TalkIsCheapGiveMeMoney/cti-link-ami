@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.ami.inc.AmiEventConst;
+import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.json.JSONObject;
 
@@ -49,7 +49,7 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 		String ivrId =  ((IncomingEvent) event).getIvrId();
 
 		JSONObject pushEvent=new JSONObject();
-		pushEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventConst.INCOMING);
+		pushEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.INCOMING);
 //		pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.INCOMING);
 		pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		pushEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);

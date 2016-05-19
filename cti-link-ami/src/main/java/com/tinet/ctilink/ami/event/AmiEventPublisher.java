@@ -3,7 +3,7 @@ package com.tinet.ctilink.ami.event;
 import java.util.*;
 
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.ami.inc.AmiEventConst;
+import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
 import com.tinet.ctilink.curl.CurlData;
@@ -33,7 +33,7 @@ public class AmiEventPublisher {
 	private RedisService redisService;
 	
 	public void publish(JSONObject event) {
-		redisService.lpush(AmiEventConst.AMI_EVENT_DBINDEX, AmiEventConst.AMI_EVENT_LIST, event.toString());
+		redisService.lpush(AmiEventTypeConst.AMI_EVENT_DBINDEX, AmiEventTypeConst.AMI_EVENT_LIST, event.toString());
 		// 根据企业设置推送AMI状态
 //		pushevent(event);
 	}
@@ -43,7 +43,7 @@ public class AmiEventPublisher {
 			event.put(AmiParamConst.VARIABLE_TYPE, AmiParamConst.VARIABLE_EVENT);
 		}
 
-		redisService.lpush(AmiEventConst.AMI_EVENT_DBINDEX, AmiEventConst.AMI_EVENT_LIST, event.toString());
+		redisService.lpush(AmiEventTypeConst.AMI_EVENT_DBINDEX, AmiEventTypeConst.AMI_EVENT_LIST, event.toString());
 		// 根据企业设置推送AMI状态
 //		pushevent(event);
 	}
@@ -52,7 +52,7 @@ public class AmiEventPublisher {
 	
 
 	private void pushevent(Map<String, String> event) {
-		if (event.get(AmiParamConst.VARIABLE_NAME).equals(AmiEventConst.STATUS)) {
+		if (event.get(AmiParamConst.VARIABLE_NAME).equals(AmiEventTypeConst.STATUS)) {
 			Integer enterpriseId = Integer.parseInt(event.get(AmiParamConst.VARIABLE_ENTERPRISE_ID));
 			List<EnterpriseHangupAction> pushActionList = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId,
 					Const.ENTERPRISE_PUSH_TYPE_CLIENT_STATUS), EnterpriseHangupAction.class);

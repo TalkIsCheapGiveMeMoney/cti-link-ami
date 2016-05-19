@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.ami.inc.AmiEventConst;
+import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 
 
 /**
@@ -45,7 +45,7 @@ public class BridgeEventHandler extends AbstractAmiEventHandler implements AmiUs
 
 		JSONObject pushEvent=new JSONObject();
 		pushEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-		pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.BRIDGED);
+		pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.BRIDGED);
 		pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
 		pushEvent.put(AmiParamConst.VARIABLE_CNO, cno);

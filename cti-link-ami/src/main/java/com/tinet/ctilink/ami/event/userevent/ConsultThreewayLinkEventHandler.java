@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.ami.inc.AmiEventConst;
+import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 
 
 /**
@@ -39,7 +39,7 @@ public class ConsultThreewayLinkEventHandler extends AbstractAmiEventHandler imp
 		if (StringUtils.isNotEmpty(consulteeCno)) {
 			Map<String, String> userEvent = new HashMap<String, String>();
 			userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-			userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.CONSULT_THREEWAY);
+			userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.CONSULT_THREEWAY);
 			userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 			userEvent.put(AmiParamConst.VARIABLE_CNO, consulteeCno);
 			userEvent.put(AmiParamConst.VARIABLE_CONSULTER_CNO, consulterCno);
@@ -49,7 +49,7 @@ public class ConsultThreewayLinkEventHandler extends AbstractAmiEventHandler imp
 		//发送事件到咨询发起者的那个人
 		Map<String, String> userEvent = new HashMap<String, String>();
 		userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.CONSULT_THREEWAY);
+		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.CONSULT_THREEWAY);
 		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiParamConst.VARIABLE_CNO, consulterCno);
 		publishEvent(userEvent);

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.ami.inc.AmiEventConst;
+import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 
 
 /**
@@ -35,7 +35,7 @@ public class ConsultThreewayUnlinkEventHandler extends AbstractAmiEventHandler i
 		
 		Map<String, String> userEvent = new HashMap<String, String>();
 		userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.CONSULT_THREEWAY_UNLINK);
+		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.CONSULT_THREEWAY_UNLINK);
 		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
 		publishEvent(userEvent);

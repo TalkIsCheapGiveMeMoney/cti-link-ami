@@ -32,7 +32,7 @@ import com.tinet.ctilink.AmiChanVarNameConst;
 import com.tinet.ctilink.ami.AmiEventListener;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.inc.AmiChannelStatusConst;
-import com.tinet.ctilink.ami.inc.AmiEventConst;
+import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
 
 import com.tinet.ctilink.ami.util.AmiUtil;
@@ -546,7 +546,7 @@ public class ChannelManager  {
 					if(checkWhetherAgentEvent(cno))
 					{
 						JSONObject j=new JSONObject();					
-						j.put(AmiParamConst.VARIABLE_EVENT, AmiEventConst.STATUS);
+						j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);
 						j.put(AmiParamConst.CHANNELSTATE, channelState);
 						j.put(AmiParamConst.CHANNELSTATEDESC, channelStateDesc);
 						j.put(AmiParamConst.CHANNEL, event.getChannel());

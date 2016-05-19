@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.ami.inc.AmiEventConst;
+import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 import com.tinet.ctilink.json.JSONObject;
 
 
@@ -43,7 +43,7 @@ public class UnanswerEventHandler extends AbstractAmiEventHandler implements Ami
 		String startTime = ((UnanswerEvent) event).getStartTime();
 
 		JSONObject userEvent=new JSONObject();
-		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventConst.UNANSWER);
+		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.UNANSWER);
 //		userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
 //		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.UNANSWER);
 		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);

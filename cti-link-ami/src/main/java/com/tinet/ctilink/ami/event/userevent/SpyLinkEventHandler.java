@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.ami.inc.AmiEventConst;
+import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 
 /**
  * 监听事件
@@ -43,7 +43,7 @@ public class SpyLinkEventHandler extends AbstractAmiEventHandler implements AmiU
 			if (null != cno && !cno.equals("")) {
 				Map<String, String> userEvent = new HashMap<String, String>();
 				userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-				userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.SPY_LINK);
+				userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.SPY_LINK);
 				userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 				userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
 				userEvent.put(AmiParamConst.VARIABLE_SPY_OBJECT, spyObject);
