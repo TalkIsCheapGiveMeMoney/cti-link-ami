@@ -31,6 +31,7 @@ import com.github.pagehelper.StringUtil;
 import com.tinet.ctilink.AmiChanVarNameConst;
 import com.tinet.ctilink.ami.AmiEventListener;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
+import com.tinet.ctilink.ami.inc.AmiChannelStatusConst;
 import com.tinet.ctilink.ami.inc.AmiEventConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
 
@@ -535,12 +536,12 @@ public class ChannelManager  {
 					channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);
 					channelCustomerAreaCode = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_AREA_CODE);
 					channelMainUniqueId = channel.getVariable(AmiChanVarNameConst.CDR_MAIN_UNIQUE_ID);
-					channelUniqueId = channel.getVariable(AmiChanVarNameConst.UNIQUEID);
+					channelUniqueId = event.getUniqueId();//channel.getVariable(AmiChanVarNameConst.UNIQUEID);
 					enterpriseId = channel.getVariable(Const.CDR_ENTERPRISE_ID);
 					channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
 					channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);					
-					channelState = event.getChannelState().toString();
-					channelStateDesc = event.getChannelState().toString();		
+					channelState = AmiChannelStatusConst.ChannelStateToString(event.getChannelState());
+					channelStateDesc = event.getChannelStateDesc().toString();		
 					
 					if(checkWhetherAgentEvent(cno))
 					{
