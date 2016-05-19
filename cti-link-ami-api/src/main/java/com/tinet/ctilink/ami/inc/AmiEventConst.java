@@ -15,14 +15,19 @@ package com.tinet.ctilink.ami.inc;
 
 public class AmiEventConst {
 	
-	public static final String AMI_EVENT_LIST = "cti-link.ami.event.other";
-	public static final int AMI_EVENT_DBINDEX = 3;
-
+	public static final String AMI_EVENT_LIST = "cti-link.ami.event";	
+	public static final int AMI_EVENT_DBINDEX = 3;	
+	
+	
+	
+	public static final String ORIGINATERESPONSE = "originateresponse"; // 事件类型：发起呼叫响应		
 	public static final String INCOMING = "incoming"; // 事件类型：来电
 	public static final String ANSWER = "answer"; // 事件类型：系统应答
 	public static final String UNANSWER = "unanswer"; // 事件类型：未接来电	
 	public static final String RINGING = "ringing"; // 事件类型：响铃事件
 	public static final String BRIDGED = "bridged"; // 事件类型：坐席桥接
+	
+	
 	
 	public static final String STATUS = "status"; // 事件类型：状态改变
 	public static final String SPY_LINK = "spyLink"; // 事件类型: 监听接听

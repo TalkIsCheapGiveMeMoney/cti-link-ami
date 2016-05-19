@@ -158,6 +158,7 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 	private boolean initialized = false;
 	private final List<AsteriskServerListener> listeners;
 	private ManagerConnection eventConnection;
+	private ManagerConnectionPool actionConnectionPool;
 	private ManagerEventListener eventListener;
 	private ManagerEventListenerProxy managerEventListenerProxy;
 	private AmiEventHandlerService amiEventHandlerService;
@@ -492,7 +493,8 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		}
 
 		initializeIfNeeded();
-		sendActionOnEventConnection(originateAction);
+		sendAction(originateAction);
+//		sendActionOnEventConnection(originateAction);
 	}
 
 	public Collection<AsteriskChannel> getChannels() throws ManagerCommunicationException {
@@ -831,10 +833,10 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 	}
 
 	public ManagerResponse sendAction(ManagerAction action) throws ManagerCommunicationException {
-		// return connectionPool.sendAction(action);
+//		 return actionConnectionPool.sendAction(action);
 
 		try {
-			return eventConnection.sendAction(action);
+			return actionConnectionPool.sendAction(action);
 		} catch (Exception e) {
 			throw ManagerCommunicationExceptionMapper.mapSendActionException(action.getAction(), e);
 		}
@@ -1143,6 +1145,14 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 				}
 			}
 		}
+	}
+
+	public ManagerConnectionPool getActionConnectionPool() {
+		return actionConnectionPool;
+	}
+
+	public void setActionConnectionPool(ManagerConnectionPool actionConnectionPool) {
+		this.actionConnectionPool = actionConnectionPool;
 	}
 
 	

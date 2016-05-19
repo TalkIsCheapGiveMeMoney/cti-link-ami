@@ -418,6 +418,12 @@ public class AmiParamConst {
 	
 	//固定参数
 		public static final String DEST_CHANNEL = "dest_channel";
+		public static final String REQUEST_USER_DATA = "request_user_data";
+		public static final String OB_CLID = "ob_clid";
+		public static final String EXTENSION = "exten";
+		public static final String DIALPLAN_CONTEXT = "context";
+		public static final String PRIORITY = "priority";
+		
 //		public static final String ACTIONID = "actionId";
 	
 	//action parameter
@@ -476,12 +482,12 @@ public class AmiParamConst {
 		public static final String IS_AMD_ON = "is_amd_on";
 		public static final String SUBTEL = "subtel";
 		
-		public static final String NUMBER_TRUNK = "number_trunk";
+		
 		public static final String NUMBER_TRUNK_AREA_CODE="number_trunk_area_code";
 		
 		public static final String ENTERPRISE_ID="enterprise_id";
 		public static final String WEBCALL_IVR_ID = "webcall_ivr_id";
 
 		
-		public static final String DIALPLAN_CONTEXT = "context";
+		
 }

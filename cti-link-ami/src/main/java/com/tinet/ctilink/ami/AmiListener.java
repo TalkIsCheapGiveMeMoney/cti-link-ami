@@ -191,6 +191,7 @@ public class AmiListener {
 		 * 通过AmiListener构造的对象拿到相应参数，构造一个asteriskServer对象，然后initialize这个对象
 		 */
 		asteriskServer = new DefaultAsteriskServer(host, port, managerUser, managerPwd);
+		
 		actionConnectionPool.clear();
 		for (int i = 0; i < actionConnectionPoolCount; i++) {
 			ManagerConnection connection = new DefaultManagerConnection(host, port, actionUser, actionPwd);
@@ -198,6 +199,7 @@ public class AmiListener {
 		}
 
 		asteriskServer.initialize();
+		asteriskServer.setActionConnectionPool(actionConnectionPool);
 
 	}
 

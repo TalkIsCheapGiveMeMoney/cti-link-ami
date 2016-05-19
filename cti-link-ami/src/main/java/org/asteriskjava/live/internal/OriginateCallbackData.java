@@ -4,6 +4,7 @@
 package org.asteriskjava.live.internal;
 
 import java.util.Date;
+import java.util.Map;
 
 import org.asteriskjava.live.OriginateCallback;
 import org.asteriskjava.manager.action.OriginateAction;
@@ -14,11 +15,12 @@ import org.asteriskjava.manager.action.OriginateAction;
  * @author srt
  * @version $Id: OriginateCallbackData.java 1092 2008-08-09 01:46:21Z sprior $
  */
-class OriginateCallbackData {
+public class OriginateCallbackData {
 	private OriginateAction originateAction;
 	private Date dateSent;
 	private OriginateCallback callback;
 	private AsteriskChannelImpl channel;
+	
 
 	/**
 	 * Creates a new instance.
@@ -56,4 +58,7 @@ class OriginateCallbackData {
 	void setChannel(AsteriskChannelImpl channel) {
 		this.channel = channel;
 	}
+
+
+	
 }

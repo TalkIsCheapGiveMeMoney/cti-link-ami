@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.asteriskjava.config.ConfigFile;
 import org.asteriskjava.live.internal.AsteriskServerImpl;
+import org.asteriskjava.live.internal.ManagerConnectionPool;
 import org.asteriskjava.manager.DefaultManagerConnection;
 import org.asteriskjava.manager.ManagerConnection;
 import org.asteriskjava.manager.action.ManagerAction;
@@ -84,6 +85,7 @@ public class DefaultAsteriskServer implements AsteriskServer {
 		final ManagerConnection connection;
 		connection = createManagerConnection(hostname, port, username, password);
 		impl = new AsteriskServerImpl(connection);
+		
 	}
 
 	protected DefaultManagerConnection createManagerConnection(String hostname, int port, String username, String password) {
@@ -265,6 +267,15 @@ public class DefaultAsteriskServer implements AsteriskServer {
 
 	public Collection<AsteriskAgent> getAgents() throws ManagerCommunicationException {
 		return impl.getAgents();
+	}
+	
+//	public ManagerConnectionPool getActionConnectionPool() {
+//		return actionConnectionPool;
+//	}
+
+	public void setActionConnectionPool(ManagerConnectionPool actionConnectionPool) {
+//		this.actionConnectionPool = actionConnectionPool;
+		impl.setActionConnectionPool(actionConnectionPool);
 	}
 
 }

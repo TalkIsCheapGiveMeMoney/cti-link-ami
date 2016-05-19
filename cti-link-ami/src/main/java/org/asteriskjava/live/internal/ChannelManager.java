@@ -27,6 +27,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import com.github.pagehelper.StringUtil;
 import com.tinet.ctilink.AmiChanVarNameConst;
 import com.tinet.ctilink.ami.AmiEventListener;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
@@ -449,7 +450,6 @@ public class ChannelManager  {
 
 	public void handleNewStateEvent(NewStateEvent event) {
 		AsteriskChannelImpl channel = getChannelImplById(event.getUniqueId());
-
 		if (channel == null) {
 			// NewStateEvent can occur for an existing channel that now has a
 			// different unique id (originate with Local/)
@@ -509,7 +509,7 @@ public class ChannelManager  {
 				}
 			}
 		}
-		// *******ringing 电话组推送***************/
+
 		if (event.getChannelState() != null) {
 			if (!channel.getState().equals(ChannelState.valueOf(event.getChannelState()))) {
 				if ((channel.getVariable(Const.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_IB + "") 
@@ -525,14 +525,12 @@ public class ChannelManager  {
 					String channelCallType = "";
 					String channelCalleeNumber = "";
 					String channelTaskInventoryId = "";
-
 					String enterpriseId = "";
 					String cno = "";
 					String channelState = "";
 					String channelStateDesc = "";
-					
-			
-					
+						
+					cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
 					channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
 					channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);
 					channelCustomerAreaCode = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_AREA_CODE);
@@ -540,32 +538,41 @@ public class ChannelManager  {
 					channelUniqueId = channel.getVariable(AmiChanVarNameConst.UNIQUEID);
 					enterpriseId = channel.getVariable(Const.CDR_ENTERPRISE_ID);
 					channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
-					channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);
-					cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
+					channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);					
 					channelState = event.getChannelState().toString();
-					channelStateDesc = event.getChannelState().toString();
+					channelStateDesc = event.getChannelState().toString();		
 					
-					
-					JSONObject j=new JSONObject();					
-					j.put(AmiParamConst.VARIABLE_EVENT, AmiEventConst.STATUS);
-					j.put(AmiParamConst.CHANNELSTATE, channelState);
-					j.put(AmiParamConst.CHANNELSTATEDESC, channelStateDesc);
-					j.put(AmiParamConst.CHANNEL, event.getChannel());
-					j.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);					
-					j.put(AmiParamConst.CDR_CUSTOMER_NUMBER, channelCustomerNumber);
-					j.put(AmiParamConst.CDR_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
-					j.put(AmiParamConst.CDR_CUSTOMER_AREA_CODE, channelCustomerAreaCode);
-					j.put(AmiParamConst.CDR_MAIN_UNIQUE_ID, channelMainUniqueId);
-					j.put(AmiParamConst.UNIQUEID, channelUniqueId);
-					j.put(AmiParamConst.CDR_CALL_TYPE, channelCallType);
-					j.put(AmiParamConst.CDR_CALLEE_NUMBER, channelCalleeNumber);
-					j.put(AmiParamConst.CNO, cno);
-					j.put(AmiParamConst.ENTERPRISEID, enterpriseId);					
-					amiEventListener.publishEvent(j);
-					
+					if(checkWhetherAgentEvent(cno))
+					{
+						JSONObject j=new JSONObject();					
+						j.put(AmiParamConst.VARIABLE_EVENT, AmiEventConst.STATUS);
+						j.put(AmiParamConst.CHANNELSTATE, channelState);
+						j.put(AmiParamConst.CHANNELSTATEDESC, channelStateDesc);
+						j.put(AmiParamConst.CHANNEL, event.getChannel());
+						j.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);					
+						j.put(AmiParamConst.CDR_CUSTOMER_NUMBER, channelCustomerNumber);
+						j.put(AmiParamConst.CDR_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
+						j.put(AmiParamConst.CDR_CUSTOMER_AREA_CODE, channelCustomerAreaCode);
+						j.put(AmiParamConst.CDR_MAIN_UNIQUE_ID, channelMainUniqueId);
+						j.put(AmiParamConst.UNIQUEID, channelUniqueId);
+						j.put(AmiParamConst.CDR_CALL_TYPE, channelCallType);
+						j.put(AmiParamConst.CDR_CALLEE_NUMBER, channelCalleeNumber);
+						j.put(AmiParamConst.CNO, cno);
+						j.put(AmiParamConst.ENTERPRISEID, enterpriseId);					
+						amiEventListener.publishEvent(j);
+					}
 				}
 			}
 		}
+	}
+
+	/**
+	 * 检查NewStateEvent是否是坐席事件
+	 * @param cno
+	 * @return
+	 */
+	private boolean checkWhetherAgentEvent(String cno) {
+		return cno!=null&&StringUtil.isNotEmpty(cno);
 	}
 
 	public void handleNewCallerIdEvent(NewCallerIdEvent event) {

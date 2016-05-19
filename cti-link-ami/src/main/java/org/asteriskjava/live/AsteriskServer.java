@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.asteriskjava.config.ConfigFile;
+import org.asteriskjava.live.internal.ManagerConnectionPool;
 import org.asteriskjava.manager.ManagerConnection;
 import org.asteriskjava.manager.action.ManagerAction;
 import org.asteriskjava.manager.action.OriginateAction;
@@ -559,4 +560,7 @@ public interface AsteriskServer {
 	 *             if login fails
 	 */
 	void initialize() throws ManagerCommunicationException;
+	
+	
+	void setActionConnectionPool(ManagerConnectionPool actionConnectionPool);
 }
