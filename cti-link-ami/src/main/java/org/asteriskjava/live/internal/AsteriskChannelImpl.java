@@ -56,7 +56,20 @@ import org.asteriskjava.manager.response.ManagerResponse;
  * @version $Id: AsteriskChannelImpl.java 1380 2009-10-19 19:26:05Z srt $
  */
 class AsteriskChannelImpl extends AbstractLiveObject implements AsteriskChannel {
+	
 	private static final String CAUSE_VARIABLE_NAME = "PRI_CAUSE";
+
+	/**
+	 * chanel type ,used for top level.
+	 */
+	private int channelType;
+	public int getChannelType() {
+		return channelType;
+	}
+
+	public void setChannelType(int channelType) {
+		this.channelType = channelType;
+	}
 
 	/**
 	 * Unique id of this channel.
@@ -103,7 +116,6 @@ class AsteriskChannelImpl extends AbstractLiveObject implements AsteriskChannel 
 	private final List<DialedChannelHistoryEntry> dialedChannelHistory;
 
 	private AsteriskChannel dialedChannel;
-
 	private AsteriskChannel dialingChannel;
 
 	/**
@@ -118,9 +130,7 @@ class AsteriskChannelImpl extends AbstractLiveObject implements AsteriskChannel 
 	private boolean wasLinked;
 
 	private HangupCause hangupCause;
-
 	private String hangupCauseText;
-
 	private CallDetailRecordImpl callDetailRecord;
 
 	/**
@@ -152,6 +162,9 @@ class AsteriskChannelImpl extends AbstractLiveObject implements AsteriskChannel 
 	 */
 	private Character dtmfSent;
 
+	/**
+	 * caching channel variables
+	 */
 	private final Map<String, String> variables;
 
 	/**

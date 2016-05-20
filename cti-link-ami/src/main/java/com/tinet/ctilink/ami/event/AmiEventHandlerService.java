@@ -94,11 +94,11 @@ public class AmiEventHandlerService {
 	 * @param event
 	 */
 	public void handleChannelEvent(ManagerEvent event, ChannelManager channelManager) {
-		String enterpriseId = getEnterpriseId(event);
-		String channel = ((AbstractChannelEvent) event).getChannel();
-		if (StringUtils.isNotEmpty(channel)) {
-			String tail = channel.substring(channel.length() - 1);
-
+//		String enterpriseId = getEnterpriseId(event);
+//		String channel = ((AbstractChannelEvent) event).getChannel();
+		String mainUniqueId = ((AbstractChannelEvent) event).getChanVarialbe("cdr_main_unique_id") ;
+		if (StringUtils.isNotEmpty(mainUniqueId)) {
+			String tail = mainUniqueId.substring(mainUniqueId.length() - 1);
 			getExecutor(tail).execute(new Runnable() {
 				@Override
 				public void run() {
