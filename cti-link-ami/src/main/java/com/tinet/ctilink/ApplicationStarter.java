@@ -15,8 +15,7 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.AmiManager;
 import com.tinet.ctilink.ami.log.AmiLogQueueEngine;
 import com.tinet.ctilink.ami.ordercallback.OrderCallBackEngine;
-import com.tinet.ctilink.ami.webcall.WebCallEngine;
-import com.tinet.ctilink.ami.webcall.WebCallLogEngine;
+
 
 
 import java.util.List;
@@ -40,12 +39,6 @@ public class ApplicationStarter implements ApplicationListener<ContextRefreshedE
 
 	@Autowired
 	private AmiLogQueueEngine amiLogQueueEngine;
-
-	@Autowired
-	private WebCallEngine webCallEngine;
-
-	@Autowired
-	private WebCallLogEngine webCallLogEngine;
 
 	@Autowired
 	private RedisService redisService;
@@ -72,14 +65,7 @@ public class ApplicationStarter implements ApplicationListener<ContextRefreshedE
 		amiLogQueueEngine.setName("AmiLogQueueEngine");
 		amiLogQueueEngine.start();
 
-		// 启动WebCall引擎
-		webCallEngine.setName("WebCallEngine");
-		webCallEngine.start();
-
-		// 启动WebCall日志记录引擎
-		webCallLogEngine.setName("WebCallLogEngine");
-		webCallLogEngine.start();
-
+		
 		logger.info("cti-link-ami启动成功");
 		System.out.println("cti-link-ami启动成功");
 	}
