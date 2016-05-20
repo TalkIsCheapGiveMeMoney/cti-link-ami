@@ -23,18 +23,32 @@ public class AmiParamConst {
 	public static final String CONSULTATIONCALL = "Atxfer"; // 咨询呼叫
 	public static final String CONSULTATIONTRANSFER = "Redirect"; // 咨询转移
 	
+	//used
+	public static final String CUSTOMER_NUMBER = "customerNumber"; 			// 客户号码
+	public static final String CUSTOMER_NUMBER_TYPE = "customerNumberType"; 	// 客户号码类型
+	public static final String CUSTOMER_NUMBER_AREA_CODE = "customerNumberAreaCode"; 		// 客户区号
+	public static final String CALL_TYPE = "callType"; 						// 呼叫类型
+	public static final String CNO = "cno"; 											// 坐席号
+	public static final String CDR_CALLEE_NUMBER = "cdr_callee_number"; 				// 被叫号码
+	public static final String CHANNEL = "channel"; // 事件参数：通道名
+	public static final String CHANNELSTATE = "status"; // 事件参数：通道状态
+	public static final String UNIQUEID = "uniqueId"; // 事件参数：当前通道唯一Id
+//	public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id"; // 事件参数：主通道唯一Id
+	public static final String ENTERPRISEID = "enterpriseId"; // 事件参数：企业Id
+	public static final String VARIABLE_HOTLINE = "hotline"; // action/event字段：热线号码
+	public static final String VARIABLE_QUEUE = "queue";
+	public static final String VARIABLE_CNO = "cno"; // action/event字段：座席号 2000
+	public static final String DETAIL_CALL_TYPE="detailCallType";
+	public static final String VARIABLE_NUMBER_TRUNK = "numberTrunk";
+	public static final String VARIABLE_BRIDGED_CHANNEL = "bridgedChannel";
+	public static final String VARIABLE_BRIDGED_UNIQUEID = "bridgedUniqueId";
 	
 	
 	//event param
 	
 	
 
-	public static final String CHANNEL = "channel"; // 事件参数：通道名
-	public static final String CHANNELSTATE = "channelstate"; // 事件参数：通道状态
-	public static final String CHANNELSTATEDESC = "channelstatedesc"; // 事件参数：通道状态描述
-	public static final String UNIQUEID = "uniqueId"; // 事件参数：当前通道唯一Id
-	public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id"; // 事件参数：主通道唯一Id
-	public static final String ENTERPRISEID = "enterpriseId"; // 事件参数：企业Id
+
 	
 
 	public static final String LOGIN = "login"; // 登录
@@ -155,9 +169,9 @@ public class AmiParamConst {
 																					// 号码区号
 	public static final String VARIABLE_CUSTOMER_AREA_NAME = "customerAreaName"; // action/event字段:
 																					// 号码地址
-	public static final String VARIABLE_NUMBER_TRUNK = "numberTrunk";
-	public static final String VARIABLE_HOTLINE = "hotline"; // action/event字段：热线号码
-	public static final String VARIABLE_CNO = "cno"; // action/event字段：座席号 2000
+	
+	
+	
 	public static final String VARIABLE_CID = "cid"; // action/event字段：座席id
 	public static final String VARIABLE_CLIENT_ID = "clientId"; // client 的id //
 																// 10000762000
@@ -285,7 +299,7 @@ public class AmiParamConst {
 	public static final String VARIABLE_PARAM_VALUES = "paramValues";
 	public static final String VARIABLE_ORDER_CALL_BACK_ID = "orderCallBackId";
 	public static final String VARIABLE_AMI_TYPE = "amiType";
-	public static final String VARIABLE_QUEUE = "queue";
+	
 
 	/** 聊天系统--web_chat--消息 */
 	public static final String VARIABLE_WEBCHAT_MSG = "webchatMsg";
@@ -428,19 +442,13 @@ public class AmiParamConst {
 	
 	//action parameter
 	//可变参数
-		public static final String CDR_CUSTOMER_NUMBER = "cdr_customer_number"; 			// 客户号码
-		public static final String CDR_CUSTOMER_NUMBER_TYPE = "cdr_customer_number_type"; 	// 客户号码类型
-		public static final String CDR_CUSTOMER_AREA_CODE = "cdr_customer_area_code"; 		// 客户区号
-		public static final String CDR_CALL_TYPE = "cdr_call_type"; 						// 呼叫类型
-		public static final String CNO = "cno"; 											// 坐席号
-		public static final String CDR_CALLEE_NUMBER = "cdr_callee_number"; 				// 被叫号码
+		
 																							
 	
 		public static final String MAIN_CHANNEL = "main_channel";		
 		public static final String CDR_ENTERPRISE_ID = "cdr_enterprise_id";
-		public static final String CDR_HOTLINE = "cdr_hotline";
 //		public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id";
-		public static final String CDR_DETAIL_CALL_TYPE="cdr_detail_call_type";
+		
 		public static final String CDR_DETAIL_GW_IP = "cdr_detail_gw_ip";
 		public static final String CDR_GW_IP = "cdr_gw_ip";
 //		public static final String CDR_CUSTOMER_NUMBER = "cdr_customer_number";

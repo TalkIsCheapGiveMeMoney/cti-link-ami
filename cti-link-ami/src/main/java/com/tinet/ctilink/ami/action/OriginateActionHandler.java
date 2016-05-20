@@ -89,8 +89,5 @@ public class OriginateActionHandler extends AbstractActionHandler {
 		
 	}
 	
-	static void HandleOriginateResponseEvent() {
-		
-	}
 
 }

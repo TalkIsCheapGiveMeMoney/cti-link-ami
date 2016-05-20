@@ -11,8 +11,7 @@ public class AmiConst {
 
     public static final String ASTERISK_AMI_ACTION_USER = "action";
 
-    public static final String ASTERISK_AMI_ACTION_PWD = "CCIC_AMI_action";
-    
+    public static final String ASTERISK_AMI_ACTION_PWD = "CCIC_AMI_action";  
     
     //通道变量定义
     

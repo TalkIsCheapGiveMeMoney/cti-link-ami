@@ -1,4 +1,4 @@
-package com.tinet.ctilink;
+package com.tinet.ctilink.ami.inc;
 
 public class AmiChanVarNameConst {    
     
@@ -39,6 +39,8 @@ public class AmiChanVarNameConst {
     public static final String CDR_ENTERPRISE_ID = "cdr_enterprise_id";
     public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id";
     public static final	String UNIQUEID = "UNIQUEID";
+    public static final	String BRIDGEPEER = "BRIDGEPEER";
+    public static final	String LINKEDID = "linkedid";
     public static final String CDR_START_TIME = "cdr_start_time";
     public static final String CDR_DETAIL_CNO = "cdr_detail_cno";
     public static final String CDR_DETAIL_CALL_TYPE = "cdr_detail_call_type";
@@ -66,7 +68,10 @@ public class AmiChanVarNameConst {
 
     public static final String CALL_POWER = "call_power";
 
-    public static final String PREVIEW_OUTCALL_LEFT_CLID = "preview_outcall_left_clid";
+    public static final String PREVIEW_OUTCALL_LEFT_CLID = "preview_outcall_left_clid";    
+    
+    
+    public static final String CDR_QUEUE_NAME = "cdr_queue_name"; 
     
     
 }

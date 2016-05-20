@@ -33,9 +33,7 @@ public class AmiEventPublisher {
 	private RedisService redisService;
 	
 	public void publish(JSONObject event) {
-		redisService.lpush(AmiEventTypeConst.AMI_EVENT_DBINDEX, AmiEventTypeConst.AMI_EVENT_LIST, event.toString());
-		// 根据企业设置推送AMI状态
-//		pushevent(event);
+		redisService.lpush(Const.REDIS_DB_CTI_INDEX, AmiEventTypeConst.AMI_EVENT_LIST, event.toString());
 	}
 
 	public void publish(Map<String, String> event) {
@@ -43,7 +41,7 @@ public class AmiEventPublisher {
 			event.put(AmiParamConst.VARIABLE_TYPE, AmiParamConst.VARIABLE_EVENT);
 		}
 
-		redisService.lpush(AmiEventTypeConst.AMI_EVENT_DBINDEX, AmiEventTypeConst.AMI_EVENT_LIST, event.toString());
+		redisService.lpush(Const.REDIS_DB_CTI_INDEX, AmiEventTypeConst.AMI_EVENT_LIST, event.toString());
 		// 根据企业设置推送AMI状态
 //		pushevent(event);
 	}

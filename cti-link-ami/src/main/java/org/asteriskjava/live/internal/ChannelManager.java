@@ -19,7 +19,6 @@ package org.asteriskjava.live.internal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -27,20 +26,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import com.github.pagehelper.StringUtil;
-import com.tinet.ctilink.AmiChanVarNameConst;
-import com.tinet.ctilink.ami.AmiEventListener;
-import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
-import com.tinet.ctilink.ami.inc.AmiChannelStatusConst;
-import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
-import com.tinet.ctilink.ami.inc.AmiParamConst;
-
-import com.tinet.ctilink.ami.util.AmiUtil;
-import com.tinet.ctilink.cache.RedisService;
-import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.json.JSONObject;
-import com.tinet.ctilink.util.ContextUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.live.AsteriskChannel;
 import org.asteriskjava.live.CallerId;
 import org.asteriskjava.live.ChannelState;
@@ -70,8 +55,17 @@ import org.asteriskjava.manager.response.ManagerError;
 import org.asteriskjava.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
+import com.github.pagehelper.StringUtil;
+import com.tinet.ctilink.ami.AmiEventListener;
+import com.tinet.ctilink.ami.inc.AmiChanVarNameConst;
+import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
+import com.tinet.ctilink.cache.RedisService;
+import com.tinet.ctilink.inc.Const;
+import com.tinet.ctilink.json.JSONObject;
+import com.tinet.ctilink.util.ContextUtil;
+
 
 
 /**
@@ -96,7 +90,6 @@ public class ChannelManager  {
 	 * milliseconds).
 	 */
 	private static final long REMOVAL_THRESHOLD = 15 * 60 * 1000L; // 15 minutes
-	private static final long SLEEP_TIME_BEFORE_GET_VAR = 50L;
 
 	private final AsteriskServerImpl server;
 	
@@ -525,41 +518,55 @@ public class ChannelManager  {
 					String channelNumberTrunk = "";
 					String channelCallType = "";
 					String channelCalleeNumber = "";
-					String channelTaskInventoryId = "";
+					String bridgedUniqueId = "";
 					String enterpriseId = "";
 					String cno = "";
+					String queueName = "";
+					String hotline = "";
 					String channelState = "";
 					String channelStateDesc = "";
+					String channelName = "";
+					String bridgedChannelName = "";
+					String detailCallType = "";
 						
-					cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
-					channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
-					channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);
-					channelCustomerAreaCode = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_AREA_CODE);
-					channelMainUniqueId = channel.getVariable(AmiChanVarNameConst.CDR_MAIN_UNIQUE_ID);
-					channelUniqueId = event.getUniqueId();//channel.getVariable(AmiChanVarNameConst.UNIQUEID);
-					enterpriseId = channel.getVariable(Const.CDR_ENTERPRISE_ID);
-					channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
-					channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);					
-					channelState = AmiChannelStatusConst.ChannelStateToString(event.getChannelState());
-					channelStateDesc = event.getChannelStateDesc().toString();		
 					
+					cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
 					if(checkWhetherAgentEvent(cno))
 					{
-						JSONObject j=new JSONObject();					
-						j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);
+						JSONObject j=new JSONObject();
+						
+						enterpriseId = channel.getVariable(Const.CDR_ENTERPRISE_ID);
+						channelState = event.getChannelState().toString();
+						channelName = event.getChannel();	
+						channelUniqueId = event.getUniqueId();
+						
+					
+						queueName = channel.getVariable(AmiChanVarNameConst.CDR_QUEUE_NAME);
+						hotline = channel.getVariable(AmiChanVarNameConst.CDR_HOTLINE);						
+						channelCustomerAreaCode = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_AREA_CODE);	
+						channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
+						channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);	
+						detailCallType = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CALL_TYPE);						
+						bridgedChannelName = channel.getVariable(AmiChanVarNameConst.BRIDGEPEER);
+						bridgedUniqueId = channel.getVariable(AmiChanVarNameConst.LINKEDID);
+						channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
+						channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);		
+						
+						j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
+						j.put(AmiParamConst.VARIABLE_CNO, cno);	
 						j.put(AmiParamConst.CHANNELSTATE, channelState);
-						j.put(AmiParamConst.CHANNELSTATEDESC, channelStateDesc);
 						j.put(AmiParamConst.CHANNEL, event.getChannel());
-						j.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);					
-						j.put(AmiParamConst.CDR_CUSTOMER_NUMBER, channelCustomerNumber);
-						j.put(AmiParamConst.CDR_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
-						j.put(AmiParamConst.CDR_CUSTOMER_AREA_CODE, channelCustomerAreaCode);
-						j.put(AmiParamConst.CDR_MAIN_UNIQUE_ID, channelMainUniqueId);
 						j.put(AmiParamConst.UNIQUEID, channelUniqueId);
-						j.put(AmiParamConst.CDR_CALL_TYPE, channelCallType);
-						j.put(AmiParamConst.CDR_CALLEE_NUMBER, channelCalleeNumber);
-						j.put(AmiParamConst.CNO, cno);
-						j.put(AmiParamConst.ENTERPRISEID, enterpriseId);					
+						j.put(AmiParamConst.CALL_TYPE, channelCallType);
+						j.put(AmiParamConst.CUSTOMER_NUMBER, channelCustomerNumber);
+						j.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
+						j.put(AmiParamConst.CUSTOMER_NUMBER_AREA_CODE, channelCustomerAreaCode);
+						j.put(AmiParamConst.DETAIL_CALL_TYPE, detailCallType);
+						j.put(AmiParamConst.VARIABLE_HOTLINE, hotline);
+						j.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);
+						j.put(AmiParamConst.VARIABLE_QUEUE, queueName);	
+						j.put(AmiParamConst.VARIABLE_BRIDGED_CHANNEL, bridgedChannelName);
+						j.put(AmiParamConst.VARIABLE_BRIDGED_UNIQUEID, bridgedUniqueId);	
 						amiEventListener.publishEvent(j);
 					}
 				}

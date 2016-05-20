@@ -53,7 +53,8 @@ public class OriginateActionCallback implements OriginateCallback{
 	public void onSuccess(AsteriskChannel channel) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("onSuccess "+originateClientData);
+		System.out.println("onSuccess: "+originateClientData);
+		
 		
 	}
 
@@ -74,11 +75,5 @@ public class OriginateActionCallback implements OriginateCallback{
 		// TODO Auto-generated method stub
 		System.out.println("onFailure "+originateClientData+" cause:"+cause);
 	}
-	
-//	public Class<?> getEventClass() {
-//		return NewChannelEvent.class;
-//	}
-	
-	
 	
 }
