@@ -75,4 +75,10 @@ public class AmiChanVarNameConst {
     public static final String CUR_QUEUE = "cur_queue";
     public static final String ENTERPRISE_ID = "enterprise_id";
     
+    public static final String CONSULT_CANCEL = "consult_cancel";
+    public static final String CONSULT_CANCEL_UNCONSULT_VALUE ="10001";
+    public static final String CONSULT_THREEWAY_CHAN = "consult_threeway_chan";
+	public static final String DIRECT_CALL_READ_STATUS = "DIRECT_CALL_READ_STATUS";
+	public static final String DIRECT_CALL_READ_DONE = "DIRECT_CALL_READ_DONE";
+	public static final String CDR_FORCE_DISCONNECT = "cdr_force_disconnect";
 }

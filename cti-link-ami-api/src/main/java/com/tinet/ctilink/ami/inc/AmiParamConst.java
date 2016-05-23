@@ -44,7 +44,15 @@ public class AmiParamConst {
 	public static final String ORIGINATE_RESPONSE_RESULT_ERROR = "error";
 	public static final String ORIGINATE_RESPONSE_RESULT_SUCCESS = "success";
 	
-	
+    public static final Integer INDICATE_HOLD = 16;
+    public static final Integer INDICATE_UNHOLD = 17;
+    
+    public static final String MUTE_DIRECTION_IN = "in";
+    public static final String MUTE_DIRECTION_OUT = "out";
+    public static final String MUTE_DIRECTION_ALL = "all";
+    
+    public static final String MUTE_STATE_ON = "on";
+    public static final String MUTE_STATE_OFF = "off";  
 	
 	
 	

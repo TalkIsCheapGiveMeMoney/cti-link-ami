@@ -80,13 +80,5 @@ public class AmiConst {
 
     public static final String PREVIEW_OUTCALL_LEFT_CLID = "preview_outcall_left_clid";
     
-    public static final Integer INDICATE_HOLD = 16;
-    public static final Integer INDICATE_UNHOLD = 17;
-    
-    public static final String MUTE_DIRECTION_IN = "in";
-    public static final String MUTE_DIRECTION_OUT = "out";
-    public static final String MUTE_DIRECTION_ALL = "all";
-    
-    public static final String MUTE_STATE_ON = "on";
-    public static final String MUTE_STATE_OFF = "off";
+
 }
