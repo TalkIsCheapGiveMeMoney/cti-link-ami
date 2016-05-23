@@ -16,24 +16,22 @@ package com.tinet.ctilink.ami.inc;
 public class AmiChannelStatusConst {
 	
 //	public static final String DOWN = "0"; // 事件类型：空闲 ，0
-	public static final String TRYING = "1"; // 事件类型：试呼 中，0
-	public static final String RING = "2"; // 事件类型：振铃 ，1
-	public static final String UP = "3"; // 事件类型：通道占用，2
-	public static final String IDLE = "4"; // 事件类型：空闲
+	public static final Integer TRYING = 1; // 事件类型：试呼 中，0
+	public static final Integer RING = 2; // 事件类型：振铃 ，1
+	public static final Integer UP = 3; // 事件类型：通道占用，2
+	public static final Integer IDLE = 4; // 事件类型：空闲
 	
-	private static final String[] channelStateArray={TRYING,RING,UP,IDLE};
-
-	public static String ChannelStateToString(int channelState)
+	public static Integer ChannelStateToString(int channelState)
 	{
 		if(channelState<0||channelState>7)
 			return IDLE;
 		if(channelState == 3||channelState == 4)
-			return channelStateArray[1];
+			return TRYING;
 		if(channelState == 5)
-			return channelStateArray[2];
+			return RING;
 		if(channelState == 6)
-			return channelStateArray[3];
+			return UP;
 		else
-			return channelStateArray[4];
+			return IDLE;
 	}
 }
