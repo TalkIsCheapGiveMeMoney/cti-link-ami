@@ -72,6 +72,7 @@ public class AmiChanVarNameConst {
     
     
     public static final String CDR_QUEUE_NAME = "cdr_queue_name"; 
-    
+    public static final String CUR_QUEUE = "cur_queue";
+    public static final String ENTERPRISE_ID = "enterprise_id";
     
 }
