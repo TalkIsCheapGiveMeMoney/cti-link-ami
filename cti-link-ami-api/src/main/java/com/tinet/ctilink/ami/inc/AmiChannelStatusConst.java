@@ -15,22 +15,25 @@ package com.tinet.ctilink.ami.inc;
 
 public class AmiChannelStatusConst {
 	
-	public static final String DOWN = "Down"; // 事件类型：空闲 ，0
-	public static final String RSRVD = "Rsrvd"; // 事件类型：空闲 ，1
-	public static final String OFFHOOK = "OffHook"; // 事件类型：摘机，2
-	public static final String DIALING = "Dialing"; // 事件类型：拨号中，3
-	public static final String RING = "Ring"; // 事件类型：回铃，4	
-	public static final String RINGING = "ringing"; // 事件类型：振铃，5
-	public static final String UP = "Up"; // 事件类型：接通，6
-	public static final String BUSY = "Busy"; // 事件类型：占线，7
-	public static final String UNKNOWN = "Unknown"; // 事件类型：未知，7
+//	public static final String DOWN = "0"; // 事件类型：空闲 ，0
+	public static final String TRYING = "1"; // 事件类型：试呼 中，0
+	public static final String RING = "2"; // 事件类型：振铃 ，1
+	public static final String UP = "3"; // 事件类型：通道占用，2
+	public static final String IDLE = "4"; // 事件类型：空闲
 	
-	private static final String[] channelStateArray={DOWN,RSRVD,OFFHOOK,DIALING,RING,RINGING,UP,BUSY,UNKNOWN};
+	private static final String[] channelStateArray={TRYING,RING,UP,IDLE};
 
 	public static String ChannelStateToString(int channelState)
 	{
 		if(channelState<0||channelState>7)
-			return UNKNOWN;
-		return channelStateArray[channelState];
+			return IDLE;
+		if(channelState == 3||channelState == 4)
+			return channelStateArray[1];
+		if(channelState == 5)
+			return channelStateArray[2];
+		if(channelState == 6)
+			return channelStateArray[3];
+		else
+			return channelStateArray[4];
 	}
 }

@@ -1,10 +1,7 @@
 package com.tinet.ctilink;
 
-import com.tinet.ctilink.cache.CacheKey;
-import com.tinet.ctilink.cache.RedisService;
-import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.inc.Macro;
-import com.tinet.ctilink.conf.model.SystemSetting;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +12,12 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.AmiManager;
 import com.tinet.ctilink.ami.log.AmiLogQueueEngine;
 import com.tinet.ctilink.ami.ordercallback.OrderCallBackEngine;
-
-
-
-import java.util.List;
+import com.tinet.ctilink.cache.CacheKey;
+import com.tinet.ctilink.cache.RedisService;
+import com.tinet.ctilink.conf.model.SystemSetting;
+import com.tinet.ctilink.inc.Const;
+import com.tinet.ctilink.inc.Macro;
+import com.tinet.ctilink.util.ContextUtil;
 
 /**
  * 应用程序启动器
@@ -54,6 +53,16 @@ public class ApplicationStarter implements ApplicationListener<ContextRefreshedE
 		Macro.loadSystemSettings(systemSettings);
 
 		// 启动与Asterisk的AMI连接
+		System.out.println(ContextUtil.getContext());
+
+		try {
+			while (ContextUtil.getContext() == null) {
+				Thread.sleep(100);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		amiManager.command("start");
 
 		

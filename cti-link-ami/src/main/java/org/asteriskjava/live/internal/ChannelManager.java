@@ -59,6 +59,7 @@ import org.slf4j.LoggerFactory;
 import com.github.pagehelper.StringUtil;
 import com.tinet.ctilink.ami.AmiEventListener;
 import com.tinet.ctilink.ami.inc.AmiChanVarNameConst;
+import com.tinet.ctilink.ami.inc.AmiChannelStatusConst;
 import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.cache.RedisService;
@@ -535,14 +536,7 @@ public class ChannelManager  {
 						String enterpriseId = "";
 						
 						enterpriseId = channel.getVariable(Const.CDR_ENTERPRISE_ID);
-						if(event.getChannelState() == 5)
-						{
-							channelState = "2";
-						}
-						else
-						{
-							channelState = "4";
-						}
+						channelState = AmiChannelStatusConst.ChannelStateToString(event.getChannelState());						
 						
 						channelName = event.getChannel();	
 						channelUniqueId = event.getUniqueId();
@@ -560,7 +554,7 @@ public class ChannelManager  {
 						}catch(Exception e)
 						{
 							e.printStackTrace();
-							channelState = "0";//"7";//
+							channelState = AmiChannelStatusConst.IDLE;
 							j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 							j.put(AmiParamConst.VARIABLE_CNO, cno);	
 							j.put(AmiParamConst.CHANNELSTATE, channelState);
@@ -637,7 +631,7 @@ public class ChannelManager  {
 			String cno = "";
 			String queueName = "";
 			String hotline = "";
-			String channelState = "";	
+			String channelState = AmiChannelStatusConst.IDLE;	
 			String bridgedChannelName = "";
 			String detailCallType = "";
 			
@@ -667,7 +661,7 @@ public class ChannelManager  {
 				}catch(Exception e)
 				{
 					e.printStackTrace();
-					channelState = "0";//"7";//
+					channelState = AmiChannelStatusConst.IDLE;//"7";//
 					j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 					j.put(AmiParamConst.VARIABLE_CNO, cno);	
 					j.put(AmiParamConst.CHANNELSTATE, channelState);
@@ -680,7 +674,7 @@ public class ChannelManager  {
 				j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 				j.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
 				j.put(AmiParamConst.VARIABLE_CNO, cno);	
-				j.put(AmiParamConst.CHANNELSTATE, "1");
+				j.put(AmiParamConst.CHANNELSTATE, channelState);
 				j.put(AmiParamConst.CHANNEL, event.getChannel());
 				j.put(AmiParamConst.UNIQUEID, channelUniqueId);
 				j.put(AmiParamConst.CALL_TYPE, channelCallType);
@@ -725,17 +719,15 @@ public class ChannelManager  {
 			String hotline = "";
 			String channelState = "";	
 			String bridgedChannelName = "";
-			String detailCallType = "";
-			
-//			cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
-//			if(checkWhetherAgentEvent(cno))
+			String detailCallType = "";			
+
 			int channelType = channel.getChannelType();
 			if(channelType == 1 )
 			{
 				JSONObject j=new JSONObject();
 				String channelName = "";
 				String enterpriseId = "";
-				channelState = "3";
+				channelState = AmiChannelStatusConst.IDLE;
 				
 				channelName = event.getChannel();	
 				channelUniqueId = event.getUniqueId();
@@ -753,7 +745,7 @@ public class ChannelManager  {
 				}catch(Exception e)
 				{
 					e.printStackTrace();
-					channelState = "0";//"7";//
+					channelState = AmiChannelStatusConst.IDLE;//"7";//
 					j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 					j.put(AmiParamConst.VARIABLE_CNO, cno);	
 					j.put(AmiParamConst.CHANNELSTATE, channelState);
