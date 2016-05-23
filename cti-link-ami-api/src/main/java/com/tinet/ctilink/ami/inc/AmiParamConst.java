@@ -426,24 +426,19 @@ public class AmiParamConst {
 	public static final String VARIABLE_OB_CLID = "obClid";
 	public static final String VARIABLE_AGENT_LOCATION = "agentLocation";
 	public static final String VARIABLE_AGENT_QUEUE = "agentQueue";
-
 	public static final String VARIABLE_CTIID = "ctiId";
 	
 	
 	//固定参数
 		public static final String DEST_CHANNEL = "dest_channel";
-		public static final String REQUEST_USER_DATA = "request_user_data";
-		public static final String OB_CLID = "ob_clid";
+		public static final String CLID = "clid";
 		public static final String EXTENSION = "exten";
 		public static final String DIALPLAN_CONTEXT = "context";
 		public static final String PRIORITY = "priority";
+		public static final String ORIGINATE_TIMEOUT = "originateTimeout";
 		
-//		public static final String ACTIONID = "actionId";
-	
 	//action parameter
-	//可变参数
-		
-																							
+	//可变参数																		
 	
 		public static final String MAIN_CHANNEL = "main_channel";		
 		public static final String CDR_ENTERPRISE_ID = "cdr_enterprise_id";

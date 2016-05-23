@@ -52,7 +52,8 @@ public class OriginateActionCallback implements OriginateCallback{
 	@Override
 	public void onSuccess(AsteriskChannel channel) {
 		// TODO Auto-generated method stub
-		
+		Map<String,String> callbackData = channel.getVariables();
+		callbackData.put("result", "success");
 		System.out.println("onSuccess: "+originateClientData);
 		
 		
