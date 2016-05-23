@@ -536,7 +536,14 @@ public class ChannelManager  {
 						String enterpriseId = "";
 						
 						enterpriseId = channel.getVariable(Const.CDR_ENTERPRISE_ID);
-						channelState = AmiChannelStatusConst.ChannelStateToString(event.getChannelState());						
+						channelState = AmiChannelStatusConst.ChannelStateToString(event.getChannelState());	
+						if(event.getChannelState() == 5)
+						{
+							JSONObject vars=new JSONObject();
+							vars.put("test1", "pushdata1");
+							vars.put("test2", "pushdata2");
+							j.put(AmiParamConst.VARIABLE_STATUS_VARIABLES, vars);
+						}
 						
 						channelName = event.getChannel();	
 						channelUniqueId = event.getUniqueId();
