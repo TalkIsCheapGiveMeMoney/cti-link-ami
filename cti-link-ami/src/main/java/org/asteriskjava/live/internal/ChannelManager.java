@@ -80,11 +80,9 @@ public class ChannelManager  {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	 
-	   private RedisService redisService;
+   private RedisService redisService;
 	   
-	   private AmiEventListener amiEventListener;
-
-	
+   private AmiEventListener amiEventListener;
 
 	/**
 	 * How long we wait before we remove hung up channels from memory (in
@@ -414,8 +412,6 @@ public class ChannelManager  {
 			} else {
 				channel = addNewChannel(event.getUniqueId(), event.getChannel(), event.getDateReceived(), event.getCallerIdNum(),
 						event.getCallerIdName(), ChannelState.valueOf(event.getChannelState()), event.getAccountCode());
-//				channel.
-//				channel.setVariable(variable, value);
 			}
 		} else {
 			// channel had already been created probably by a NewCallerIdEvent
@@ -446,6 +442,8 @@ public class ChannelManager  {
 	}
 
 	public void handleNewStateEvent(NewStateEvent event) {
+		logger.info("The begin of handleNewStateEvent!" );
+		
 		AsteriskChannelImpl channel = getChannelImplById(event.getUniqueId());
 		if (channel == null) {
 			// NewStateEvent can occur for an existing channel that now has a
@@ -527,14 +525,12 @@ public class ChannelManager  {
 					String bridgedChannelName = "";
 					String detailCallType = "";
 					
-//					cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
-					int channelType = channel.getChannelType();
+					cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
 					if( checkWhetherAgentEvent(cno))
 					{
 						JSONObject j=new JSONObject();
 						String channelName = "";
 						String enterpriseId = "";
-						
 						enterpriseId = channel.getVariable(Const.CDR_ENTERPRISE_ID);
 						channelState = AmiChannelStatusConst.ChannelStateToString(event.getChannelState()).toString();	
 						if(event.getChannelState() == 5)
@@ -591,6 +587,7 @@ public class ChannelManager  {
 				}
 			}
 		}
+		logger.info("The begin of handleNewStateEvent!" );
 	}
 
 	/**
@@ -630,8 +627,7 @@ public class ChannelManager  {
 			String channelCustomerNumber = "";
 			String channelCustomerNumberType = "";
 			String channelCustomerAreaCode = "";
-			String channelUniqueId = "";
-			String channelMainUniqueId = "";
+			String channelUniqueId = "";			
 			String channelNumberTrunk = "";
 			String channelCallType = "";					
 			String bridgedUniqueId = "";					
@@ -700,9 +696,10 @@ public class ChannelManager  {
 	}
 
 	public void handleHangupEvent(HangupEvent event) {
+		
+		logger.info(" The begining of  HangupEvent handler! " + event.getChannel());
 		HangupCause cause = null;
 		AsteriskChannelImpl channel = getChannelImplById(event.getUniqueId());
-
 		if (channel == null) {
 			logger.error("Ignored HangupEvent for unknown channel " + event.getChannel());
 			return;
@@ -714,28 +711,18 @@ public class ChannelManager  {
 
 		synchronized (channel) {
 			channel.hungup(event.getDateReceived(), cause, event.getCauseTxt());
-			String channelCustomerNumber = "";
-			String channelCustomerNumberType = "";
-			String channelCustomerAreaCode = "";
+			
 			String channelUniqueId = "";
-			String channelNumberTrunk = "";
 			String channelCallType = "";					
-			String bridgedUniqueId = "";					
 			String cno = "";
-			String queueName = "";
-			String hotline = "";
-			String channelState = "";	
-			String bridgedChannelName = "";
-			String detailCallType = "";			
+			String channelState = "";
 
 			int channelType = channel.getChannelType();
 			if(channelType == 1 )
 			{
 				JSONObject j=new JSONObject();
 				String channelName = "";
-				String enterpriseId = "";
 				channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
-				
 				channelName = event.getChannel();	
 				channelUniqueId = event.getUniqueId();
 				try{					
@@ -768,23 +755,16 @@ public class ChannelManager  {
 				j.put(AmiParamConst.CHANNEL, event.getChannel());
 				j.put(AmiParamConst.UNIQUEID, channelUniqueId);
 				j.put(AmiParamConst.CALL_TYPE, channelCallType);
-//				j.put(AmiParamConst.CUSTOMER_NUMBER, channelCustomerNumber);
-//				j.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
-//				j.put(AmiParamConst.CUSTOMER_NUMBER_AREA_CODE, channelCustomerAreaCode);
-//				j.put(AmiParamConst.DETAIL_CALL_TYPE, detailCallType);
-//				j.put(AmiParamConst.VARIABLE_HOTLINE, hotline);
-//				j.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);
-//				j.put(AmiParamConst.VARIABLE_QUEUE, queueName);	
-//				j.put(AmiParamConst.VARIABLE_BRIDGED_CHANNEL, bridgedChannelName);
-//				j.put(AmiParamConst.VARIABLE_BRIDGED_UNIQUEID, bridgedUniqueId);	
+	
 				amiEventListener.publishEvent(j);
+				
 			}
-		
-			
 		}
 
 		logger.info("Removing channel " + channel.getName() + " due to hangup (" + cause + ")");
 		removeOldChannels();
+		
+		logger.info(" The end of  HangupEvent handler! " + event.getChannel());
 	}
 
 	public void handleDialEvent(DialEvent event) {
