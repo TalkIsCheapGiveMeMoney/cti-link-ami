@@ -15,13 +15,11 @@ package com.tinet.ctilink.ami.inc;
 
 public class AmiParamConst {
 	
-	//Action Type
-	
-	public static final String ORIGINATE = "Originate"; // 发起呼叫
-	public static final String HANGUP = "Hangup"; // 释放呼叫
-	public static final String MUTEAUDIO = "MuteAudio"; // 静音
-	public static final String CONSULTATIONCALL = "Atxfer"; // 咨询呼叫
-	public static final String CONSULTATIONTRANSFER = "Redirect"; // 咨询转移
+
+	//action top level param name
+	public static final String ACTION_MAP = "actionMap"; 			// 客户号码
+	public static final String CALLBACK_MAP = "callbackMap"; 	// 客户号码类型
+	public static final String CHANNEL_VAR_MAP = "channelVarMap"; 		// 客户区号
 	
 	//used
 	public static final String CUSTOMER_NUMBER = "customerNumber"; 			// 客户号码
@@ -46,12 +44,12 @@ public class AmiParamConst {
 	public static final String ORIGINATE_RESPONSE_RESULT_ERROR = "error";
 	public static final String ORIGINATE_RESPONSE_RESULT_SUCCESS = "success";
 	
+	
+	
+	
+	
+	
 	//event param
-	
-	
-
-
-	
 
 	public static final String LOGIN = "login"; // 登录
 	public static final String LOGOUT = "logout"; // 登出

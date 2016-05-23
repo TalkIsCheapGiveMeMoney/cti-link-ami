@@ -17,15 +17,15 @@ public interface AmiActionService {
 	 * @param params
 	 * @return
 	 */
-	public AmiActionResponse handleAction(String action, Map<String, String> params);
+	public AmiActionResponse handleAction(String action, Map<String, Object> params);
 	
 	
-	/**
-	 * 执行一个AMI动作,参数分为两个部分
-	 * @param action
-	 * @param fixedParams
-	 * @param OptionalParams
-	 * @return
-	 */
-	public AmiActionResponse handleAction(String action, Map<String,String> fixedParams, Map<String, String> OptionalParams);
+//	/**
+//	 * 执行一个AMI动作,参数分为两个部分
+//	 * @param action
+//	 * @param fixedParams
+//	 * @param OptionalParams
+//	 * @return
+//	 */
+//	public AmiActionResponse handleAction(String action, Map<String,String> fixedParams, Map<String, String> OptionalParams);
 }

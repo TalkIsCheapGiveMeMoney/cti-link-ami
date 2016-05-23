@@ -51,15 +51,10 @@ public class AmiActionServiceImpl implements AmiActionService {
 	}
 
 	@Override
-	public AmiActionResponse handleAction(String action, Map<String, String> params) {
+	public AmiActionResponse handleAction(String action, Map<String, Object> params) {
 		logger.debug("AmiAction : {}", action);
 
 		return this.getHandler(action).handle(params);
 	}
 
-	@Override
-	public AmiActionResponse handleAction(String action, Map<String, String> fixedParams, Map<String, String> optionalParams) {
-		// TODO Auto-generated method stub
-		return this.getHandler(action).handle(fixedParams,optionalParams);
-	}
 }

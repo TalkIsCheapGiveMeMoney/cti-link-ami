@@ -22,15 +22,15 @@ public class BargeActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public AmiActionResponse handle(Map<String, String> params) {
+	public AmiActionResponse handle(Map<String, Object> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 
-		String bargeObject = params.get(AmiParamConst.VARIABLE_BARGE_OBJECT);
-		String objectType = params.get(AmiParamConst.VARIABLE_OBJECT_TYPE);
-		String bargedCno = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_BARGED_CNO));
-		String destInterface = params.get(AmiParamConst.VARIABLE_DEST_INTERFACE);
-		String gwIp = params.get(AmiParamConst.VARIABLE_GWIP);
-		String clid = params.get(AmiParamConst.VARIABLE_CLID);// 外显号码
+//		String bargeObject = params.get(AmiParamConst.VARIABLE_BARGE_OBJECT);
+//		String objectType = params.get(AmiParamConst.VARIABLE_OBJECT_TYPE);
+//		String bargedCno = StringUtils.trimToEmpty(params.get(AmiParamConst.VARIABLE_BARGED_CNO));
+//		String destInterface = params.get(AmiParamConst.VARIABLE_DEST_INTERFACE);
+//		String gwIp = params.get(AmiParamConst.VARIABLE_GWIP);
+//		String clid = params.get(AmiParamConst.VARIABLE_CLID);// 外显号码
 
 //		CtiAgent ctiAgent = getCtiAgent(params);
 //		if (ctiAgent == null) {
@@ -113,10 +113,6 @@ public class BargeActionHandler extends AbstractActionHandler {
 		return SUCCESS;
 	}
 
-	@Override
-	public AmiActionResponse handle(Map<String, String> fixParams, Map<String, String> optionalParams) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

@@ -21,11 +21,11 @@ public class MuteActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public AmiActionResponse handle( Map<String, String> params) {
+	public AmiActionResponse handle( Map<String, Object> params) {
 		logger.info("handle {} action : {}", this.getAction(), params);
 		
-		String direction = params.get(AmiParamConst.VARIABLE_MUTE_DIRECTION);
-		String state = params.get(AmiParamConst.VARIABLE_MUTE_STATE);
+//		String direction = params.get(AmiParamConst.VARIABLE_MUTE_DIRECTION);
+//		String state = params.get(AmiParamConst.VARIABLE_MUTE_STATE);
 
 //		CtiAgent ctiAgent = getCtiAgent(params);
 //		if (ctiAgent == null) {
@@ -64,10 +64,6 @@ public class MuteActionHandler extends AbstractActionHandler {
 		return SUCCESS;
 	}
 
-	@Override
-	public AmiActionResponse handle(Map<String, String> fixParams, Map<String, String> optionalParams) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

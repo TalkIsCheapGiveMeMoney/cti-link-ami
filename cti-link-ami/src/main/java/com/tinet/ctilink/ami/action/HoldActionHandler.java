@@ -20,7 +20,7 @@ public class HoldActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public AmiActionResponse handle(Map<String, String> params) {
+	public AmiActionResponse handle(Map<String, Object> params) {
 		logger.debug("handle {} action : {}", this.getAction(), params);
 
 /*		CtiAgent ctiAgent = getCtiAgent(params);
@@ -81,9 +81,5 @@ public class HoldActionHandler extends AbstractActionHandler {
 		return SUCCESS;
 	}
 
-	@Override
-	public AmiActionResponse handle(Map<String, String> fixParams, Map<String, String> optionalParams) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }

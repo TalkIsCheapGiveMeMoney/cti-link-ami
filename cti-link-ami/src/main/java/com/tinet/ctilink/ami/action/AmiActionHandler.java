@@ -15,8 +15,8 @@ import com.tinet.ctilink.ami.action.AmiActionResponse;
 public interface AmiActionHandler {
 	public String getAction();
 
-	public AmiActionResponse handle(Map<String, String> params);
-	public AmiActionResponse handle(Map<String, String> fixParams,Map<String, String> optionalParams);
+	public AmiActionResponse handle(Map<String, Object> params);
+//	public AmiActionResponse handle(Map<String, String> fixParams,Map<String, String> optionalParams);
 	
 
 }
