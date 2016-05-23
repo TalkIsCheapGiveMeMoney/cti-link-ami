@@ -16,10 +16,10 @@ package com.tinet.ctilink.ami.inc;
 public class AmiChannelStatusConst {
 	
 //	public static final String DOWN = "0"; // 事件类型：空闲 ，0
-	public static final Integer TRYING = 1; // 事件类型：试呼 中，0
-	public static final Integer RING = 2; // 事件类型：振铃 ，1
-	public static final Integer UP = 3; // 事件类型：通道占用，2
-	public static final Integer IDLE = 4; // 事件类型：空闲
+	public static final int TRYING = 1; // 事件类型：试呼 中，0
+	public static final int RING = 2; // 事件类型：振铃 ，1
+	public static final int UP = 3; // 事件类型：通道占用，2
+	public static final int IDLE = 4; // 事件类型：空闲
 	
 	public static Integer ChannelStateToString(int channelState)
 	{
