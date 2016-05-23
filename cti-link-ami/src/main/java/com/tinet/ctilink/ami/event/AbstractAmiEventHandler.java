@@ -37,6 +37,7 @@ public abstract class AbstractAmiEventHandler {
 	}
 	
 	public void publishEvent(final JSONObject event) {
+		logger.info(" published event: " + event.toString());
 		amiEventPublisher.publish(event);
 	}
 
