@@ -561,7 +561,7 @@ public class ChannelManager  {
 						}catch(Exception e)
 						{
 							e.printStackTrace();
-							channelState = AmiChannelStatusConst.IDLE.toString();
+							channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
 							j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 							j.put(AmiParamConst.VARIABLE_CNO, cno);	
 							j.put(AmiParamConst.CHANNELSTATE, channelState);
@@ -638,7 +638,7 @@ public class ChannelManager  {
 			String cno = "";
 			String queueName = "";
 			String hotline = "";
-			String channelState = AmiChannelStatusConst.IDLE.toString();	
+			String channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();	
 			String bridgedChannelName = "";
 			String detailCallType = "";
 			
@@ -668,7 +668,7 @@ public class ChannelManager  {
 				}catch(Exception e)
 				{
 					e.printStackTrace();
-					channelState = AmiChannelStatusConst.IDLE.toString();
+					channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
 					j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 					j.put(AmiParamConst.VARIABLE_CNO, cno);	
 					j.put(AmiParamConst.CHANNELSTATE, channelState);
@@ -734,7 +734,7 @@ public class ChannelManager  {
 				JSONObject j=new JSONObject();
 				String channelName = "";
 				String enterpriseId = "";
-				channelState = AmiChannelStatusConst.IDLE.toString();
+				channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
 				
 				channelName = event.getChannel();	
 				channelUniqueId = event.getUniqueId();
@@ -752,7 +752,7 @@ public class ChannelManager  {
 				}catch(Exception e)
 				{
 					e.printStackTrace();
-					channelState = AmiChannelStatusConst.IDLE.toString();//"7";//
+					channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();//"7";//
 					j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 					j.put(AmiParamConst.VARIABLE_CNO, cno);	
 					j.put(AmiParamConst.CHANNELSTATE, channelState);
