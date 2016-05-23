@@ -67,6 +67,8 @@ public class OriginateAction extends AbstractManagerAction implements EventGener
 	private String data;
 	private Boolean async;
 	private String codecs;
+	private String channelId;
+	private String otherChannelId;
 
 	/**
 	 * Returns the name of this action, i.e. "Originate".
@@ -449,6 +451,22 @@ public class OriginateAction extends AbstractManagerAction implements EventGener
 			buffer.append(",").append(iter.next());
 		}
 		this.codecs = buffer.toString();
+	}
+
+	public String getChannelId() {
+		return channelId;
+	}
+
+	public void setChannelId(String channelId) {
+		this.channelId = channelId;
+	}
+
+	public String getOtherChannelId() {
+		return otherChannelId;
+	}
+
+	public void setOtherChannelId(String otherChannelId) {
+		this.otherChannelId = otherChannelId;
 	}
 
 	public Class<? extends ResponseEvent> getActionCompleteEventClass() {

@@ -43,7 +43,8 @@ public class AmiParamConst {
 	public static final String VARIABLE_BRIDGED_CHANNEL = "bridgedChannel";
 	public static final String VARIABLE_BRIDGED_UNIQUEID = "bridgedUniqueId";
 	public static final String VARIABLE_STATUS_VARIABLES = "variables";
-	
+	public static final String ORIGINATE_RESPONSE_RESULT_ERROR = "error";
+	public static final String ORIGINATE_RESPONSE_RESULT_SUCCESS = "success";
 	
 	//event param
 	
