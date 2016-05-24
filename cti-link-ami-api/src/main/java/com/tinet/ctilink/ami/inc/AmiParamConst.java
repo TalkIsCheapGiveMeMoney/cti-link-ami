@@ -42,16 +42,28 @@ public class AmiParamConst {
 	public static final String VARIABLE_BRIDGED_UNIQUEID = "bridgedUniqueId";
 	public static final String VARIABLE_STATUS_VARIABLES = "variables";
 	
+	public static final Integer INDICATE_HOLD = 16;
+	public static final Integer INDICATE_UNHOLD = 17;
+	public static final String MUTE_DIRECTION_IN = "in";
+	public static final String MUTE_DIRECTION_OUT = "out";
+	public static final String MUTE_DIRECTION_ALL = "all";
+	public static final String MUTE_STATE_ON = "on";
+	public static final String MUTE_STATE_OFF = "off";  
 	
-    public static final Integer INDICATE_HOLD = 16;
-    public static final Integer INDICATE_UNHOLD = 17;
-    
-    public static final String MUTE_DIRECTION_IN = "in";
-    public static final String MUTE_DIRECTION_OUT = "out";
-    public static final String MUTE_DIRECTION_ALL = "all";
-    
-    public static final String MUTE_STATE_ON = "on";
-    public static final String MUTE_STATE_OFF = "off";  
+	
+	//action固定参数		
+	public static final String EXTENSION = "exten";
+	public static final String DIALPLAN_CONTEXT = "context";
+	public static final String PRIORITY = "priority";
+	public static final String ORIGINATE_TIMEOUT = "originateTimeout";
+	public static final String DEST_CHANNEL = "destChannel";
+	public static final String OTHER_CHANNEL_ID = "otherChannelId ";
+	public static final String CLID = "clid";
+	
+	
+	
+	
+   
 	
     //used const parameter value
     public static final String ORIGINATE_RESPONSE_RESULT_ERROR = "error";
@@ -432,13 +444,9 @@ public class AmiParamConst {
 	public static final String VARIABLE_CTIID = "ctiId";
 	
 	
-	//固定参数
-		public static final String DEST_CHANNEL = "dest_channel";
-		public static final String CLID = "clid";
-		public static final String EXTENSION = "exten";
-		public static final String DIALPLAN_CONTEXT = "context";
-		public static final String PRIORITY = "priority";
-		public static final String ORIGINATE_TIMEOUT = "originateTimeout";
+	
+		
+		
 		
 	//action parameter
 	//可变参数																		
