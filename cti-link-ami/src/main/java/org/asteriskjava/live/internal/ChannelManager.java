@@ -596,7 +596,7 @@ public class ChannelManager  {
 	 * @return
 	 */
 	private boolean checkWhetherAgentEvent(String cno) {
-		return cno!=null&&StringUtil.isNotEmpty(cno);
+		return StringUtil.isNotEmpty(cno);
 	}
 
 	public void handleNewCallerIdEvent(NewCallerIdEvent event) {
