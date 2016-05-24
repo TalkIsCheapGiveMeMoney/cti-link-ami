@@ -81,4 +81,6 @@ public class AmiChanVarNameConst {
 	public static final String DIRECT_CALL_READ_STATUS = "DIRECT_CALL_READ_STATUS";
 	public static final String DIRECT_CALL_READ_DONE = "DIRECT_CALL_READ_DONE";
 	public static final String CDR_FORCE_DISCONNECT = "cdr_force_disconnect";
+	/**通道变量:is_investigation 前台满意度调查时会设置这个变量*/
+	public static final String IS_INVESTIGATION = "is_investigation";
 }
