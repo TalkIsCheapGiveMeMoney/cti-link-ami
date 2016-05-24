@@ -4,7 +4,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.tinet.ctilink.ami.inc.AmiParamConst;
+import com.tinet.ctilink.ami.inc.AmiActionTypeConst;
+
 
 
 /**
@@ -17,7 +18,7 @@ public class MuteActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiParamConst.MUTE;
+		return AmiActionTypeConst.MUTE;
 	}
 
 	@Override

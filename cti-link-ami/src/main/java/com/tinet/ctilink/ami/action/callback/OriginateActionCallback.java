@@ -5,35 +5,21 @@ import java.util.Map;
 import org.asteriskjava.live.AsteriskChannel;
 import org.asteriskjava.live.LiveException;
 import org.asteriskjava.live.OriginateCallback;
-import org.asteriskjava.live.internal.OriginateCallbackData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.tinet.ctilink.ami.event.AmiEventPublisher;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
+import com.tinet.ctilink.json.JSONObject;
 
 @Component
 public class OriginateActionCallback implements OriginateCallback{
 	
+	@Autowired
+	protected AmiEventPublisher amiEventPublisher;
+	
 	private Map<String, String> originateDataArray;
-	private String originateClientData;
-
-//	@Override
-//	public void onSuccess(OriginateCallbackData callbackData) {
-//		// TODO Auto-generated method stub
-//		System.out.println("onSuccess"+originateDataArray.toString());
-//	}
-//
-//	@Override
-//	public void onFailure(OriginateCallbackData callbackData,LiveException cause) {
-//		// TODO Auto-generated method stub
-//		System.out.println("onFailure"+originateDataArray.toString());
-//		
-//	}
-
-	public String getOriginateClientData() {
-		return originateClientData;
-	}
-
-	public void setOriginateClientData(String originateClientData) {
-		this.originateClientData = originateClientData;
-	}
+	
 
 	public Map<String, String> getOriginateDataArray() {
 		return originateDataArray;
@@ -42,7 +28,7 @@ public class OriginateActionCallback implements OriginateCallback{
 	public void setOriginateDataArray(Map<String, String> originateDataArray) {
 		this.originateDataArray = originateDataArray;
 	}
-
+	
 	@Override
 	public void onDialing(AsteriskChannel channel) {
 		// TODO Auto-generated method stub
@@ -52,29 +38,53 @@ public class OriginateActionCallback implements OriginateCallback{
 	@Override
 	public void onSuccess(AsteriskChannel channel) {
 		// TODO Auto-generated method stub
-		Map<String,String> callbackData = channel.getVariables();
-		callbackData.put("result", "success");
-		System.out.println("onSuccess: "+originateClientData);
-		
-		
+//		Map<String,String> callbackData = channel.getVariables();
+		if(originateDataArray == null)
+			return;
+		originateDataArray.put("result", AmiParamConst.ORIGINATE_RESPONSE_RESULT_SUCCESS);		
+		JSONObject json = new JSONObject();
+	    json.putAll( originateDataArray );	    
+	    System.out.println("onSuccess: "+json);
+	    amiEventPublisher.publish(json);		
 	}
 
 	@Override
 	public void onNoAnswer(AsteriskChannel channel) {
 		// TODO Auto-generated method stub
-		System.out.println("onNoAnswer "+originateClientData);
+		if(originateDataArray == null)
+			return;
+		originateDataArray.put("result", AmiParamConst.ORIGINATE_RESPONSE_RESULT_ERROR);		
+		JSONObject json = new JSONObject();
+	    json.putAll( originateDataArray );	    
+	    System.out.println("onNoAnswer: "+json);
+	    amiEventPublisher.publish(json);
 	}
 
 	@Override
 	public void onBusy(AsteriskChannel channel) {
 		// TODO Auto-generated method stub
-		System.out.println("onBusy "+originateClientData);
+//		System.out.println("onBusy "+originateClientData);
+		if(originateDataArray == null)
+			return;
+		originateDataArray.put("result", AmiParamConst.ORIGINATE_RESPONSE_RESULT_ERROR);		
+		JSONObject json = new JSONObject();
+	    json.putAll( originateDataArray );	    
+	    System.out.println("onBusy: "+json);
+	    amiEventPublisher.publish(json);
 	}
 
 	@Override
 	public void onFailure(LiveException cause) {
 		// TODO Auto-generated method stub
-		System.out.println("onFailure "+originateClientData+" cause:"+cause);
+//		System.out.println("onFailure "+originateClientData+" cause:"+cause);
+		
+		if(originateDataArray == null)
+			return;
+		originateDataArray.put("result", AmiParamConst.ORIGINATE_RESPONSE_RESULT_ERROR);		
+		JSONObject json = new JSONObject();
+	    json.putAll( originateDataArray );	    
+	    System.out.println("onFailure: "+json);
+	    amiEventPublisher.publish(json);
 	}
 	
 }

@@ -39,7 +39,7 @@ public class OriginateActionHandler extends AbstractActionHandler {
 			logger.error("Parameter name "+ AmiParamConst.ACTION_MAP + " is empty!!!!!");
 			return ERROR_BAD_PARAM;
 		}
-		callbackMap = (Map<String, String>)(params.get(AmiParamConst.CALLBACK_MAP));
+		
 		chanvarMap = (Map<String, String>)(params.get(AmiParamConst.CHANNEL_VAR_MAP));
 		
 		originateAction = new OriginateAction();			
@@ -52,6 +52,7 @@ public class OriginateActionHandler extends AbstractActionHandler {
 		String context = actionMap.get(AmiParamConst.DIALPLAN_CONTEXT);			
 		String clid = actionMap.get(AmiParamConst.CLID);
 		String extension = actionMap.get(AmiParamConst.EXTENSION);
+		String otherChannelId = actionMap.get(AmiParamConst.OTHER_CHANNEL_ID);
 		try{
 			timeout = Integer.parseInt(actionMap.get(AmiParamConst.ORIGINATE_TIMEOUT));
 		}catch(NumberFormatException e)
@@ -59,7 +60,8 @@ public class OriginateActionHandler extends AbstractActionHandler {
 			timeout = 60;
 			e.printStackTrace();
 		}
-		originateAction.setChannel(dstChannel); //set channel		
+		originateAction.setChannel(dstChannel); //set channel	
+		originateAction.setOtherChannelId(otherChannelId);
 		originateAction.setContext(context); // set
 		originateAction.setExten(extension); //set extension
 		originateAction.setTimeout((long)timeout * 1000); //set timeout
@@ -67,6 +69,7 @@ public class OriginateActionHandler extends AbstractActionHandler {
 		originateAction.setCallerId(clid);		
 		originateAction.setVariables(chanvarMap);
 		
+		callbackMap = (Map<String, String>)(params.get(AmiParamConst.CALLBACK_MAP));
 		OriginateActionCallback observer = null;
 		if(callbackMap!=null)
 		{

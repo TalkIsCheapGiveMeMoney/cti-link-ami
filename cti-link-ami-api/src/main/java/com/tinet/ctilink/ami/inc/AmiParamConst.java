@@ -21,7 +21,7 @@ public class AmiParamConst {
 	public static final String CALLBACK_MAP = "callbackMap"; 	// 客户号码类型
 	public static final String CHANNEL_VAR_MAP = "channelVarMap"; 		// 客户区号
 	
-	//used
+	//used parameter name
 	public static final String CUSTOMER_NUMBER = "customerNumber"; 			// 客户号码
 	public static final String CUSTOMER_NUMBER_TYPE = "customerNumberType"; 	// 客户号码类型
 	public static final String CUSTOMER_NUMBER_AREA_CODE = "customerNumberAreaCode"; 		// 客户区号
@@ -41,30 +41,37 @@ public class AmiParamConst {
 	public static final String VARIABLE_BRIDGED_CHANNEL = "bridgedChannel";
 	public static final String VARIABLE_BRIDGED_UNIQUEID = "bridgedUniqueId";
 	public static final String VARIABLE_STATUS_VARIABLES = "variables";
-	public static final String ORIGINATE_RESPONSE_RESULT_ERROR = "error";
+	
+	public static final Integer INDICATE_HOLD = 16;
+	public static final Integer INDICATE_UNHOLD = 17;
+	public static final String MUTE_DIRECTION_IN = "in";
+	public static final String MUTE_DIRECTION_OUT = "out";
+	public static final String MUTE_DIRECTION_ALL = "all";
+	public static final String MUTE_STATE_ON = "on";
+	public static final String MUTE_STATE_OFF = "off";  
+	
+	
+	//action固定参数		
+	public static final String EXTENSION = "exten";
+	public static final String DIALPLAN_CONTEXT = "context";
+	public static final String PRIORITY = "priority";
+	public static final String ORIGINATE_TIMEOUT = "originateTimeout";
+	public static final String DEST_CHANNEL = "destChannel";
+	public static final String OTHER_CHANNEL_ID = "otherChannelId ";
+	public static final String CLID = "clid";
+	
+	
+	
+	
+   
+	
+    //used const parameter value
+    public static final String ORIGINATE_RESPONSE_RESULT_ERROR = "error";
 	public static final String ORIGINATE_RESPONSE_RESULT_SUCCESS = "success";
-	
-    public static final Integer INDICATE_HOLD = 16;
-    public static final Integer INDICATE_UNHOLD = 17;
-    
-    public static final String MUTE_DIRECTION_IN = "in";
-    public static final String MUTE_DIRECTION_OUT = "out";
-    public static final String MUTE_DIRECTION_ALL = "all";
-    
-    public static final String MUTE_STATE_ON = "on";
-    public static final String MUTE_STATE_OFF = "off";  
-	
-	
-	
 	
 	//event param
 
-	public static final String LOGIN = "login"; // 登录
-	public static final String LOGOUT = "logout"; // 登出
-	public static final String PAUSE = "pause"; // 置忙
-	public static final String UNPAUSE = "unpause"; // 置闲
-	public static final String SETPAUSE = "setPause"; // 监控置忙
-	public static final String SETUNPAUSE = "setUnpause"; // 监控置闲
+	
 	public static final String REFUSE = "refuse"; // 拒绝
 	public static final String LINK = "link"; // 接听
 	public static final String UNLINK = "unlink"; // 挂断或者取消呼叫
@@ -437,13 +444,9 @@ public class AmiParamConst {
 	public static final String VARIABLE_CTIID = "ctiId";
 	
 	
-	//固定参数
-		public static final String DEST_CHANNEL = "dest_channel";
-		public static final String CLID = "clid";
-		public static final String EXTENSION = "exten";
-		public static final String DIALPLAN_CONTEXT = "context";
-		public static final String PRIORITY = "priority";
-		public static final String ORIGINATE_TIMEOUT = "originateTimeout";
+	
+		
+		
 		
 	//action parameter
 	//可变参数																		
