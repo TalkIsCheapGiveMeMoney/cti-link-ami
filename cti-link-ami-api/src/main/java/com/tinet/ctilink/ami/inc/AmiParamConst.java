@@ -499,7 +499,7 @@ public class AmiParamConst {
 		
 		public static final String NUMBER_TRUNK_AREA_CODE="number_trunk_area_code";
 		
-		public static final String ENTERPRISE_ID="enterprise_id";
+
 		public static final String WEBCALL_IVR_ID = "webcall_ivr_id";
 
 		

@@ -3,7 +3,7 @@ package com.tinet.ctilink;
 public class AmiConst {
 	 public static final int ASTERISK_AMI_PORT = 5038;
 
-    public static final String ASTERISK_AMI_HOST = "127.0.0.1";
+    public static final String ASTERISK_AMI_HOST = "54.222.193.25";
 
     public static final String ASTERISK_AMI_MANAGER_USER = "manager";
 
