@@ -551,7 +551,7 @@ public class ChannelManager  {
 							channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
 							channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);	
 							detailCallType = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CALL_TYPE);						
-							bridgedChannelName = channel.getVariable(AmiChanVarNameConst.BRIDGEPEER);
+							bridgedChannelName = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
 							bridgedUniqueId = channel.getVariable(AmiChanVarNameConst.LINKEDID);
 							channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
 							channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);		
@@ -637,7 +637,14 @@ public class ChannelManager  {
 			String bridgedChannelName = "";
 			String detailCallType = "";
 			
-			cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
+			try{
+				cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return;				
+			}
+			
 			if(checkWhetherAgentEvent(cno))
 			{
 				channel.setChannelType(1);
@@ -657,7 +664,7 @@ public class ChannelManager  {
 					channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
 					channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);	
 					detailCallType = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CALL_TYPE);						
-					bridgedChannelName = channel.getVariable(AmiChanVarNameConst.BRIDGEPEER);
+					bridgedChannelName = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
 					bridgedUniqueId = channel.getVariable(AmiChanVarNameConst.LINKEDID);
 					channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
 					channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);		

@@ -39,7 +39,7 @@ public class AmiChanVarNameConst {
     public static final String CDR_ENTERPRISE_ID = "cdr_enterprise_id";
     public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id";
     public static final	String UNIQUEID = "UNIQUEID";
-    public static final	String BRIDGEPEER = "BRIDGEPEER";
+//    public static final	String BRIDGEPEER = "BRIDGEPEER";
     public static final	String LINKEDID = "CHANNEL(linkedid)";
     public static final String CDR_START_TIME = "cdr_start_time";
     public static final String CDR_DETAIL_CNO = "cdr_detail_cno";

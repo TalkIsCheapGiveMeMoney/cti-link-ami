@@ -60,18 +60,12 @@ public class AmiParamConst {
 	public static final String OTHER_CHANNEL_ID = "otherChannelId ";
 	public static final String CLID = "clid";
 	
-	
-	
-	
-   
-	
+		
     //used const parameter value
     public static final String ORIGINATE_RESPONSE_RESULT_ERROR = "error";
 	public static final String ORIGINATE_RESPONSE_RESULT_SUCCESS = "success";
 	
-	//event param
-
-	
+	//event param	
 	public static final String REFUSE = "refuse"; // 拒绝
 	public static final String LINK = "link"; // 接听
 	public static final String UNLINK = "unlink"; // 挂断或者取消呼叫
