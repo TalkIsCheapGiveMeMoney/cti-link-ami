@@ -19,6 +19,7 @@ import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 import com.tinet.ctilink.inc.Const;
+import com.tinet.ctilink.inc.EnterpriseSettingConst;
 import com.tinet.ctilink.json.JSONObject;
 
 /**
@@ -65,7 +66,7 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 		// ivr来电数统计
 		if(callType != null && (callType.equals(String.valueOf(Const.CDR_CALL_TYPE_IB)) || callType.equals(String.valueOf(Const.CDR_CALL_TYPE_OB_WEBCALL)) || callType.equals(String.valueOf(Const.CDR_CALL_TYPE_PREDICTIVE_OB)))){
 			EnterpriseSetting enterpriseSetting = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
-					Integer.parseInt(enterpriseId), Const.ENTERPRISE_SETTING_NAME_IVR_OBSERVER), EnterpriseSetting.class);
+					Integer.parseInt(enterpriseId), EnterpriseSettingConst.ENTERPRISE_SETTING_NAME_IVR_OBSERVER), EnterpriseSetting.class);
 			if(enterpriseSetting != null && enterpriseSetting.getValue() != null && enterpriseSetting.getValue().equals("1") ){
 				ivrMonitorService.setIvrIncomings(enterpriseId, ivrId, event.getDateReceived(),((IncomingEvent)event).getEnterpriseIdIvrIdCount());
 			}

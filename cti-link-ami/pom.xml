@@ -14,7 +14,7 @@
         <jvm.xms>256m</jvm.xms>
         <jvm.xmx>2048m</jvm.xmx>
         <jvm.jmx.port>60002</jvm.jmx.port>
-    </properties>
+    </properties>    
     <dependencies>
         <dependency>
             <groupId>com.tinet.ctilink</groupId>
