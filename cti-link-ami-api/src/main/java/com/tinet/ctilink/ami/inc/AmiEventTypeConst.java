@@ -21,7 +21,6 @@ public class AmiEventTypeConst {
 	public static final String INCOMING = "incoming"; // 事件类型：来电
 	public static final String ANSWER = "answer"; // 事件类型：系统应答
 	public static final String UNANSWER = "unanswer"; // 事件类型：未接来电	
-	public static final String RINGING = "ringing"; // 事件类型：响铃事件
 	public static final String BRIDGED = "bridged"; // 事件类型：坐席桥接(只用于推送)
 	public static final String STATUS = "status"; // 事件类型：状态改变
 	public static final String SPY_LINK = "spyLink"; // 事件类型: 监听接听
