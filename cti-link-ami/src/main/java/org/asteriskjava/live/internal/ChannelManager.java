@@ -19,6 +19,7 @@ package org.asteriskjava.live.internal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import sun.misc.BASE64Decoder;
 import org.asteriskjava.live.AsteriskChannel;
 import org.asteriskjava.live.CallerId;
 import org.asteriskjava.live.ChannelState;
@@ -56,16 +58,23 @@ import org.asteriskjava.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.pagehelper.StringUtil;
 import com.tinet.ctilink.ami.AmiEventListener;
 import com.tinet.ctilink.ami.inc.AmiChanVarNameConst;
 import com.tinet.ctilink.ami.inc.AmiChannelStatusConst;
 import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
+import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
+import com.tinet.ctilink.conf.model.EnterpriseHangupAction;
+import com.tinet.ctilink.conf.model.EnterpriseSetting;
+import com.tinet.ctilink.curl.CurlData;
+import com.tinet.ctilink.curl.CurlPushClient;
 import com.tinet.ctilink.inc.Const;
+import com.tinet.ctilink.inc.StringUtil;
 import com.tinet.ctilink.json.JSONObject;
 import com.tinet.ctilink.util.ContextUtil;
+
+
 
 
 
@@ -525,6 +534,9 @@ public class ChannelManager  {
 					String bridgedChannelName = "";
 					String detailCallType = "";
 					
+					
+					
+					
 					cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
 					if( checkWhetherAgentEvent(cno))
 					{
@@ -536,12 +548,91 @@ public class ChannelManager  {
 						channelState = AmiChannelStatusConst.ChannelStateToString(event.getChannelState()).toString();	
 						if(event.getChannelState() == 5)
 						{
-							JSONObject vars=new JSONObject();
-							vars.put("test1", "pushdata1");
-							vars.put("test2", "pushdata2");
-							j.put(AmiParamConst.VARIABLE_STATUS_VARIABLES, vars);
+							Map<String, String> vars = new HashMap<String, String>();							
+							HashMap<String, String> map = new HashMap<String, String>();
+				    		map.put(AmiParamConst.ENTERPRISEID,String.valueOf(enterpriseId));
+				    		map.put(AmiParamConst.CALL_TYPE,channelCallType);
+				    		map.put(AmiParamConst.DETAIL_CALL_TYPE,detailCallType);			    		
+				    		
+							Integer curlType = 0;
+							if ((Const.CDR_CALL_TYPE_OB_WEBCALL+"").equals(channelCallType)) {
+								curlType = Const.ENTERPRISE_PUSH_TYPE_RINGING_OB;
+							} else {
+								curlType = Const.ENTERPRISE_PUSH_TYPE_RINGING_IB;
+							}
+							
+							List<EnterpriseHangupAction> pushActionList = ContextUtil.getBean(RedisService.class).getList(Const.REDIS_DB_CONF_INDEX
+									, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId, curlType), EnterpriseHangupAction.class);
+
+							if (pushActionList != null && pushActionList.size() > 0) {
+								
+								EnterpriseHangupAction pushAction = pushActionList.get(0);
+								CurlData curlData = new CurlData();								
+								curlData.setEnterpriseId(Integer.parseInt(enterpriseId));
+								String url = pushAction.getUrl();
+								if (pushAction.getMethod() != null && pushAction.getMethod() == 1) {
+									curlData.setMethod("GET");
+								}
+								String urlParams = null;
+								// url支持 ?abc=a&bbb=c的格式
+								if (url != null && url.indexOf('?') != -1) {
+									String[] temp = url.split("\\?");
+									url = temp[0];
+									if (temp.length > 1) {
+										urlParams = temp[1];
+									}
+								}
+								if(StringUtil.isNotEmpty(url))
+								{
+									curlData.setUrl(url);
+									curlData.setTimeout(pushAction.getTimeout());
+									curlData.setRetry(pushAction.getRetry());
+									BASE64Decoder base64Decoder = new BASE64Decoder();
+									
+									String paramName[] = StringUtil.split(pushAction.getParamName(), ',');
+						    		String paramVariable[] = StringUtil.split(pushAction.getParamVariable(), ',');
+						    		String value = null;
+						    		for(int i=0; i< paramName.length; i++){
+						    			try{
+							    			String param = new String(base64Decoder.decodeBuffer(paramName[i]));
+							                String variable = new String(base64Decoder.decodeBuffer(paramVariable[i]));					    			
+								    		int count = 0;
+							                while(variable.contains("${") && variable.contains("}") && count < 20){
+							                    String var = variable.substring(variable.indexOf("${")+2, variable.indexOf("}"));
+							                    String varval="";					                    
+						            			varval = ((AsteriskChannel)channel).getVariable(var);					            		
+							                    variable = variable.substring(0, variable.indexOf("${")) + varval + variable.substring(variable.indexOf("}")+1);
+							                    count++;
+							                }
+							                if(map.get(variable) != null){
+							                	value = map.get(variable);
+							                }else{
+							        			value = ((AsteriskChannel)channel).getVariable(variable);
+							                }
+							                vars.put(param, value);
+						    			}catch(Exception e){
+						    				e.printStackTrace();
+						    			}
+						    		}					    		
+						    		// 获取curl级别
+									int level = 0;
+									EnterpriseSetting setting = ContextUtil.getBean(RedisService.class).get(Const.REDIS_DB_CONF_INDEX
+											, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
+											enterpriseId, Const.ENTERPRISE_SETTING_NAME_CURL_LEVEL), EnterpriseSetting.class);
+									if (setting != null && setting.getId() != null) {
+										level = Integer.parseInt(setting.getValue());
+									}
+									curlData.setParams(vars);
+									curlData.setLevel(level);
+									curlData.setType(curlType);
+									CurlPushClient.addPushQueue(curlData);
+								}
+								else
+								{
+									logger.error("Curl' url setting is empty!!");
+								}
+							}
 						}
-						
 						channelName = event.getChannel();	
 						channelUniqueId = event.getUniqueId();
 						try{					
@@ -566,7 +657,6 @@ public class ChannelManager  {
 							j.put(AmiParamConst.UNIQUEID, channelUniqueId);
 							amiEventListener.publishEvent(j);
 							return;
-							
 						}
 						j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 						j.put(AmiParamConst.VARIABLE_CNO, cno);	
@@ -588,7 +678,7 @@ public class ChannelManager  {
 				}
 			}
 		}
-		logger.info("The begin of handleNewStateEvent!" );
+		logger.info("The end of handleNewStateEvent!" );
 	}
 
 	/**
@@ -994,4 +1084,67 @@ public class ChannelManager  {
 			}
 		}
 	}
+	
+	
+public static Map<String,String> buildParams(String url, String[] paramName, String[] paramVariable, HashMap<String, String> map, Object channel){
+		Map<String,String> params = new HashMap();
+		BASE64Decoder base64Decoder = new BASE64Decoder();
+//		AsteriskChannelImpl channel
+		
+		for(int i=0; i< paramName.length; i++){
+			try{
+				String param = new String(base64Decoder.decodeBuffer(paramName[i]));
+                String variable = new String(base64Decoder.decodeBuffer(paramVariable[i]));
+//                String param = new String(base64Decoder.decodeBuffer(paramName[i]));
+//                String variable = new String(base64Decoder.decodeBuffer(paramVariable[i]));
+                String value = null;
+                if(channel != null){//使用channel获取变量
+	                int count = 0;
+	                while(variable.contains("${") && variable.contains("}") && count < 20){
+	                    String var = variable.substring(variable.indexOf("${")+2, variable.indexOf("}"));
+	                    String varval="";
+	                    //
+//	                    if(channel instanceof AsteriskChannel){
+//	                    	varval = ((AsteriskChannel)channel).getVariable(var);
+//	            		}else 
+	            		if(channel instanceof AsteriskChannel){
+	            			varval = ((AsteriskChannel)channel).getVariable(var);
+	            		}
+	                    variable = variable.substring(0, variable.indexOf("${")) + varval + variable.substring(variable.indexOf("}")+1);
+	                    count++;
+	                }
+	                if(map.get(variable) != null){
+	                	value = map.get(variable);
+	                }else{
+//		                if(channel instanceof AgiChannel){
+//		                	value = ((AgiChannel)channel).getVariable(variable);
+//		        		}else if(channel instanceof AsteriskChannel){
+//		        			value = ((AsteriskChannel)channel).getVariable(variable);
+//		        		}
+	                }
+                }else{//只使用map中变量
+                	if(map.get(variable) != null){
+	                	value = map.get(variable);
+	                }
+                	if(param.equals(Const.ENTERPRISE_PUSH_TYPE_TEL_STATUS_SIGN_NAME)){
+                		param = variable;
+                	}
+                	if(param.equals(Const.ENTERPRISE_PUSH_TYPE_TEL_STATUS_SIGN__KEY_NAME) 
+                			|| param.equals(Const.ENTERPRISE_PUSH_TYPE_TEL_STATUS_SIGN__KEY_VALUE)){
+                		continue;
+                	}
+                }
+    			if(value == null){
+    				value = "";
+    			}
+//				BasicNameValuePair nv = new BasicNameValuePair(param, value);
+//				params.add(nv);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return params;
+	}
+	
+	
 }
