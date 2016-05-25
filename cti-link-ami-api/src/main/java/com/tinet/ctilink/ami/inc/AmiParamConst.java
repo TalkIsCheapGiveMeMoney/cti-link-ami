@@ -41,6 +41,9 @@ public class AmiParamConst {
 	public static final String VARIABLE_BRIDGED_CHANNEL = "bridgedChannel";
 	public static final String VARIABLE_BRIDGED_UNIQUEID = "bridgedUniqueId";
 	public static final String VARIABLE_STATUS_VARIABLES = "variables";
+	public static final String VARIABLE_OP_CODE = "opCode";
+	public static final String CHANNEL_VARIABLE_NAME = "channelVariableName";
+	public static final String CHANNEL_VARIABLE_VALUE = "channelVariableValue";
 	
 	public static final Integer INDICATE_HOLD = 16;
 	public static final Integer INDICATE_UNHOLD = 17;
@@ -60,6 +63,12 @@ public class AmiParamConst {
 	public static final String OTHER_CHANNEL_ID = "otherChannelId ";
 	public static final String CLID = "clid";
 	
+	public static final String EXTRA_CHANNEL = "extraChannel";
+	public static final String EXTRA_EXTEN = "extraExten ";
+	public static final String EXTRA_CONTEXT = "extraContext";
+	public static final String EXTRA_PRIORITY = "extraPriority";
+	
+	public static final String VARIABLE_CURRENT_CHANNEL = "currentChannel";
 		
     //used const parameter value
     public static final String ORIGINATE_RESPONSE_RESULT_ERROR = "error";
@@ -495,6 +504,7 @@ public class AmiParamConst {
 		
 
 		public static final String WEBCALL_IVR_ID = "webcall_ivr_id";
+		
 
 		
 		

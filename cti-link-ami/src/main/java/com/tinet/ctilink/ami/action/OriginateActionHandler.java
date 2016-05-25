@@ -24,7 +24,8 @@ public class OriginateActionHandler extends AbstractActionHandler {
 	@Override
 	public AmiActionResponse handle(Map<String, Object> params) {
 		// TODO Auto-generated method stub
-		
+		logger.info("The begin of OriginateActionHandler:handle");
+		logger.info("handle {} action : {}", this.getAction(), params);
 		
 		OriginateAction originateAction;
 		ManagerResponse originateResponse = null;
@@ -38,9 +39,8 @@ public class OriginateActionHandler extends AbstractActionHandler {
 		{
 			logger.error("Parameter name "+ AmiParamConst.ACTION_MAP + " is empty!!!!!");
 			return ERROR_BAD_PARAM;
-		}
-		
-		chanvarMap = (Map<String, String>)(params.get(AmiParamConst.CHANNEL_VAR_MAP));
+		}		
+		chanvarMap = (Map<String, String>)(params.get(AmiParamConst.CHANNEL_VAR_MAP));	
 		
 		originateAction = new OriginateAction();			
 		String dstChannel = actionMap.get(AmiParamConst.DEST_CHANNEL);
@@ -77,6 +77,7 @@ public class OriginateActionHandler extends AbstractActionHandler {
 			observer.setOriginateDataArray(callbackMap);
 		}
 		originateAsync(originateAction,observer);
+		logger.info("The end of OriginateActionHandler:handle");
 		return SUCCESS;
 				
 	}

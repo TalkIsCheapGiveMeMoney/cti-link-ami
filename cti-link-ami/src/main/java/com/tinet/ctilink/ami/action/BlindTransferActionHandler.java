@@ -1,7 +1,9 @@
 package com.tinet.ctilink.ami.action;
 
 import java.util.Map;
-import org.asteriskjava.manager.action.AtxferAction;
+
+import org.asteriskjava.manager.action.FeatureAction;
+import org.asteriskjava.manager.action.RedirectAction;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.inc.AmiActionTypeConst;
@@ -15,11 +17,11 @@ import com.tinet.ctilink.inc.StringUtil;
  * @author hongzk
  */
 @Component
-public class ConsultActionHandler extends AbstractActionHandler {
+public class BlindTransferActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiActionTypeConst.CONSULT;
+		return AmiActionTypeConst.TRANSFER;
 	}
 
 	@Override
@@ -34,25 +36,17 @@ public class ConsultActionHandler extends AbstractActionHandler {
 		
 		String context = (String)params.get(AmiParamConst.DIALPLAN_CONTEXT);			
 		String extension = (String)params.get(AmiParamConst.EXTENSION);		
-//		String consultObject = params.get(AmiAction.VARIABLE_CONSULT_OBJECT); // 电话号码
-//		// 座席号
-//		// 分机号
-//		String objectType = params.get(AmiAction.VARIABLE_OBJECT_TYPE); // 0.电话
-//		// 1.座席号
-//		// 2.分机
-		//String extension = objectType + consultObject + "#";
-		
-
 				
-		AtxferAction transferAction = new AtxferAction();
+		FeatureAction transferAction = new FeatureAction();
 		transferAction.setChannel(channel);
 		transferAction.setContext(context);
-		transferAction.setExten(extension);
+		transferAction.setExtension(extension);
+		transferAction.setFeature("blindxfer");
 
-		if (sendAction(transferAction, 30000) == null) {
+		if (sendAction(transferAction) == null) {
 			return ERROR_EXCEPTION;
 		}
-
+		
 		return SUCCESS;
 	}
 
