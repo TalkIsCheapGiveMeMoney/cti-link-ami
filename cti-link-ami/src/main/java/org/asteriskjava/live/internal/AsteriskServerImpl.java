@@ -274,24 +274,11 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		eventConnection.registerUserEventClass(NewCallerIdEvent.class);
 		eventConnection.registerUserEventClass(DialEvent.class);
 		eventConnection.registerUserEventClass(BridgeEvent.class);
-		eventConnection.registerUserEventClass(LinkEvent.class);
-		eventConnection.registerUserEventClass(UnlinkEvent.class);
 		eventConnection.registerUserEventClass(RenameEvent.class);
 		eventConnection.registerUserEventClass(HangupEvent.class);
 		eventConnection.registerUserEventClass(CdrEvent.class);
 		eventConnection.registerUserEventClass(VarSetEvent.class);
 		eventConnection.registerUserEventClass(DtmfEvent.class);
-		//queue related event
-		eventConnection.registerUserEventClass(QueueParamsEvent.class);
-		eventConnection.registerUserEventClass(JoinEvent.class);
-		eventConnection.registerUserEventClass(LeaveEvent.class);
-		eventConnection.registerUserEventClass(QueueMemberStatusEvent.class);
-		eventConnection.registerUserEventClass(QueueMemberPenaltyEvent.class);
-		eventConnection.registerUserEventClass(QueueMemberAddedEvent.class);
-		eventConnection.registerUserEventClass(QueueMemberRemovedEvent.class);
-		eventConnection.registerUserEventClass(QueueMemberPausedEvent.class);
-		eventConnection.registerUserEventClass(QueueMemberEvent.class);
-		eventConnection.registerUserEventClass(QueueLogEvent.class);
 		
 		eventConnection.registerUserEventClass(IncomingEvent.class);
 		eventConnection.registerUserEventClass(IncomingLeftEvent.class);
@@ -969,8 +956,8 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		// same for channels, agents and queues rooms, they are reinitialized
 		// when reconnected
 		channelManager.disconnected();
-		agentManager.disconnected();
-		meetMeManager.disconnected();
+		//agentManager.disconnected();
+		//meetMeManager.disconnected();
 		initialized = false;
 	}
 
