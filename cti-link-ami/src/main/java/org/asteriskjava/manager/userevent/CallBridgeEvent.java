@@ -3,7 +3,7 @@ package org.asteriskjava.manager.userevent;
 import org.asteriskjava.manager.event.UserEvent;
 
 @SuppressWarnings("serial")
-public class IbBridgeEvent extends UserEvent {
+public class CallBridgeEvent extends UserEvent {
 	private String cno;
 	private String callType;
 	private String customerNumber;
@@ -12,7 +12,7 @@ public class IbBridgeEvent extends UserEvent {
 	private String calleeNumber;
 	private String detailCallType;
 
-	public IbBridgeEvent(Object source) {
+	public CallBridgeEvent(Object source) {
 		super(source);
 	}
 

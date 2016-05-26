@@ -51,7 +51,6 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 
 		JSONObject pushEvent=new JSONObject();
 		pushEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.INCOMING);
-//		pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.INCOMING);
 		pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		pushEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
 		pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
+import com.tinet.ctilink.json.JSONObject;
 import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 
 /**
@@ -40,9 +41,8 @@ public class WhisperLinkEventHandler extends AbstractAmiEventHandler implements 
 //		if (ctiAgent != null) 
 		{
 			if (null != cno && !cno.equals("")) {
-				Map<String, String> userEvent = new HashMap<String, String>();
-				userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-				userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.WHISPER_LINK);
+				JSONObject userEvent=new JSONObject();		
+				userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.WHISPER_LINK);
 				userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 				userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
 				userEvent.put(AmiParamConst.VARIABLE_WHISPER_OBJECT, whisperObject);

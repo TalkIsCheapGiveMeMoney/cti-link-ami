@@ -108,7 +108,7 @@ import org.asteriskjava.manager.userevent.ConsultThreewayLinkEvent;
 import org.asteriskjava.manager.userevent.ConsultThreewayUnlinkEvent;
 import org.asteriskjava.manager.userevent.ConsultTransferEvent;
 import org.asteriskjava.manager.userevent.DirectCallStartEvent;
-import org.asteriskjava.manager.userevent.IbBridgeEvent;
+import org.asteriskjava.manager.userevent.CallBridgeEvent;
 import org.asteriskjava.manager.userevent.IncomingEvent;
 import org.asteriskjava.manager.userevent.IncomingLeftEvent;
 import org.asteriskjava.manager.userevent.InteractReturnEvent;
@@ -305,7 +305,7 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		eventConnection.registerUserEventClass(OrderCallBackEvent.class);
 		eventConnection.registerUserEventClass(PredictiveBridgeEvent.class);
 		eventConnection.registerUserEventClass(PressKeysEvent.class);
-		eventConnection.registerUserEventClass(IbBridgeEvent.class);
+		eventConnection.registerUserEventClass(CallBridgeEvent.class);
 		eventConnection.registerUserEventClass(DirectCallStartEvent.class);
 
 		if (eventConnection.getState() == ManagerConnectionState.INITIAL

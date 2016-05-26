@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
+import com.tinet.ctilink.json.JSONObject;
 import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 
 
@@ -34,12 +35,19 @@ public class ConsultThreewayLinkEventHandler extends AbstractAmiEventHandler imp
 		String enterpriseId = ((ConsultThreewayLinkEvent) event).getEnterpriseId();
 		String consulteeCno = ((ConsultThreewayLinkEvent) event).getCno(); // 被咨询的座席
 		String consulterCno = ((ConsultThreewayLinkEvent) event).getConsulterCno(); // 发起咨询三方的座席
-
+		
+		JSONObject userEvent=new JSONObject();
+		userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.CONSULT_THREEWAY);
+		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.VARIABLE_CNO, consulteeCno);
+		userEvent.put(AmiParamConst.VARIABLE_CONSULTER_CNO, consulterCno);
+		publishEvent(userEvent);
+		
+/*
 		// 发送事件到被咨询的那个人，通知被咨询那个人是谁咨询的他，所以需要发送给前台，前台需要显示谁咨询的。
 		if (StringUtils.isNotEmpty(consulteeCno)) {
-			Map<String, String> userEvent = new HashMap<String, String>();
-			userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-			userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.CONSULT_THREEWAY);
+			JSONObject userEvent=new JSONObject();
+			userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.CONSULT_THREEWAY);
 			userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 			userEvent.put(AmiParamConst.VARIABLE_CNO, consulteeCno);
 			userEvent.put(AmiParamConst.VARIABLE_CONSULTER_CNO, consulterCno);
@@ -47,13 +55,12 @@ public class ConsultThreewayLinkEventHandler extends AbstractAmiEventHandler imp
 		}
 
 		//发送事件到咨询发起者的那个人
-		Map<String, String> userEvent = new HashMap<String, String>();
-		userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.CONSULT_THREEWAY);
+		JSONObject userEvent=new JSONObject();
+		userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.CONSULT_THREEWAY);
 		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiParamConst.VARIABLE_CNO, consulterCno);
 		publishEvent(userEvent);
-
+*/
 	}
 
 }

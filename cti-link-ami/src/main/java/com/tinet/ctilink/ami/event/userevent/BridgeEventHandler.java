@@ -9,7 +9,7 @@ import com.tinet.ctilink.json.JSONObject;
 
 import org.asteriskjava.manager.event.ManagerEvent;
 import org.asteriskjava.manager.event.UserEvent;
-import org.asteriskjava.manager.userevent.IbBridgeEvent;
+import org.asteriskjava.manager.userevent.CallBridgeEvent;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
@@ -27,21 +27,21 @@ public class BridgeEventHandler extends AbstractAmiEventHandler implements AmiUs
 
 	@Override
 	public Class<?> getEventClass() {
-		return IbBridgeEvent.class;
+		return CallBridgeEvent.class;
 	}
 	
 	@Override
 	public void handle(ManagerEvent event) {
 		logger.debug("handle {} : {}", getEventClass().getTypeName(), event);
 
-		String enterpriseId = ((IbBridgeEvent) event).getEnterpriseId();
-		String customerNumber = ((IbBridgeEvent) event).getCustomerNumber();
-		String cno = ((IbBridgeEvent) event).getCno();
-		String bridgeTime = ((IbBridgeEvent) event).getBridgeTime();
-		String calleeNumber = ((IbBridgeEvent) event).getCalleeNumber();
-		String userField = ((IbBridgeEvent) event).getUserField();
-		String detailCallType = ((IbBridgeEvent) event).getDetailCallType();
-		String callType = ((IbBridgeEvent) event).getCallType();
+		String enterpriseId = ((CallBridgeEvent) event).getEnterpriseId();
+		String customerNumber = ((CallBridgeEvent) event).getCustomerNumber();
+		String cno = ((CallBridgeEvent) event).getCno();
+		String bridgeTime = ((CallBridgeEvent) event).getBridgeTime();
+		String calleeNumber = ((CallBridgeEvent) event).getCalleeNumber();
+		String userField = ((CallBridgeEvent) event).getUserField();
+		String detailCallType = ((CallBridgeEvent) event).getDetailCallType();
+		String callType = ((CallBridgeEvent) event).getCallType();
 
 		JSONObject pushEvent=new JSONObject();
 		pushEvent.put("type", AmiParamConst.VARIABLE_EVENT);

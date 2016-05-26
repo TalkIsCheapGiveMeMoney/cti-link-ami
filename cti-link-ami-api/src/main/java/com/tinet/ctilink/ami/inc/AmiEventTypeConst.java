@@ -42,5 +42,6 @@ public class AmiEventTypeConst {
 	public static final String PRESS_KEYS = "pressKeys"; // 事件类型：按键
 	public static final String INTERACT_RETURN = "interactReturn"; // 事件类型: 交互返回
 	public static final String DIRECT_CALL_START = "directCallStart";
+	public static final String CONSULT_START = "consultStart"; // 事件类型: 咨询错误
 
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.tinet.ctilink.ami.event.AbstractAmiEventHandler;
 import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
+import com.tinet.ctilink.json.JSONObject;
 import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 
 /**
@@ -55,9 +56,8 @@ public class BargeLinkEventHandler extends AbstractAmiEventHandler implements Am
 		// 发送事件给被强插者
 //		if (ctiAgent != null)
 		{
-			Map<String, String> userEvent = new HashMap<String, String>();
-			userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-			userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.BARGE_LINK);
+			JSONObject userEvent=new JSONObject();		
+			userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.BARGE_LINK);
 			userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 			userEvent.put(AmiParamConst.VARIABLE_CNO, bargedCno);
 			userEvent.put(AmiParamConst.VARIABLE_BARGER_CNO, cno);

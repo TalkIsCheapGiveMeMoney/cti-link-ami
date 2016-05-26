@@ -545,8 +545,7 @@ public class ChannelManager  {
 						channelState = AmiChannelStatusConst.ChannelStateToString(event.getChannelState()).toString();	
 						if(event.getChannelState() == 5)
 						{
-							//弹屏参数设置
-							// 根据企业设置获取前台来电弹屏时传递的参数
+							//弹屏参数设置							
 							EnterpriseSetting entSetting = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
 									enterpriseId, Const.ENTERPRISE_SETTING_NAME_CRM_URL_POPUP_USER_FIELD), EnterpriseSetting.class);
 							if (entSetting != null && entSetting.getId() != null) {

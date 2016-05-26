@@ -31,8 +31,12 @@ public class AmiParamConst {
 	public static final String CHANNEL = "channel"; // 事件参数：通道名
 	public static final String CHANNELSTATE = "status"; // 事件参数：通道状态
 	public static final String UNIQUEID = "uniqueId"; // 事件参数：当前通道唯一Id
-//	public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id"; // 事件参数：主通道唯一Id
 	public static final String ENTERPRISEID = "enterpriseId"; // 事件参数：企业Id
+
+	public static final String CHANNEL_VARIABLE_NAME = "channelVariableName";
+	public static final String CHANNEL_VARIABLE_VALUE = "channelVariableValue";	
+	public static final String MAIN_CHANNEL = "main_channel";
+	
 	public static final String VARIABLE_HOTLINE = "hotline"; // action/event字段：热线号码
 	public static final String VARIABLE_QUEUE = "queue";
 	public static final String VARIABLE_CNO = "cno"; // action/event字段：座席号 2000
@@ -42,18 +46,22 @@ public class AmiParamConst {
 	public static final String VARIABLE_BRIDGED_UNIQUEID = "bridgedUniqueId";
 	public static final String VARIABLE_STATUS_VARIABLES = "variables";
 	public static final String VARIABLE_OP_CODE = "opCode";
-	public static final String CHANNEL_VARIABLE_NAME = "channelVariableName";
-	public static final String CHANNEL_VARIABLE_VALUE = "channelVariableValue";	
-	public static final String MAIN_CHANNEL = "main_channel";	
 	
+	//OrderCallBack parameter	
+	public static final String VARIABLE_ORDER_TIME = "orderTime";
+	
+	//indicate
 	public static final Integer INDICATE_HOLD = 16;
 	public static final Integer INDICATE_UNHOLD = 17;
+	
+	//mute
+	public static final String VARIABLE_MUTE_DIRECTION = "direction";
+	public static final String VARIABLE_MUTE_STATE = "state";
 	public static final String MUTE_DIRECTION_IN = "in";
 	public static final String MUTE_DIRECTION_OUT = "out";
 	public static final String MUTE_DIRECTION_ALL = "all";
 	public static final String MUTE_STATE_ON = "on";
 	public static final String MUTE_STATE_OFF = "off";  
-	
 	
 	//action固定参数		
 	public static final String EXTENSION = "exten";
@@ -75,6 +83,20 @@ public class AmiParamConst {
 	public static final String ORIGINATE_RESPONSE_RESULT_SUCCESS = "success";
 	
 	//event parameter	
+	public static final String VARIABLE_EVENT = "event"; // action/event字段：事件
+	public static final String VARIABLE_CUSTOMER_NUMBER = "customerNumber"; // action/event字段：格式化后的号码
+	public static final String VARIABLE_CRM_CUSTOMER_NUMBER = "crmCustomerNumber"; // action/event字段：格式化后的号码
+	public static final String VARIABLE_CUSTOMER_NUMBER_TYPE = "customerNumberType"; // action/event字段:
+																						// 号码类型
+																						// 手机、固话
+	public static final String VARIABLE_CUSTOMER_AREA_CODE = "customerAreaCode"; // action/event字段:
+																					// 号码区号
+	
+	
+	
+	
+	//
+	
 	public static final int ERRORCODE_BAD_USERNAME_PASSWORD = 1; // 用户名密码错误
 	public static final int ERRORCODE_BAD_CONNECTION = 2; // 连接已中断
 	public static final int ERRORCODE_TIMEOUT = 3; // 超时
@@ -126,18 +148,12 @@ public class AmiParamConst {
 	public static final String VARIABLE_SESSION_TIMEOUT = "sessionTimeout";// action/event字段：session
 																			// 超时时间
 	public static final String VARIABLE_REASON = "reason"; // action/event字段：原因
-	public static final String VARIABLE_EVENT = "event"; // action/event字段：事件
+	
 	public static final String VARIABLE_NAME = "name"; // action/event字段：描述event的name
 
 	public static final String VARIABLE_CODE = "code"; // action/event字段：code
 	public static final String VARIABLE_MSG = "msg"; // action/event字段：消息
-	public static final String VARIABLE_CUSTOMER_NUMBER = "customerNumber"; // action/event字段：格式化后的号码
-	public static final String VARIABLE_CRM_CUSTOMER_NUMBER = "crmCustomerNumber"; // action/event字段：格式化后的号码
-	public static final String VARIABLE_CUSTOMER_NUMBER_TYPE = "customerNumberType"; // action/event字段:
-																						// 号码类型
-																						// 手机、固话
-	public static final String VARIABLE_CUSTOMER_AREA_CODE = "customerAreaCode"; // action/event字段:
-																					// 号码区号
+	
 	public static final String VARIABLE_CUSTOMER_AREA_NAME = "customerAreaName"; // action/event字段:
 																					// 号码地址
 	
@@ -387,9 +403,7 @@ public class AmiParamConst {
 	/** 当前登录座席ip */
 	public static final String VARIABLE_IP = "ip";
 
-	/** mute相关参数 */
-	public static final String VARIABLE_MUTE_DIRECTION = "direction";
-	public static final String VARIABLE_MUTE_STATE = "state";
+	
 	/** 座席名称 */
 	public static final String VARIABLE_AGENT_NAME = "agentName";
 	public static final String VARIABLE_OB_CLID = "obClid";

@@ -15,6 +15,7 @@ import com.tinet.ctilink.ami.event.AmiUserEventHandler;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 import com.tinet.ctilink.ami.ordercallback.OrderCallBackEngine;
+import com.tinet.ctilink.json.JSONObject;
 
 /**
  * 预约回呼事件
@@ -42,23 +43,25 @@ public class OrderCallBackEventHandler extends AbstractAmiEventHandler implement
 		String queueName = ((OrderCallBackEvent) event).getQueueName();
 		String orderTime = ((OrderCallBackEvent) event).getOrderTime();
 
-		OrderCallBack orderCallBack = new OrderCallBack();
-		orderCallBack.setEnterpriseId(Integer.parseInt(enterpriseId));
-		orderCallBack.setQno(queueName.substring(7));
-		orderCallBack.setTel(customerNumber);
-		orderCallBack.setIsCall(0);
-		orderCallBack.setOrderTime(new Date(Long.valueOf(orderTime) * 1000));
-		orderCallBack.setCreateTime(new Date());
-		orderCallBack.setAreaCode(customerAreaCode);
-		orderCallBackEngine.saveEvent(orderCallBack);
+//		OrderCallBack orderCallBack = new OrderCallBack();
+//		orderCallBack.setEnterpriseId(Integer.parseInt(enterpriseId));
+//		orderCallBack.setQno(queueName.substring(7));
+//		orderCallBack.setTel(customerNumber);
+//		orderCallBack.setIsCall(0);
+//		orderCallBack.setOrderTime(new Date(Long.valueOf(orderTime) * 1000));
+//		orderCallBack.setCreateTime(new Date());
+//		orderCallBack.setAreaCode(customerAreaCode);
+//		orderCallBackEngine.saveEvent(orderCallBack);
 
-		Map<String, String> userEvent = new HashMap<String, String>();
-		userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.ORDER_CALL_BACK);
-		userEvent.put(AmiParamConst.VARIABLE_ADD_OR_REDUCE, "1");
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
+//		Map<String, String> userEvent = new HashMap<String, String>();
+		
+		JSONObject userEvent=new JSONObject();
+		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.ORDER_CALL_BACK);		
+		userEvent.put(AmiParamConst.ENTERPRISEID, enterpriseId);
 		userEvent.put(AmiParamConst.VARIABLE_QID, queueName);
-		userEvent.put(AmiParamConst.VARIABLE_AGENT_QUEUE, queueName);
+		userEvent.put(AmiParamConst.CUSTOMER_NUMBER, customerNumber);
+		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE,customerAreaCode );
+		userEvent.put(AmiParamConst.VARIABLE_ORDER_TIME,customerAreaCode );
 		publishEvent(userEvent);
 
 	}
