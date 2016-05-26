@@ -60,7 +60,6 @@ public class AmiChanVarNameConst {
     public static final String RECORD_FILE = "record_file";
     public static final String CDR_RECORD_FILE = "cdr_record_file";
     public static final String CDR_IVR_ID = "cdr_ivr_id";
-    public static final String CDR_USER_FIELD = "CDR(userfield)";
     public static final String CDR_ORDER_CALL_BACK = "orderCallBackId";
 
     public static final String CUR_NODE = "cur_node";
@@ -69,6 +68,7 @@ public class AmiChanVarNameConst {
     public static final String CALL_POWER = "call_power";
 
     public static final String PREVIEW_OUTCALL_LEFT_CLID = "preview_outcall_left_clid";    
+    
     
     
     public static final String CDR_QUEUE_NAME = "cdr_queue_name"; 
@@ -83,4 +83,16 @@ public class AmiChanVarNameConst {
 	public static final String CDR_FORCE_DISCONNECT = "cdr_force_disconnect";
 	/**通道变量:is_investigation 前台满意度调查时会设置这个变量*/
 	public static final String IS_INVESTIGATION = "is_investigation";
+	/** 号码状态识别功能是否开启 **/
+	public static final String IS_TSI = "is_tel_status_identification";
+	/**通道变量:is_ib_record */
+	public static final String IS_IB_RECORD = "is_ib_record";
+	
+	/**通道变量:is_ob_record  外呼是否录音 0--不录音 ，1--录音 */
+	public static final String IS_OB_RECORD = "is_ob_record";
+	
+	/**通道变量:is_investigation_auto 是否自动满意度调查*/
+	public static final String IS_INVESTIGATION_AUTO = "is_investigation_auto";
+	
+	public static final String DIAL_TIMEOUT = "dial_timeout";
 }
