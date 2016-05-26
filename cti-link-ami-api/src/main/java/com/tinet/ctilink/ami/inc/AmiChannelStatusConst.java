@@ -22,7 +22,7 @@ public class AmiChannelStatusConst {
 	public static final int IDLE = 0; // 事件类型：空闲
 
 	
-	public static Integer ChannelStateToString(int channelState)
+	public static Integer TransformChannelState(int channelState)
 	{
 		if(channelState<0||channelState>7)
 			return IDLE;

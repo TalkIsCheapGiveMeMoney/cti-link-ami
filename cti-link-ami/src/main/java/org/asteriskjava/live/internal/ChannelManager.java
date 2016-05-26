@@ -519,7 +519,6 @@ public class ChannelManager  {
 				if ((channel.getVariable(Const.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_IB + "") 
 						|| channel.getVariable(Const.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_OB_WEBCALL + ""))) 	//ChannelState.valueOf(event.getChannelState()).equals(ChannelState.RINGING)  
 				{
-					
 					String channelCustomerNumber = "";
 					String channelCustomerNumberType = "";
 					String channelCustomerAreaCode = "";
@@ -542,12 +541,13 @@ public class ChannelManager  {
 						String enterpriseId = "";
 						enterpriseId = channel.getVariable(Const.CDR_ENTERPRISE_ID);
 						j.put(AmiParamConst.ENTERPRISEID, enterpriseId);
-						channelState = AmiChannelStatusConst.ChannelStateToString(event.getChannelState()).toString();	
+						channelState = AmiChannelStatusConst.TransformChannelState(event.getChannelState()).toString();	
 						if(event.getChannelState() == 5)
 						{
-							//弹屏参数设置							
+							//弹屏参数设置	
+							
 							EnterpriseSetting entSetting = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
-									enterpriseId, Const.ENTERPRISE_SETTING_NAME_CRM_URL_POPUP_USER_FIELD), EnterpriseSetting.class);
+									Integer.parseInt(enterpriseId), Const.ENTERPRISE_SETTING_NAME_CRM_URL_POPUP_USER_FIELD), EnterpriseSetting.class);
 							if (entSetting != null && entSetting.getId() != null) {
 								if (StringUtil.isNotEmpty(entSetting.getProperty())) {
 									JSONObject clientData = new JSONObject();
@@ -558,10 +558,26 @@ public class ChannelManager  {
 									if(StringUtil.isNotEmpty(channelMainChannel))
 									{
 										mainChannel = server.getChannelByName(channelMainChannel);
-										for (String var : property) {
-											clientData.put(var, mainChannel.getNoCacheVariable(var));
+										try{
+											for (String var : property) {
+												clientData.put(var, mainChannel.getNoCacheVariable(var));
+											}
+											j.put(AmiParamConst.VARIABLE_STATUS_VARIABLES,clientData);
+										}catch(org.asteriskjava.live.NoSuchChannelException e)
+										{
+											channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
+											j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
+											j.put(AmiParamConst.VARIABLE_CNO, cno);	
+											j.put(AmiParamConst.CHANNELSTATE, channelState);
+											j.put(AmiParamConst.CHANNEL, event.getChannel());
+											j.put(AmiParamConst.UNIQUEID, channelUniqueId);
+											amiEventListener.publishEvent(j);
+											return;
+										}						
+										catch(Exception e)
+										{
+											e.printStackTrace();
 										}
-										j.put(AmiParamConst.VARIABLE_STATUS_VARIABLES,clientData);
 									}
 								}
 							}
@@ -581,7 +597,7 @@ public class ChannelManager  {
 							}
 							
 							List<EnterpriseHangupAction> pushActionList = ContextUtil.getBean(RedisService.class).getList(Const.REDIS_DB_CONF_INDEX
-									, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId, curlType), EnterpriseHangupAction.class);
+									, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, Integer.parseInt(enterpriseId), curlType), EnterpriseHangupAction.class);
 
 							if (pushActionList != null && pushActionList.size() > 0) {
 								
@@ -637,7 +653,7 @@ public class ChannelManager  {
 									int level = 0;
 									EnterpriseSetting setting = ContextUtil.getBean(RedisService.class).get(Const.REDIS_DB_CONF_INDEX
 											, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
-											enterpriseId, Const.ENTERPRISE_SETTING_NAME_CURL_LEVEL), EnterpriseSetting.class);
+													Integer.parseInt(enterpriseId), Const.ENTERPRISE_SETTING_NAME_CURL_LEVEL), EnterpriseSetting.class);
 									if (setting != null && setting.getId() != null) {
 										level = Integer.parseInt(setting.getValue());
 									}
@@ -665,9 +681,8 @@ public class ChannelManager  {
 							bridgedUniqueId = channel.getVariable(AmiChanVarNameConst.LINKEDID);
 							channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
 							channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);		
-						}catch(Exception e)
+						}catch(org.asteriskjava.live.NoSuchChannelException e)
 						{
-							e.printStackTrace();
 							channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
 							j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 							j.put(AmiParamConst.VARIABLE_CNO, cno);	
@@ -675,6 +690,11 @@ public class ChannelManager  {
 							j.put(AmiParamConst.CHANNEL, event.getChannel());
 							j.put(AmiParamConst.UNIQUEID, channelUniqueId);
 							amiEventListener.publishEvent(j);
+							return;
+						}						
+						catch(Exception e)
+						{
+							e.printStackTrace();							
 							return;
 						}
 						j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
@@ -777,9 +797,8 @@ public class ChannelManager  {
 					bridgedUniqueId = channel.getVariable(AmiChanVarNameConst.LINKEDID);
 					channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
 					channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);		
-				}catch(Exception e)
+				}catch(org.asteriskjava.live.NoSuchChannelException e)
 				{
-					e.printStackTrace();
 					channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
 					j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 					j.put(AmiParamConst.VARIABLE_CNO, cno);	
@@ -788,7 +807,11 @@ public class ChannelManager  {
 					j.put(AmiParamConst.UNIQUEID, channelUniqueId);
 					amiEventListener.publishEvent(j);
 					return;
-					
+				}						
+				catch(Exception e)
+				{
+					e.printStackTrace();							
+					return;
 				}
 				j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 				j.put(AmiParamConst.VARIABLE_CNO, cno);	
