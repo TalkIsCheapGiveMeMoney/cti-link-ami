@@ -516,8 +516,11 @@ public class ChannelManager  {
 
 		if (event.getChannelState() != null) {
 			if (!channel.getState().equals(ChannelState.valueOf(event.getChannelState()))) {
-				if ((channel.getVariable(Const.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_IB + "") 
-						|| channel.getVariable(Const.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_OB_WEBCALL + ""))) 	//ChannelState.valueOf(event.getChannelState()).equals(ChannelState.RINGING)  
+				String callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);
+				if(StringUtil.isEmpty(callType))
+					return;
+				if ((channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_IB + "") 
+						|| channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_OB_WEBCALL + ""))) 	  
 				{
 					String channelCustomerNumber = "";
 					String channelCustomerNumberType = "";
@@ -539,15 +542,17 @@ public class ChannelManager  {
 						JSONObject j=new JSONObject();
 						String channelName = "";
 						String enterpriseId = "";
-						enterpriseId = channel.getVariable(Const.CDR_ENTERPRISE_ID);
+						enterpriseId = channel.getVariable(AmiChanVarNameConst.ENTERPRISE_ID);
 						j.put(AmiParamConst.ENTERPRISEID, enterpriseId);
 						channelState = AmiChannelStatusConst.TransformChannelState(event.getChannelState()).toString();	
-						if(event.getChannelState() == 5)
+						if(ChannelState.valueOf(event.getChannelState()) == ChannelState.RINGING)
 						{
 							//弹屏参数设置	
-							
-							EnterpriseSetting entSetting = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
-									Integer.parseInt(enterpriseId), Const.ENTERPRISE_SETTING_NAME_CRM_URL_POPUP_USER_FIELD), EnterpriseSetting.class);
+							EnterpriseSetting entSetting = redisService.get(Const.REDIS_DB_CONF_INDEX
+									, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME
+									,Integer.parseInt(enterpriseId)
+									, Const.ENTERPRISE_SETTING_NAME_CRM_URL_POPUP_USER_FIELD)
+									, EnterpriseSetting.class);
 							if (entSetting != null && entSetting.getId() != null) {
 								if (StringUtil.isNotEmpty(entSetting.getProperty())) {
 									JSONObject clientData = new JSONObject();
@@ -597,7 +602,8 @@ public class ChannelManager  {
 							}
 							
 							List<EnterpriseHangupAction> pushActionList = ContextUtil.getBean(RedisService.class).getList(Const.REDIS_DB_CONF_INDEX
-									, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, Integer.parseInt(enterpriseId), curlType), EnterpriseHangupAction.class);
+									, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, Integer.parseInt(enterpriseId), curlType)
+									, EnterpriseHangupAction.class);
 
 							if (pushActionList != null && pushActionList.size() > 0) {
 								
@@ -652,8 +658,9 @@ public class ChannelManager  {
 						    		// 获取curl级别
 									int level = 0;
 									EnterpriseSetting setting = ContextUtil.getBean(RedisService.class).get(Const.REDIS_DB_CONF_INDEX
-											, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
-													Integer.parseInt(enterpriseId), Const.ENTERPRISE_SETTING_NAME_CURL_LEVEL), EnterpriseSetting.class);
+											, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME
+											,Integer.parseInt(enterpriseId), Const.ENTERPRISE_SETTING_NAME_CURL_LEVEL)
+											, EnterpriseSetting.class);
 									if (setting != null && setting.getId() != null) {
 										level = Integer.parseInt(setting.getValue());
 									}
@@ -782,7 +789,7 @@ public class ChannelManager  {
 				String channelName = "";
 				String enterpriseId = "";
 				
-				enterpriseId = channel.getVariable(Const.CDR_ENTERPRISE_ID);
+				enterpriseId = channel.getVariable(AmiChanVarNameConst.ENTERPRISE_ID);
 				j.put(AmiParamConst.ENTERPRISEID, enterpriseId);	
 				channelName = event.getChannel();	
 				channelUniqueId = event.getUniqueId();
@@ -862,7 +869,7 @@ public class ChannelManager  {
 				channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
 				channelName = event.getChannel();	
 				channelUniqueId = event.getUniqueId();
-				enterpriseId = channel.getVariable(Const.CDR_ENTERPRISE_ID);
+				enterpriseId = channel.getVariable(AmiChanVarNameConst.ENTERPRISE_ID);
 				cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);				
 				j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 				j.put(AmiParamConst.ENTERPRISEID, enterpriseId);	
