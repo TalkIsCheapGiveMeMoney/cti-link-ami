@@ -43,7 +43,8 @@ public class AmiParamConst {
 	public static final String VARIABLE_STATUS_VARIABLES = "variables";
 	public static final String VARIABLE_OP_CODE = "opCode";
 	public static final String CHANNEL_VARIABLE_NAME = "channelVariableName";
-	public static final String CHANNEL_VARIABLE_VALUE = "channelVariableValue";
+	public static final String CHANNEL_VARIABLE_VALUE = "channelVariableValue";	
+	public static final String MAIN_CHANNEL = "main_channel";	
 	
 	public static final Integer INDICATE_HOLD = 16;
 	public static final Integer INDICATE_UNHOLD = 17;
@@ -67,61 +68,13 @@ public class AmiParamConst {
 	public static final String EXTRA_EXTEN = "extraExten ";
 	public static final String EXTRA_CONTEXT = "extraContext";
 	public static final String EXTRA_PRIORITY = "extraPriority";
-	
 	public static final String VARIABLE_CURRENT_CHANNEL = "currentChannel";
 		
     //used const parameter value
     public static final String ORIGINATE_RESPONSE_RESULT_ERROR = "error";
 	public static final String ORIGINATE_RESPONSE_RESULT_SUCCESS = "success";
 	
-	//event param	
-	public static final String REFUSE = "refuse"; // 拒绝
-	public static final String LINK = "link"; // 接听
-	public static final String UNLINK = "unlink"; // 挂断或者取消呼叫
-	public static final String HOLD = "hold"; // 保持
-	public static final String UNHOLD = "unhold"; // 保持挂断
-	public static final String CONSULT = "consult"; // 咨询 长动作
-	public static final String CONSULTCANCEL = "consultCancel";// 咨询取消
-	public static final String UNCONSULT = "unconsult"; // 咨询挂断
-	public static final String CONSULT_TRANSFER = "consultTransfer"; // 咨询转接
-	public static final String CONSULT_THREEWAY = "consultThreeway"; // 咨询三方
-	public static final String TRANSFER = "transfer"; // 转移 长动作
-	public static final String INVESTIGATION = "investigation"; // 满意度调查
-	public static final String SPY = "spy"; // 监听 长动作
-	public static final String UNSPY = "unspy"; // 监听挂断
-	public static final String WHISPER = "whisper"; // 耳语 长动作
-	public static final String UNWHISPER = "unwhisper"; // 耳语挂断
-	public static final String THREEWAY = "threeway";
-	public static final String UNTHREEWAY = "unthreeway";
-	public static final String BARGE = "barge"; // 强插 长动作
-	public static final String UNINSERT = "uninsert"; // 强插挂断
-	public static final String DISCONNECT = "disconnect"; // 前拆
-	public static final String GET_STATUS = "getStatus"; // 获取自己状态
-	public static final String PING = "ping"; // 心跳
-	public static final String NWAY_INIT = "threewayInit"; // 会议邀请
-	public static final String NWAY_OK = "threewayOk"; // 会议进入
-	public static final String PREVIEW_OUTCALL = "previewOutCall"; // 点击外呼
-	public static final String PREVIEW_OUTCALL_CANCEL = "previewOutcallCancel"; // 点击取消
-	public static final String QUEUE_STATUS = "queueStatus"; // 获取队列状态
-	public static final String QUEUE_SHOW = "queueShow"; // 刷新队列状态
-	public static final String CHANGE_BIND_TEL = "changeBindTel"; // 修改
-	public static final String PICKUP = "pickup"; // 抢线
-	public static final String CHANNELHANGUP = "channelHangUp"; // 抢线
-	public static final String CALLLOCAL = "callLocal";
-	public static final String IVR_CALLBACK = "ivrCallback";
-	/** 聊天系统--web_chat--Action */
-	public static final String WEBCHAT = "webchat";
-	public static final String INTERACT = "interact";
-	/** 坐席Debug信息采集--Action */
-	public static final String AGENT_DEBUG = "agentDebug";
-	public static final String MUTE = "mute";
-	public static final String DIRECT_CALL_START = "directCallStart";
-	public static final String WEB_400_CALL = "web400call";
-	public static final String SELF_RECORD = "selfRecord"; // 咨询 长动作
-
-	/** 验证绑定电话 action */
-	public static final String VERIFY_BINDING_TEL = "verifyBindingTel";
-
+	//event parameter	
 	public static final int ERRORCODE_BAD_USERNAME_PASSWORD = 1; // 用户名密码错误
 	public static final int ERRORCODE_BAD_CONNECTION = 2; // 连接已中断
 	public static final int ERRORCODE_TIMEOUT = 3; // 超时
@@ -187,8 +140,6 @@ public class AmiParamConst {
 																					// 号码区号
 	public static final String VARIABLE_CUSTOMER_AREA_NAME = "customerAreaName"; // action/event字段:
 																					// 号码地址
-	
-	
 	
 	public static final String VARIABLE_CID = "cid"; // action/event字段：座席id
 	public static final String VARIABLE_CLIENT_ID = "clientId"; // client 的id //
@@ -452,20 +403,10 @@ public class AmiParamConst {
 		
 		
 	//action parameter
-	//可变参数																		
-	
-		public static final String MAIN_CHANNEL = "main_channel";		
-		public static final String CDR_ENTERPRISE_ID = "cdr_enterprise_id";
-//		public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id";
-		
+	//可变参数	
 		public static final String CDR_DETAIL_GW_IP = "cdr_detail_gw_ip";
 		public static final String CDR_GW_IP = "cdr_gw_ip";
-//		public static final String CDR_CUSTOMER_NUMBER = "cdr_customer_number";
-//		public static final String CDR_CUSTOMER_NUMBER_TYPE = "cdr_customer_number_type";
-//		public static final String CDR_CUSTOMER_AREA_CODE = "cdr_customer_area_code";
 		public static final String CDR_NUMBER_TRUNK = "cdr_number_trunk";
-//		public static final String CDR_CALL_TYPE = "cdr_call_type";
-//		public static final String CDR_CALLEE_NUMBER = "cdr_callee_number";
 		public static final String CDR_CALLEE_AREA_CODE = "cdr_callee_area_code";
 		public static final String CDR_STATUS = "cdr_status";
 		public static final String RECORD_FILE = "record_file";
@@ -491,18 +432,12 @@ public class AmiParamConst {
 		public static final String CDR_MARK = "cdr_mark";
 		public static final String CDR_MARK_DATA = "cdr_mark_data";
 		public static final String CDR_HANGUP_CAUSE = "cdr_hangup_cause";
-			
 		public static final String CDR_DETAIL_CLID = "cdr_detail_clid";
 		public static final String CDR_DETAIL_CALLEE_NUMBER="cdr_detail_callee_number";
-		
 		public static final String WEBCALL_TEL = "webcall_tel";
 		public static final String IS_AMD_ON = "is_amd_on";
 		public static final String SUBTEL = "subtel";
-		
-		
 		public static final String NUMBER_TRUNK_AREA_CODE="number_trunk_area_code";
-		
-
 		public static final String WEBCALL_IVR_ID = "webcall_ivr_id";
 		
 

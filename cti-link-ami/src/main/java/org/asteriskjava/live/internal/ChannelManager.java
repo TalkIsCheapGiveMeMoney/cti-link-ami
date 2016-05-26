@@ -534,9 +534,6 @@ public class ChannelManager  {
 					String bridgedChannelName = "";
 					String detailCallType = "";
 					
-					
-					
-					
 					cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
 					if( checkWhetherAgentEvent(cno))
 					{
@@ -548,6 +545,29 @@ public class ChannelManager  {
 						channelState = AmiChannelStatusConst.ChannelStateToString(event.getChannelState()).toString();	
 						if(event.getChannelState() == 5)
 						{
+							//弹屏参数设置
+							// 根据企业设置获取前台来电弹屏时传递的参数
+							EnterpriseSetting entSetting = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
+									enterpriseId, Const.ENTERPRISE_SETTING_NAME_CRM_URL_POPUP_USER_FIELD), EnterpriseSetting.class);
+							if (entSetting != null && entSetting.getId() != null) {
+								if (StringUtil.isNotEmpty(entSetting.getProperty())) {
+									JSONObject clientData = new JSONObject();
+									String property[] = StringUtil.split(entSetting.getProperty(), ",");
+									String channelMainChannel = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
+									//获取main_channel的场景（transfer,consult）需要调测。
+									AsteriskChannel mainChannel = null;
+									if(StringUtil.isNotEmpty(channelMainChannel))
+									{
+										mainChannel = server.getChannelByName(channelMainChannel);
+										for (String var : property) {
+											clientData.put(var, mainChannel.getNoCacheVariable(var));
+										}
+										j.put(AmiParamConst.VARIABLE_STATUS_VARIABLES,clientData);
+									}
+								}
+							}
+							
+							//推送处理
 							Map<String, String> vars = new HashMap<String, String>();							
 							HashMap<String, String> map = new HashMap<String, String>();
 				    		map.put(AmiParamConst.ENTERPRISEID,String.valueOf(enterpriseId));
