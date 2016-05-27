@@ -117,24 +117,4 @@ public class AmiUtil {
 		}
 	}
 
-//	public static String transferDeviceStatus(int status) {
-//		switch (status) {
-//		case QueueMemberEvent.AST_DEVICE_UNKNOWN:
-//			return CtiAgent.IDLE;
-//		case QueueMemberEvent.AST_DEVICE_INVALID:
-//		case QueueMemberEvent.AST_DEVICE_UNAVAILABLE:
-//			return CtiAgent.UNAVAILABLE;
-//		case QueueMemberEvent.AST_DEVICE_INUSE:
-//		case QueueMemberEvent.AST_DEVICE_BUSY:
-//			return CtiAgent.BUSY;
-//		case QueueMemberEvent.AST_DEVICE_NOT_INUSE:
-//			return CtiAgent.IDLE;
-//		case QueueMemberEvent.AST_DEVICE_RINGING:
-//			return CtiAgent.RINGING;
-//		case QueueMemberEvent.AST_DEVICE_RINGINUSE:
-//			return CtiAgent.BUSY;
-//		default:
-//			return CtiAgent.UNAVAILABLE;
-//		}
-//	}
 }

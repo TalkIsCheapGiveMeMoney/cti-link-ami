@@ -63,6 +63,7 @@ import com.tinet.ctilink.ami.inc.AmiChanVarNameConst;
 import com.tinet.ctilink.ami.inc.AmiChannelStatusConst;
 import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
+import com.tinet.ctilink.ami.util.AmiUtil;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
 import com.tinet.ctilink.conf.model.EnterpriseHangupAction;
@@ -669,93 +670,7 @@ public class ChannelManager  {
 								}
 							}
 							
-							//推送处理
-							Map<String, String> vars = new HashMap<String, String>();							
-							HashMap<String, String> map = new HashMap<String, String>();
-				    		map.put(AmiParamConst.ENTERPRISEID,String.valueOf(enterpriseId));
-				    		map.put(AmiParamConst.CALL_TYPE,channelCallType);
-				    		map.put(AmiParamConst.DETAIL_CALL_TYPE,detailCallType);			    		
-				    		
-							Integer curlType = 0;
-							if ((Const.CDR_CALL_TYPE_OB_WEBCALL+"").equals(channelCallType)) {
-								curlType = Const.ENTERPRISE_PUSH_TYPE_RINGING_OB;
-							} else {
-								curlType = Const.ENTERPRISE_PUSH_TYPE_RINGING_IB;
-							}
 							
-							List<EnterpriseHangupAction> pushActionList = ContextUtil.getBean(RedisService.class).getList(Const.REDIS_DB_CONF_INDEX
-									, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, Integer.parseInt(enterpriseId), curlType)
-									, EnterpriseHangupAction.class);
-
-							if (pushActionList != null && pushActionList.size() > 0) {
-								
-								EnterpriseHangupAction pushAction = pushActionList.get(0);
-								CurlData curlData = new CurlData();								
-								curlData.setEnterpriseId(Integer.parseInt(enterpriseId));
-								String url = pushAction.getUrl();
-								if (pushAction.getMethod() != null && pushAction.getMethod() == 1) {
-									curlData.setMethod("GET");
-								}
-								String urlParams = null;
-								// url支持 ?abc=a&bbb=c的格式
-								if (url != null && url.indexOf('?') != -1) {
-									String[] temp = url.split("\\?");
-									url = temp[0];
-									if (temp.length > 1) {
-										urlParams = temp[1];
-									}
-								}
-								if(StringUtil.isNotEmpty(url))
-								{
-									curlData.setUrl(url);
-									curlData.setTimeout(pushAction.getTimeout());
-									curlData.setRetry(pushAction.getRetry());
-									BASE64Decoder base64Decoder = new BASE64Decoder();
-									
-									String paramName[] = StringUtil.split(pushAction.getParamName(), ',');
-						    		String paramVariable[] = StringUtil.split(pushAction.getParamVariable(), ',');
-						    		String value = null;
-						    		for(int i=0; i< paramName.length; i++){
-						    			try{
-							    			String param = new String(base64Decoder.decodeBuffer(paramName[i]));
-							                String variable = new String(base64Decoder.decodeBuffer(paramVariable[i]));					    			
-								    		int count = 0;
-							                while(variable.contains("${") && variable.contains("}") && count < 20){
-							                    String var = variable.substring(variable.indexOf("${")+2, variable.indexOf("}"));
-							                    String varval="";					                    
-						            			varval = ((AsteriskChannel)channel).getVariable(var);					            		
-							                    variable = variable.substring(0, variable.indexOf("${")) + varval + variable.substring(variable.indexOf("}")+1);
-							                    count++;
-							                }
-							                if(map.get(variable) != null){
-							                	value = map.get(variable);
-							                }else{
-							        			value = ((AsteriskChannel)channel).getVariable(variable);
-							                }
-							                vars.put(param, value);
-						    			}catch(Exception e){
-						    				e.printStackTrace();
-						    			}
-						    		}					    		
-						    		// 获取curl级别
-									int level = 0;
-									EnterpriseSetting setting = ContextUtil.getBean(RedisService.class).get(Const.REDIS_DB_CONF_INDEX
-											, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME
-											,Integer.parseInt(enterpriseId), Const.ENTERPRISE_SETTING_NAME_CURL_LEVEL)
-											, EnterpriseSetting.class);
-									if (setting != null && setting.getId() != null) {
-										level = Integer.parseInt(setting.getValue());
-									}
-									curlData.setParams(vars);
-									curlData.setLevel(level);
-									curlData.setType(curlType);
-									CurlPushClient.addPushQueue(curlData);
-								}
-								else
-								{
-									logger.error("Curl' url setting is empty!!");
-								}
-							}
 						}
 						channelName = event.getChannel();	
 						channelUniqueId = event.getUniqueId();
@@ -802,6 +717,38 @@ public class ChannelManager  {
 						j.put(AmiParamConst.VARIABLE_BRIDGED_CHANNEL, bridgedChannelName);
 						j.put(AmiParamConst.VARIABLE_BRIDGED_UNIQUEID, bridgedUniqueId);	
 						amiEventListener.publishEvent(j);
+						
+						
+						
+						// 来电推送
+						int pushType = 0;
+						int curlType = 0;
+
+						if ((Const.CDR_CALL_TYPE_OB_WEBCALL + "").equals(channelCallType)
+								&& StringUtil.isEmpty(channelUniqueId)) {
+							pushType = Const.ENTERPRISE_PUSH_TYPE_RINGING_WEB_CALL;
+							curlType = Const.CURL_TYPE_RINGING_WEBCALL;
+						} else {
+							pushType = Const.ENTERPRISE_PUSH_TYPE_RINGING_IB;
+							curlType = Const.CURL_TYPE_RINGING_IB;
+						}
+
+						Map<String, String> pushEvent = new HashMap<String, String>();
+						pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.RINGING);
+						pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, String.valueOf(enterpriseId));
+						pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, channelCustomerNumber);
+						pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
+						pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE, channelCustomerAreaCode);
+						pushEvent.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);
+						pushEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, channelCallType);
+						pushEvent.put(AmiParamConst.VARIABLE_RINGING_TIME, com.tinet.ctilink.util.DateUtil
+								.format(new Date(), com.tinet.ctilink.util.DateUtil.FMT_DATE_YYYY_MM_DD_HH_mm_ss));
+						pushEvent.put(AmiParamConst.VARIABLE_UNIQUEID, channelUniqueId);
+//						pushEvent.put(AmiParamConst.VARIABLE_TASK_INVENTORY_ID, channelTaskInventoryId);
+//						pushEvent.put(AmiParamConst.VARIABLE_TASK_ID, channelTaskId);
+
+						// 根据企业设置推送Curl
+						AmiUtil.pushCurl(channel, pushEvent, Integer.parseInt(enterpriseId), pushType, curlType);
 					}
 				}
 			}
