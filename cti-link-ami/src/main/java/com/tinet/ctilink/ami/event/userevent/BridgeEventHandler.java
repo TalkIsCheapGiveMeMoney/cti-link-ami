@@ -43,22 +43,26 @@ public class BridgeEventHandler extends AbstractAmiEventHandler implements AmiUs
 		String detailCallType = ((CallBridgeEvent) event).getDetailCallType();
 		String callType = ((CallBridgeEvent) event).getCallType();
 
+		
+		Map<String, String> userEvent = new HashMap<String, String>();
+		userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
+		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.BRIDGED);
+		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
+		userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
+		userEvent.put(AmiParamConst.VARIABLE_BRIDGE_TIME, bridgeTime);
+		userEvent.put(AmiParamConst.VARIABLE_CALLEE_NUMBER, calleeNumber);
+		userEvent.put(AmiParamConst.VARIABLE_USER_FIELD, userField);
+		userEvent.put(AmiParamConst.VARIABLE_DETAIL_CALLTYPE, detailCallType);
+		userEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
+		
 		JSONObject pushEvent=new JSONObject();
-		pushEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-		pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.BRIDGED);
-		pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
-		pushEvent.put(AmiParamConst.VARIABLE_CNO, cno);
-		pushEvent.put(AmiParamConst.VARIABLE_BRIDGE_TIME, bridgeTime);
-		pushEvent.put(AmiParamConst.VARIABLE_CALLEE_NUMBER, calleeNumber);
-		pushEvent.put(AmiParamConst.VARIABLE_USER_FIELD, userField);
-		pushEvent.put(AmiParamConst.VARIABLE_DETAIL_CALLTYPE, detailCallType);
-		pushEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
+		pushEvent.putAll(userEvent);		
 		publishEvent(pushEvent);
 
-//		// 根据企业设置推送Curl
-//		AmiUtil.pushCurl(((UserEvent) event).getAsteriskChannel(), pushEvent, Integer.parseInt(enterpriseId),
-//				Const.ENTERPRISE_PUSH_TYPE_BRIDGE_IB, Const.CURL_TYPE_BRIDGE_IB);
+		// 根据企业设置推送Curl
+		AmiUtil.pushCurl(((UserEvent) event).getAsteriskChannel(), userEvent, Integer.parseInt(enterpriseId),
+				Const.ENTERPRISE_PUSH_TYPE_BRIDGE_IB, Const.CURL_TYPE_BRIDGE_IB);
 	}
 
 	

@@ -7,6 +7,7 @@ import org.asteriskjava.manager.action.OriginateAction;
 import org.asteriskjava.manager.response.ManagerResponse;
 import org.springframework.stereotype.Component;
 
+import com.github.pagehelper.StringUtil;
 import com.tinet.ctilink.ami.action.callback.OriginateActionCallback;
 import com.tinet.ctilink.ami.inc.AmiActionTypeConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
@@ -44,7 +45,7 @@ public class OriginateActionHandler extends AbstractActionHandler {
 		
 		originateAction = new OriginateAction();			
 		String dstChannel = actionMap.get(AmiParamConst.DEST_CHANNEL);
-		if(dstChannel.isEmpty())
+		if(StringUtil.isEmpty(dstChannel))
 		{
 			logger.error("Parameter name "+ AmiParamConst.DEST_CHANNEL + " is empty!!!!!");
 			return ERROR_BAD_PARAM;

@@ -49,19 +49,23 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 		String customerAreaCode = ((IncomingEvent) event).getCustomerAreaCode();
 		String ivrId =  ((IncomingEvent) event).getIvrId();
 
-		JSONObject pushEvent=new JSONObject();
-		pushEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.INCOMING);
-		pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		pushEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
-		pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
-		pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER_TYPE, customerNumberType);
-		pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE, customerAreaCode);
+		
+		Map<String, String> userEvent = new HashMap<String, String>();
+		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.INCOMING);
+		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
+		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
+		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER_TYPE, customerNumberType);
+		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE, customerAreaCode);
 
+		JSONObject pushEvent=new JSONObject();
+		pushEvent.putAll(userEvent);
 		publishEvent(pushEvent);
 
 		// 根据企业设置推送Curl
-//		AmiUtil.pushCurl(((UserEvent) event).getAsteriskChannel(), pushEvent, Integer.parseInt(enterpriseId), Const.ENTERPRISE_PUSH_TYPE_INCOMING_IB,
-//				Const.CURL_TYPE_INCOMING);
+		AmiUtil.pushCurl(((UserEvent) event).getAsteriskChannel(), userEvent, Integer.parseInt(enterpriseId), Const.ENTERPRISE_PUSH_TYPE_INCOMING_IB,
+				Const.CURL_TYPE_INCOMING);
+		
 		// ivr来电数统计
 		if(callType != null && (callType.equals(String.valueOf(Const.CDR_CALL_TYPE_IB)) || callType.equals(String.valueOf(Const.CDR_CALL_TYPE_OB_WEBCALL)) || callType.equals(String.valueOf(Const.CDR_CALL_TYPE_PREDICTIVE_OB)))){
 			EnterpriseSetting enterpriseSetting = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,

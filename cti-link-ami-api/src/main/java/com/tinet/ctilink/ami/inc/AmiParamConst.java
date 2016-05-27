@@ -17,9 +17,9 @@ public class AmiParamConst {
 	
 
 	//action top level param name
-	public static final String ACTION_MAP = "actionMap"; 			// 客户号码
-	public static final String CALLBACK_MAP = "callbackMap"; 	// 客户号码类型
-	public static final String CHANNEL_VAR_MAP = "channelVarMap"; 		// 客户区号
+	public static final String ACTION_MAP = "actionMap"; 			//请求参数组
+	public static final String CALLBACK_MAP = "actionEvent"; 	// 请求事件参数组
+	public static final String CHANNEL_VAR_MAP = "varMap"; 		// 通道变量组
 	
 	//used parameter name
 	public static final String CUSTOMER_NUMBER = "customerNumber"; 			// 客户号码
@@ -68,7 +68,7 @@ public class AmiParamConst {
 	public static final String DIALPLAN_CONTEXT = "context";
 	public static final String PRIORITY = "priority";
 	public static final String ORIGINATE_TIMEOUT = "originateTimeout";
-	public static final String DEST_CHANNEL = "destChannel";
+	public static final String DEST_CHANNEL = "channel";
 	public static final String OTHER_CHANNEL_ID = "otherChannelId ";
 	public static final String CLID = "clid";
 	

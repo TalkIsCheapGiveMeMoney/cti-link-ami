@@ -148,7 +148,7 @@
                                     <extraArgument>-Dcom.sun.management.jmxremote.port=${jvm.jmx.port}</extraArgument>
                                     <extraArgument>-Dcom.sun.management.jmxremote.ssl=false</extraArgument>
                                     <extraArgument>-Dcom.sun.management.jmxremote.authenticate=false</extraArgument>
-                                    <extraArgument>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=18765</extraArgument>
+                                    <extraArgument>-agentlib:jdwp=transport=dt_socket,address=0.0.0.0:8000,server=y,suspend=n</extraArgument>
                                 </extraArguments>
                             </jvmSettings>
                         </daemon>
