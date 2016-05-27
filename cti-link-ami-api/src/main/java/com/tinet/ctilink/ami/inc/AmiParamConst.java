@@ -68,7 +68,7 @@ public class AmiParamConst {
 	public static final String DIALPLAN_CONTEXT = "context";
 	public static final String PRIORITY = "priority";
 	public static final String ORIGINATE_TIMEOUT = "originateTimeout";
-	public static final String DEST_CHANNEL = "destChannel";
+	public static final String DEST_CHANNEL = "channel";
 	public static final String OTHER_CHANNEL_ID = "otherChannelId ";
 	public static final String CLID = "clid";
 	
