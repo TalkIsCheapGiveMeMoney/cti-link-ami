@@ -430,6 +430,88 @@ public class ChannelManager  {
 				channel.stateChanged(event.getDateReceived(), ChannelState.valueOf(event.getChannelState()));
 			}
 		}
+		
+		synchronized (channel) {
+			channel.setCallerId(new CallerId(event.getCallerIdName(), event.getCallerIdNum()));
+			String channelCustomerNumber = "";
+			String channelCustomerNumberType = "";
+			String channelCustomerAreaCode = "";
+			String channelUniqueId = "";			
+			String channelNumberTrunk = "";
+			String channelCallType = "";					
+			String bridgedUniqueId = "";					
+			String cno = "";
+			String queueName = "";
+			String hotline = "";
+			String channelState = ((Integer)AmiChannelStatusConst.TRYING).toString();	
+			String bridgedChannelName = "";
+			String detailCallType = "";
+			
+			try{
+				cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return;				
+			}
+			
+			if(checkWhetherAgentEvent(cno))
+			{
+				channel.setChannelType(1);
+				
+				JSONObject j=new JSONObject();
+				String channelName = "";
+				String enterpriseId = "";
+				
+				enterpriseId = channel.getVariable(AmiChanVarNameConst.ENTERPRISE_ID);
+				j.put(AmiParamConst.ENTERPRISEID, enterpriseId);	
+				channelName = event.getChannel();	
+				channelUniqueId = event.getUniqueId();
+				try{					
+					queueName = channel.getVariable(AmiChanVarNameConst.CUR_QUEUE);
+					hotline = channel.getVariable(AmiChanVarNameConst.CDR_HOTLINE);						
+					channelCustomerAreaCode = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_AREA_CODE);	
+					channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
+					channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);	
+					detailCallType = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CALL_TYPE);						
+					bridgedChannelName = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
+					bridgedUniqueId = channel.getVariable(AmiChanVarNameConst.LINKEDID);
+					channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
+					channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);		
+				}catch(org.asteriskjava.live.NoSuchChannelException e)
+				{
+					channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
+					j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
+					j.put(AmiParamConst.VARIABLE_CNO, cno);	
+					j.put(AmiParamConst.CHANNELSTATE, channelState);
+					j.put(AmiParamConst.CHANNEL, event.getChannel());
+					j.put(AmiParamConst.UNIQUEID, channelUniqueId);
+					amiEventListener.publishEvent(j);
+					return;
+				}						
+				catch(Exception e)
+				{
+					e.printStackTrace();							
+					return;
+				}
+				j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
+				j.put(AmiParamConst.VARIABLE_CNO, cno);	
+				j.put(AmiParamConst.CHANNELSTATE, channelState);
+				j.put(AmiParamConst.CHANNEL, event.getChannel());
+				j.put(AmiParamConst.UNIQUEID, channelUniqueId);
+				j.put(AmiParamConst.CALL_TYPE, channelCallType);
+				j.put(AmiParamConst.CUSTOMER_NUMBER, channelCustomerNumber);
+				j.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
+				j.put(AmiParamConst.CUSTOMER_NUMBER_AREA_CODE, channelCustomerAreaCode);
+				j.put(AmiParamConst.DETAIL_CALL_TYPE, detailCallType);
+				j.put(AmiParamConst.VARIABLE_HOTLINE, hotline);
+				j.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);
+				j.put(AmiParamConst.VARIABLE_QUEUE, queueName);	
+				j.put(AmiParamConst.VARIABLE_BRIDGED_CHANNEL, bridgedChannelName);
+				j.put(AmiParamConst.VARIABLE_BRIDGED_UNIQUEID, bridgedUniqueId);	
+				amiEventListener.publishEvent(j);
+			}
+		}
 	}
 
 	public void handleNewExtenEvent(NewExtenEvent event) {
@@ -759,84 +841,6 @@ public class ChannelManager  {
 
 		synchronized (channel) {
 			channel.setCallerId(new CallerId(event.getCallerIdName(), event.getCallerIdNum()));
-			String channelCustomerNumber = "";
-			String channelCustomerNumberType = "";
-			String channelCustomerAreaCode = "";
-			String channelUniqueId = "";			
-			String channelNumberTrunk = "";
-			String channelCallType = "";					
-			String bridgedUniqueId = "";					
-			String cno = "";
-			String queueName = "";
-			String hotline = "";
-			String channelState = ((Integer)AmiChannelStatusConst.TRYING).toString();	
-			String bridgedChannelName = "";
-			String detailCallType = "";
-			
-			try{
-				cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-				return;				
-			}
-			
-			if(checkWhetherAgentEvent(cno))
-			{
-				channel.setChannelType(1);
-				
-				JSONObject j=new JSONObject();
-				String channelName = "";
-				String enterpriseId = "";
-				
-				enterpriseId = channel.getVariable(AmiChanVarNameConst.ENTERPRISE_ID);
-				j.put(AmiParamConst.ENTERPRISEID, enterpriseId);	
-				channelName = event.getChannel();	
-				channelUniqueId = event.getUniqueId();
-				try{					
-					queueName = channel.getVariable(AmiChanVarNameConst.CUR_QUEUE);
-					hotline = channel.getVariable(AmiChanVarNameConst.CDR_HOTLINE);						
-					channelCustomerAreaCode = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_AREA_CODE);	
-					channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
-					channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);	
-					detailCallType = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CALL_TYPE);						
-					bridgedChannelName = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
-					bridgedUniqueId = channel.getVariable(AmiChanVarNameConst.LINKEDID);
-					channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
-					channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);		
-				}catch(org.asteriskjava.live.NoSuchChannelException e)
-				{
-					channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
-					j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
-					j.put(AmiParamConst.VARIABLE_CNO, cno);	
-					j.put(AmiParamConst.CHANNELSTATE, channelState);
-					j.put(AmiParamConst.CHANNEL, event.getChannel());
-					j.put(AmiParamConst.UNIQUEID, channelUniqueId);
-					amiEventListener.publishEvent(j);
-					return;
-				}						
-				catch(Exception e)
-				{
-					e.printStackTrace();							
-					return;
-				}
-				j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
-				j.put(AmiParamConst.VARIABLE_CNO, cno);	
-				j.put(AmiParamConst.CHANNELSTATE, channelState);
-				j.put(AmiParamConst.CHANNEL, event.getChannel());
-				j.put(AmiParamConst.UNIQUEID, channelUniqueId);
-				j.put(AmiParamConst.CALL_TYPE, channelCallType);
-				j.put(AmiParamConst.CUSTOMER_NUMBER, channelCustomerNumber);
-				j.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
-				j.put(AmiParamConst.CUSTOMER_NUMBER_AREA_CODE, channelCustomerAreaCode);
-				j.put(AmiParamConst.DETAIL_CALL_TYPE, detailCallType);
-				j.put(AmiParamConst.VARIABLE_HOTLINE, hotline);
-				j.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);
-				j.put(AmiParamConst.VARIABLE_QUEUE, queueName);	
-				j.put(AmiParamConst.VARIABLE_BRIDGED_CHANNEL, bridgedChannelName);
-				j.put(AmiParamConst.VARIABLE_BRIDGED_UNIQUEID, bridgedUniqueId);	
-				amiEventListener.publishEvent(j);
-			}
 		}
 	}
 
