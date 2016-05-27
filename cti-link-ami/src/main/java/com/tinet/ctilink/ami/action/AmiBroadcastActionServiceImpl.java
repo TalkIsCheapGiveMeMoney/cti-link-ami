@@ -16,7 +16,7 @@ import com.alibaba.dubbo.config.annotation.Service;
  * @author Jiangsl
  */
 @Service(cluster="broadcast")
-public class AmiBroadcastActionServiceImpl implements AmiActionService {
+public class AmiBroadcastActionServiceImpl implements AmiBroadcastActionService {
 
 	private static Logger logger = LoggerFactory.getLogger(AmiBroadcastActionServiceImpl.class);
 
