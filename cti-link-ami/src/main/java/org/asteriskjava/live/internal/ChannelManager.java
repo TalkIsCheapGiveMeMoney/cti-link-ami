@@ -601,7 +601,9 @@ public class ChannelManager  {
 			if (!channel.getState().equals(ChannelState.valueOf(event.getChannelState()))) {
 				String callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);
 				if(StringUtil.isEmpty(callType))
+				{
 					return;
+				}
 				if ((channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_IB + "") 
 						|| channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_OB_WEBCALL + ""))) 	  
 				{
