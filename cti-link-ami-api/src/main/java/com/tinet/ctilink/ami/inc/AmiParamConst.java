@@ -91,7 +91,8 @@ public class AmiParamConst {
 																						// 手机、固话
 	public static final String VARIABLE_CUSTOMER_AREA_CODE = "customerAreaCode"; // action/event字段:
 																					// 号码区号
-	
+	//sorcery expire
+	public static final String SORCERY_CACHE = "sorceryCache";
 	
 	
 	

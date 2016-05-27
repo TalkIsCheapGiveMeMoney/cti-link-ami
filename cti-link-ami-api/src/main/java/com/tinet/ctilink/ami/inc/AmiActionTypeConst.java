@@ -25,5 +25,6 @@ public class AmiActionTypeConst {
 	public static final String TRANSFER = "transfer"; // 转移 长动作
 	public static final String SET_VAR = "setVar";
 	public static final String GET_VAR = "getVar";
+	public static final String SORCERY_EXPIRE = "sorceryExpire";
 
 }
