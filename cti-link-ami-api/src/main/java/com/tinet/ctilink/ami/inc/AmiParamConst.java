@@ -127,27 +127,12 @@ public class AmiParamConst {
 	
 	public static final String VARIABLE_RINGING_TIME = "ringingTime"; // 进入系统时间
 	public static final String VARIABLE_TIME = "time";
-
-	
-
-	
-
-
-
-	public static final String VARIABLE_DISCONNECTED_CNO = "disconnectedCno"; // action/event字段:
-																				// 强拆对象
-	public static final String VARIABLE_DISCONNECTER_CNO = "disconnecterCno"; // action/event字段:
-																				// 强拆者
-	public static final String VARIABLE_PREVIEW_OUTCAL_TEL = "previewOutcallTel"; // action/event字段:
-		
-	public static final String VARIABLE_OB_CLID_LEFT_NUMBER = "obClidLeftNumber";
-
-	public static final String VARIABLE_START_TIME = "startTime"; // 进入系统时间
-
 	
 	public static final String VARIABLE_IVR_ID = "ivrId"; // ivrId
 	public static final String VARIABLE_IVR_NODE = "ivrNode"; // ivrNode
-
+	public static final String VARIABLE_START_TIME = "startTime";
+	
+	
 
 	public static final String VARIABLE_KEYS = "keys"; // keys
 	public static final String VARIABLE_BRIDGE_TIME = "bridgeTime"; // bridgeTime
@@ -155,107 +140,26 @@ public class AmiParamConst {
 	public static final String VARIABLE_DETAIL_CALLTYPE = "detailCallType"; // detailCallType
 	public static final String VARIABLE_MAIN_UNIQUE_ID = "mainUniqueId"; // mainUniqueId
 
-	public static final String VARIABLE_QUEUES = "queues";
 	public static final String VARIABLE_GWIP = "gwIp";
 	public static final String VARIABLE_CALLER_NUMBER = "callerNumber";
 	public static final String VARIABLE_CLID_RIGHT = "clidRight";
-	public static final String VARIABLE_TEL_TYPE = "telType";
-	public static final String VARIABLE_SYNC = "sync";
 	public static final String VARIABLE_DEST_INTERFACE = "destInterface";
 	public static final String VARIABLE_ROUTER_CLID_TYPE = "routerClidType";
 	public static final String VARIABLE_CLID = "clid";
 	public static final String VARIABLE_PARAM_NAMES = "paramNames";
 	public static final String VARIABLE_PARAM_VALUES = "paramValues";
-	public static final String VARIABLE_ORDER_CALL_BACK_ID = "orderCallBackId";
-	public static final String VARIABLE_AMI_TYPE = "amiType";
-	
-
 
 	public static final String VARIABLE_CALL_TYPE = "callType"; // action/event字段:
 																// 呼叫类型1呼入2外呼...
 	public static final String VARIABLE_UNIQUEID = "uniqueId";
 	public static final String VARIABLE_STATUS = "status"; // action/event字段:
-															// 成员状态
-	public static final String VARIABLE_MEMBER_STATUS = "memberStatus"; // action/event字段:
-																		// 队列成员状态
-	public static final String VARIABLE_QUEUE_ENTRY = "queueEntry"; // action/event字段:
-																	// 队列等待客户
-	public static final String VARIABLE_QUEUE_WAITING_COUNT = "queueWaitingCount"; // action/event字段:
-	// 队列等待客户的数目
-	public static final String VARIABLE_QUEUE_STATUS = "queueStatus"; // action/event字段:
-																		// 队列信息
-	public static final String VARIABLE_IVR_STATUS = "ivrStatus";
-	public static final String VARIABLE_QUEUE_PARAMS = "queueParams"; // action/event字段:
-																		// 队列信息
-	public static final String VARIABLE_QUEUE_ENTRY_POSITION = "position"; // action/event字段:
-																			// 排队客户位置
-	public static final String VARIABLE_QUEUE_CALL_MAP = "queueCallMap"; // action/event字段:
-																			// 存储来电的呼叫状态map
-	public static final String VARIABLE_QUEUE_ENTRY_JOIN_TIME = "joinTime"; // action/event字段:
-																			// 排队客户加入时间
-	public static final String VARIABLE_QUEUE_ENTRY_WAIT_TIME = "waitTime"; // action/event字段:
-																			// 排队客户等待时间
-	public static final String VARIABLE_QUEUE_ENTRY_PRIORITY = "priority"; // action/event字段:
-																			// 排队客户VIP级别
-	public static final String VARIABLE_QUEUE_ENTRY_OVERFLOW = "overflow"; // action/event字段:
-																			// 排队客户溢出次数
-	public static final String VARIABLE_MEMBER_LOGIN_STATUS = "loginStatus"; // action/event字段:
-																				// 座席登录状态
-	public static final String VARIABLE_MEMBER_LOGIN_TIME = "loginTime"; // action/event字段:
-																			// 座席登录状态
-	public static final String VARIABLE_MEMBER_LOGIN_START_TIME = "loginStartTime"; // action/event字段:
-																					// 座席登录状态
-	public static final String VARIABLE_MEMBER_STATUS_START_TIME = "statusStartTime"; // action/event字段:
-																						// 座席登录状态
-	public static final String VARIABLE_MEMBER_DEVICE_STATUS = "deviceStatus"; // action/event字段:
-																				// 座席设备状态
+				
 	public static final String VARIABLE_PICKUP_CNO = "pickupCno"; // action/event字段:
 																	// 被抢线的座席
 	public static final String VARIABLE_CONSULTER_CNO = "consulterCno";
 	public static final String VARIABLE_CONSULTEE_CNO = "consulteeCno";
 
-	public static final String VARIABLE_QUEUE_TIMEOUT = "queueTimeout"; // 队列超时时长
-	public static final String VARIABLE_QUEUE_MEMBER_TIMEOUT = "memberTimeout"; // 队列中座席超时时长
-	public static final String VARIABLE_QUEUE_WRAPUP_TIME = "wrapupTime"; // 队列默认整理时间
-	public static final String VARIABLE_QUEUE_MAX = "max"; // 队列中最大等待座席数
-	public static final String VARIABLE_QUEUE_STRATEGY = "strategy"; // 队列排队策略
-	public static final String VARIABLE_QUEUE_CALLS = "calls"; // 队列当前等待电话数
-	public static final String VARIABLE_QUEUE_HOLD_TIME = "holdTime"; // 队列中电话接通平均等待时长
-	public static final String VARIABLE_QUEUE_TALK_TIME = "talkTime"; // 队列中电话接通平均通话时长
-	public static final String VARIABLE_QUEUE_COMPLETED = "completed"; // 队列中接通电话数
-	public static final String VARIABLE_QUEUE_ABANDONED = "abandoned"; // 队列中放弃电话数
-	public static final String VARIABLE_QUEUE_SERVICE_LEVEL = "serviceLevel"; // 队列服务水平描述
-	public static final String VARIABLE_QUEUE_SERVICE_LEVEL_PERF = "serviceLevelPerf";// 队列服务水平
-	public static final String VARIABLE_QUEUE_WEIGHT = "weight"; // 队列优先级
 
-	public static final String VARIABLE_MONITORED = "monitored"; // 是否被监控 0:未被监控
-																	// 1:被监控
-	public static final String VARIABLE_MONITORED_TYPE = "monitoredType"; // 被监控类型
-																			// spy
-																			// whisper
-																			// threeway
-	public static final String VARIABLE_MONITOR_OBJECT = "monitorObject"; // 监控者
-																			// 01041005960或2001
-	public static final String VARIABLE_MONITOR_OBJECT_TYPE = "monitorObjectType"; // 监控者类型
-																					// 0:电话
-																					// 1:座席号
-	public static final String VARIABLE_NO_RINGING = "noringing";
-	public static final String VARIABLE_ALL_CALL_BACK_COUNT = "allCallBackCount"; // 坐席所在队列所有预约回呼数
-	public static final String VARIABLE_ADD_OR_REDUCE = "addORReduce"; // 增加或减少一个预约回呼
-
-	public static final String VARIABLE_LIMIT_TIME_SECOND = "limitTimeSecond";
-	public static final String VARIABLE_LIMIT_TIME_FILE = "limitTimeFile";
-	public static final String VARIABLE_LIMIT_TIME_ALERT_SECOND = "limitTimeAlertSecond";
-	/** 当前登录座席ip */
-	public static final String VARIABLE_IP = "ip";
-
-	
-	/** 座席名称 */
-	public static final String VARIABLE_AGENT_NAME = "agentName";
-	public static final String VARIABLE_OB_CLID = "obClid";
-	public static final String VARIABLE_AGENT_LOCATION = "agentLocation";
-	public static final String VARIABLE_AGENT_QUEUE = "agentQueue";
-	public static final String VARIABLE_CTIID = "ctiId";
 	
 	
 	

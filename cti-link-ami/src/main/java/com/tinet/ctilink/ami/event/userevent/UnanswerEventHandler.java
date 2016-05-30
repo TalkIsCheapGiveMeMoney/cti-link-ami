@@ -55,7 +55,6 @@ public class UnanswerEventHandler extends AbstractAmiEventHandler implements Ami
 			userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
 		} else if (!StringUtils.isEmpty(queue)) {
 			userEvent.put(AmiParamConst.VARIABLE_QNO, queue);
-			userEvent.put(AmiParamConst.VARIABLE_AGENT_QUEUE, queue);
 		}
 
 		publishEvent(userEvent);
