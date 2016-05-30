@@ -728,6 +728,7 @@ public class ChannelManager  {
 			String cno = "";
 			String channelState = "";
 			String enterpriseId = "";
+			String channelCno = "";
 			
 			int channelType = channel.getChannelType();
 			if(channelType == 1 )
@@ -737,8 +738,8 @@ public class ChannelManager  {
 				channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
 				channelName = event.getChannel();	
 				channelUniqueId = event.getUniqueId();
-				enterpriseId = channel.getVariable(AmiChanVarNameConst.ENTERPRISE_ID);
-				cno = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CNO);				
+				channelCno = ((AbstractChannelEvent) event).getChanVarialbe("channel_cno") ;
+				enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe("enterprise_id") ;				
 				j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 				j.put(AmiParamConst.ENTERPRISEID, enterpriseId);	
 				j.put(AmiParamConst.VARIABLE_CNO, cno);	
