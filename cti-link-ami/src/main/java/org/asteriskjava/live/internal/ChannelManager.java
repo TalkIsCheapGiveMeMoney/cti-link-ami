@@ -531,22 +531,13 @@ public class ChannelManager  {
 			
 			JSONObject j=new JSONObject();
 			j.put(AmiParamConst.ENTERPRISEID, enterpriseId);
+			j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
+			j.put(AmiParamConst.VARIABLE_CNO, channelCno);	
 			
-			String channelCustomerNumber = "";
-			String channelCustomerNumberType = "";
-			String channelCustomerAreaCode = "";			
-			String channelNumberTrunk = "";
-			String channelCallType = "";					
-			String bridgedUniqueId = "";					
-			String cno = "";
-			String queueName = "";
-			String hotline = "";
-			String channelState = "";	
-			String bridgedChannelName = "";
-			String detailCallType = "";
 			String callType = "";
-			
+			String channelState = "";
 			channelState = AmiChannelStatusConst.TransformChannelState(event.getChannelState()).toString();	
+			j.put(AmiParamConst.CHANNELSTATE, channelState);
 			if(ChannelState.valueOf(event.getChannelState()) == ChannelState.RINGING)
 			{
 				try{
@@ -602,6 +593,18 @@ public class ChannelManager  {
 					}
 				}
 			}
+			String channelCustomerNumber = "";
+			String channelCustomerNumberType = "";
+			String channelCustomerAreaCode = "";			
+			String channelNumberTrunk = "";
+			String channelCallType = "";					
+			String bridgedUniqueId = "";					
+			String cno = "";
+			String queueName = "";
+			String hotline = "";				
+			String bridgedChannelName = "";
+			String detailCallType = "";
+			
 			
 			try{	
 				callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);				
@@ -621,9 +624,7 @@ public class ChannelManager  {
 			catch(Exception e){
 				
 			}
-			j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
-			j.put(AmiParamConst.VARIABLE_CNO, cno);	
-			j.put(AmiParamConst.CHANNELSTATE, channelState);
+			
 			j.put(AmiParamConst.CHANNEL, event.getChannel());
 			j.put(AmiParamConst.UNIQUEID, channelUniqueId);
 			j.put(AmiParamConst.CALL_TYPE, channelCallType);
@@ -668,25 +669,6 @@ public class ChannelManager  {
 			
 		}
 		
-		
-		
-		
-
-		if (event.getChannelState() != null) {
-			if (!channel.getState().equals(ChannelState.valueOf(event.getChannelState()))) {
-				String callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);
-				if(StringUtils.isEmpty(callType))
-				{
-					return;
-				}
-				if ((channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_IB + "") 
-						|| channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE).equals(Const.CDR_CALL_TYPE_OB_WEBCALL + ""))) 	  
-				{
-					
-				
-				}
-			}
-		}
 		logger.info("The end of handleNewStateEvent!" );
 	}
 
