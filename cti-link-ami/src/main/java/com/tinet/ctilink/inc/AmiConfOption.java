@@ -1,4 +1,4 @@
-package com.tinet.ctilink;
+package com.tinet.ctilink.inc;
 
 public class AmiConfOption {
 	 public static final int ASTERISK_AMI_PORT = 5038;

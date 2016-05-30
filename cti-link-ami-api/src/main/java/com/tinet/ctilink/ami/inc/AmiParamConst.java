@@ -18,8 +18,7 @@ public class AmiParamConst {
 
 	//action top level param name
 	public static final String ACTION_MAP = "actionMap"; 			//请求参数组
-	public static final String CALLBACK_MAP = "actionEvent"; 	// 请求事件参数组
-	public static final String CHANNEL_VAR_MAP = "varMap"; 		// 通道变量组
+	public static final String ACTION_EVENT = "actionEvent"; 	// 请求事件参数组
 	
 	//used parameter name
 	public static final String CUSTOMER_NUMBER = "customerNumber"; 			// 客户号码
@@ -29,11 +28,14 @@ public class AmiParamConst {
 	public static final String CNO = "cno"; 											// 坐席号
 	public static final String CDR_CALLEE_NUMBER = "cdr_callee_number"; 				// 被叫号码
 	public static final String CHANNEL = "channel"; // 事件参数：通道名
+	public static final String HANGUP_CAUSE = "cause";
+	public static final String INDICATE_CODE = "code";
+	
 	public static final String CHANNELSTATE = "status"; // 事件参数：通道状态
 	public static final String UNIQUEID = "uniqueId"; // 事件参数：当前通道唯一Id
 	public static final String ENTERPRISEID = "enterpriseId"; // 事件参数：企业Id
 
-	public static final String CHANNEL_VARIABLE_NAME = "channelVariableName";
+	public static final String VAR_MAP = "varMap";
 	public static final String CHANNEL_VARIABLE_VALUE = "channelVariableValue";	
 	public static final String MAIN_CHANNEL = "main_channel";
 	
@@ -45,7 +47,6 @@ public class AmiParamConst {
 	public static final String VARIABLE_BRIDGED_CHANNEL = "bridgedChannel";
 	public static final String VARIABLE_BRIDGED_UNIQUEID = "bridgedUniqueId";
 	public static final String VARIABLE_STATUS_VARIABLES = "variables";
-	public static final String VARIABLE_OP_CODE = "opCode";
 	
 	//OrderCallBack parameter	
 	public static final String VARIABLE_ORDER_TIME = "orderTime";
@@ -67,10 +68,10 @@ public class AmiParamConst {
 	public static final String EXTENSION = "exten";
 	public static final String DIALPLAN_CONTEXT = "context";
 	public static final String PRIORITY = "priority";
-	public static final String ORIGINATE_TIMEOUT = "originateTimeout";
-	public static final String DEST_CHANNEL = "channel";
+	public static final String ORIGINATE_TIMEOUT = "timeout";
 	public static final String OTHER_CHANNEL_ID = "otherChannelId ";
 	public static final String CLID = "clid";
+	public static final String FEATURE = "feature";
 	
 	public static final String EXTRA_CHANNEL = "extraChannel";
 	public static final String EXTRA_EXTEN = "extraExten ";
