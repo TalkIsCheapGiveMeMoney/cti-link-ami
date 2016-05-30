@@ -3,11 +3,11 @@ package org.asteriskjava.manager.userevent;
 import org.asteriskjava.manager.event.UserEvent;
 
 @SuppressWarnings("serial")
-public class AgentTryingEvent extends UserEvent {
+public class AgentCallTryingEvent extends UserEvent {
 	private String enterpriseId;
 	private String cno;
 
-	public AgentTryingEvent(Object source) {
+	public AgentCallTryingEvent(Object source) {
 		super(source);
 	}
 
