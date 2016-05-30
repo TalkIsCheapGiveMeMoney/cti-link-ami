@@ -34,7 +34,8 @@ public class AmiChanVarNameConst {
     public static final String PICKUPER_INTERFACE = "pickuper_interface";
 
     public static final String MAIN_CHANNEL = "main_channel";
-
+    public static final String CHANNEL_CNO = "channel_cno";
+    
     public static final String CDR_HOTLINE = "cdr_hotline";
     public static final String CDR_ENTERPRISE_ID = "cdr_enterprise_id";
     public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id";
@@ -95,4 +96,5 @@ public class AmiChanVarNameConst {
 	public static final String IS_INVESTIGATION_AUTO = "is_investigation_auto";
 	
 	public static final String DIAL_TIMEOUT = "dial_timeout";
+	public static final String PRE_DIAL_RUN = "predialrun";
 }
