@@ -98,6 +98,7 @@ import org.asteriskjava.manager.response.MailboxCountResponse;
 import org.asteriskjava.manager.response.ManagerError;
 import org.asteriskjava.manager.response.ManagerResponse;
 import org.asteriskjava.manager.response.ModuleCheckResponse;
+import org.asteriskjava.manager.userevent.AgentTryingEvent;
 import org.asteriskjava.manager.userevent.AnswerEvent;
 import org.asteriskjava.manager.userevent.BargeLinkEvent;
 import org.asteriskjava.manager.userevent.BargeUnlinkEvent;
@@ -307,6 +308,7 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		eventConnection.registerUserEventClass(PressKeysEvent.class);
 		eventConnection.registerUserEventClass(CallBridgeEvent.class);
 		eventConnection.registerUserEventClass(DirectCallStartEvent.class);
+		eventConnection.registerUserEventClass(AgentTryingEvent.class);
 
 		if (eventConnection.getState() == ManagerConnectionState.INITIAL
 				|| eventConnection.getState() == ManagerConnectionState.DISCONNECTED) {
@@ -879,15 +881,6 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 	 */
 	public void onManagerEvent(ManagerEvent event) {
 		logger.info("Manager Event:{}", event);
-		if (event instanceof NewExtenEvent) // new exten used to log
-			// dialplan execute flow
-		{
-			
-		}
-		else{
-			logger.info("Manager Event:{}", event);
-			System.out.println("Manager Event:{}"+event);
-		}
 		// Handle Channel related events
 		if (event instanceof ConnectEvent) // ami tcp connect
 		{
@@ -896,16 +889,11 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		{
 			handleDisconnectEvent((DisconnectEvent) event);
 		}else if(event instanceof NewAccountCodeEvent){
-			amiEventHandlerService.handleNewAccountCodeEvent(event);
 		}else if (event instanceof NewChannelEvent) // new channel used to
 														// trigger incoming
 														// event
 		{
 			amiEventHandlerService.handleChannelEvent(event, channelManager);
-		} else if (event instanceof NewExtenEvent) // new exten used to log
-													// dialplan execute flow
-		{
-//			amiEventHandlerService.handleChannelEvent(event, channelManager);
 		} else if (event instanceof NewStateEvent) {
 			amiEventHandlerService.handleChannelEvent(event, channelManager);
 		} else if (event instanceof NewCallerIdEvent) {
