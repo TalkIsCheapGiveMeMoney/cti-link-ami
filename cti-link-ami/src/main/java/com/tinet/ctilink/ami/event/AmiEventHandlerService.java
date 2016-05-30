@@ -9,37 +9,14 @@ import java.util.concurrent.Executors;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.live.internal.ChannelManager;
 import org.asteriskjava.manager.event.AbstractChannelEvent;
-import org.asteriskjava.manager.event.BridgeEvent;
-import org.asteriskjava.manager.event.CdrEvent;
-import org.asteriskjava.manager.event.DialEvent;
-import org.asteriskjava.manager.event.DtmfEvent;
-import org.asteriskjava.manager.event.HangupEvent;
-import org.asteriskjava.manager.event.JoinEvent;
-import org.asteriskjava.manager.event.LeaveEvent;
 import org.asteriskjava.manager.event.ManagerEvent;
-import org.asteriskjava.manager.event.NewAccountCodeEvent;
-import org.asteriskjava.manager.event.NewCallerIdEvent;
 import org.asteriskjava.manager.event.NewChannelEvent;
-import org.asteriskjava.manager.event.NewExtenEvent;
-import org.asteriskjava.manager.event.NewStateEvent;
-import org.asteriskjava.manager.event.OriginateResponseEvent;
-import org.asteriskjava.manager.event.QueueMemberAddedEvent;
-import org.asteriskjava.manager.event.QueueMemberPausedEvent;
-import org.asteriskjava.manager.event.QueueMemberPenaltyEvent;
-import org.asteriskjava.manager.event.QueueMemberRemovedEvent;
-import org.asteriskjava.manager.event.QueueMemberStatusEvent;
-import org.asteriskjava.manager.event.QueueParamsEvent;
-import org.asteriskjava.manager.event.RenameEvent;
-import org.asteriskjava.manager.event.UserEvent;
-import org.asteriskjava.manager.event.VarSetEvent;
-import org.asteriskjava.manager.userevent.QueueLogEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.inc.AmiChanVarNameConst;
-import com.tinet.ctilink.inc.Const;
 
 /**
  * 采用多线程的方式处理AMI Event事件，根据enterpriseId的尾号（0-9），共分配10个线程处理器并行处理
