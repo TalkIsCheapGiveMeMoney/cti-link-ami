@@ -59,12 +59,10 @@ public class AmiEventHandlerService {
 	
 	private Map<Class<?>, AmiUserEventHandler> userEventHandlerMap;
 	private Map<Class<?>, AmiChannelEventHandler> channelEventHandlerMap;
-	private Map<String, String> enterpriseIds;
 	private Map<String, ExecutorService> executors;
 
 	public AmiEventHandlerService() {
 		executors = new HashMap<String, ExecutorService>();
-		enterpriseIds = new HashMap<String, String>();
 	}
 
 	/**
