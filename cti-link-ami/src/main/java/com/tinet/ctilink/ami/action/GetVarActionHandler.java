@@ -23,7 +23,7 @@ public class GetVarActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		return AmiActionTypeConst.SET_VAR;
+		return AmiActionTypeConst.GET_VAR;
 	}
 
 	@Override
