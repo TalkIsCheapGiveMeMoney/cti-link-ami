@@ -2,8 +2,6 @@ package com.tinet.ctilink.ami.action;
 
 import java.util.Map;
 
-import com.tinet.ctilink.ami.AmiManager;
-import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.live.OriginateCallback;
 import org.asteriskjava.manager.action.CommandAction;
 import org.asteriskjava.manager.action.ManagerAction;
@@ -14,9 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.tinet.ctilink.ami.AmiManager;
 import com.tinet.ctilink.ami.event.AmiEventPublisher;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.ami.log.AmiLogQueueEngine;
 
 
 /**
@@ -32,11 +30,6 @@ public abstract class AbstractActionHandler implements AmiActionHandler {
 
 	@Autowired
 	protected AmiEventPublisher amiEventPublisher;
-
-	@Autowired
-	protected AmiLogQueueEngine amiLogQueueEngine;
-
-
 
 	protected final AmiActionResponse SUCCESS = AmiActionResponse.createSuccessResponse();
 	protected final AmiActionResponse ERROR_BAD_PARAM = AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_BAD_PARAM,"无效参数");

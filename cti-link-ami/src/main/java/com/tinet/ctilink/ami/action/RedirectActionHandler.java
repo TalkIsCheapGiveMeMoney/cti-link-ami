@@ -2,12 +2,12 @@ package com.tinet.ctilink.ami.action;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.RedirectAction;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.inc.AmiActionTypeConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.inc.StringUtil;
 
 
 /**
@@ -28,7 +28,7 @@ public class RedirectActionHandler extends AbstractActionHandler {
 		logger.info("handle {} action : {}", this.getAction(), params);
 		
 		String channel =(String) params.get(AmiParamConst.CHANNEL);	
-		if(StringUtil.isEmpty(channel))
+		if(StringUtils.isEmpty(channel))
 		{
 			return AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_NO_CHANNEL, "no channel");
 		}
@@ -44,7 +44,7 @@ public class RedirectActionHandler extends AbstractActionHandler {
 		redirectAction.setExten(extension);
 		
 		String extraChannel =(String) params.get(AmiParamConst.EXTRA_CHANNEL);
-		if(StringUtil.isNotEmpty(extraChannel))
+		if(StringUtils.isNotEmpty(extraChannel))
 		{
 			String extraContext = (String)params.get(AmiParamConst.EXTRA_CONTEXT);			
 			String extraExtension = (String)params.get(AmiParamConst.EXTRA_EXTEN);
@@ -52,18 +52,7 @@ public class RedirectActionHandler extends AbstractActionHandler {
 			redirectAction.setExtraChannel(extraChannel);
 			redirectAction.setExtraContext(extraContext);
 			redirectAction.setExtraExten(extraExtension);
-			String extraPriority = (String)params.get(AmiParamConst.EXTRA_PRIORITY);
-			if(StringUtil.isNotEmpty(extraPriority))
-			{
-				int priority = 1;
-				try{
-					priority = Integer.parseInt(extraPriority);
-				}catch(Exception e)
-				{
-					
-				}
-				redirectAction.setExtraPriority(priority);
-			}			
+			Integer extraPriority = (Integer)params.get(AmiParamConst.EXTRA_PRIORITY);
 		}
 
 		if (sendAction(redirectAction, 30000) == null) {

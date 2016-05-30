@@ -2,14 +2,11 @@ package com.tinet.ctilink.ami.event;
 
 import java.util.Map;
 
-import com.tinet.ctilink.ami.cache.CacheService;
-
-import com.tinet.ctilink.json.JSONObject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
+import com.tinet.ctilink.json.JSONObject;
 
 
 /**
@@ -25,8 +22,6 @@ public abstract class AbstractAmiEventHandler {
 	@Autowired
 	protected AmiEventPublisher amiEventPublisher;
 
-	@Autowired
-	protected CacheService cacheService;
 	/**
 	 * 推送AMI事件
 	 * 

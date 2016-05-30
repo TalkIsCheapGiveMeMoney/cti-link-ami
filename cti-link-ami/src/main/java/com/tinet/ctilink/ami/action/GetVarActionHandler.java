@@ -1,15 +1,15 @@
 package com.tinet.ctilink.ami.action;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.GetVarAction;
-import org.asteriskjava.manager.action.RedirectAction;
-import org.asteriskjava.manager.action.SetVarAction;
+import org.asteriskjava.manager.response.ManagerResponse;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.inc.AmiActionTypeConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.inc.StringUtil;
 
 
 /**
@@ -31,24 +31,29 @@ public class GetVarActionHandler extends AbstractActionHandler {
 		logger.info("handle {} action : {}", this.getAction(), params);
 		
 		String channel =(String) params.get(AmiParamConst.CHANNEL);	
-		if(StringUtil.isEmpty(channel))
+		if(StringUtils.isEmpty(channel))
 		{
 			return AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_NO_CHANNEL, "no channel");
 		}
+		AmiActionResponse actionResponse = AmiActionResponse.createSuccessResponse();
+		actionResponse.setValues(new HashMap<String,Object>());
 		
-		String channelVarName = (String)params.get(AmiParamConst.CHANNEL_VARIABLE_NAME);			
-		String channelVarValue = (String)params.get(AmiParamConst.CHANNEL_VARIABLE_VALUE);	
+		@SuppressWarnings("unchecked")
+		Map<String, String> varMap = (Map<String, String>)(params.get(AmiParamConst.VAR_MAP));			
+		for(String varName: varMap.keySet()){
 				
-		GetVarAction getVarAction = new GetVarAction();
-		getVarAction.setChannel(channel);
-		getVarAction.setVariable(channelVarName);
-				
-		if (sendAction(getVarAction) == null)
-		{
-			return ERROR_EXCEPTION;
+			GetVarAction getVarAction = new GetVarAction();
+			getVarAction.setChannel(channel);
+			getVarAction.setVariable(varName);
+					
+			ManagerResponse response = sendAction(getVarAction);
+			if (response != null)
+			{
+				actionResponse.getValues().put(varMap.get(varName).toString(), response.getAttribute("Value"));
+			}
 		}
 
-		return SUCCESS;
+		return actionResponse;
 	}
 
 

@@ -1,10 +1,8 @@
 package com.tinet.ctilink.ami.action;
 
-import java.util.Date;
 import java.util.Map;
 
 import org.asteriskjava.manager.action.OriginateAction;
-import org.asteriskjava.manager.response.ManagerResponse;
 import org.springframework.stereotype.Component;
 
 import com.github.pagehelper.StringUtil;
@@ -18,18 +16,15 @@ public class OriginateActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {
-		// TODO Auto-generated method stub
 		return AmiActionTypeConst.ORIGINATE;
 	}
 
 	@Override
 	public AmiActionResponse handle(Map<String, Object> params) {
-		// TODO Auto-generated method stub
 		logger.info("The begin of OriginateActionHandler:handle");
 		logger.info("handle {} action : {}", this.getAction(), params);
 		
 		OriginateAction originateAction;
-		ManagerResponse originateResponse = null;
 		int timeout = 60; 
 		Map<String, String> actionMap = null;
 		Map<String, String> callbackMap = null;
@@ -41,13 +36,13 @@ public class OriginateActionHandler extends AbstractActionHandler {
 			logger.error("Parameter name "+ AmiParamConst.ACTION_MAP + " is empty!!!!!");
 			return ERROR_BAD_PARAM;
 		}		
-		chanvarMap = (Map<String, String>)(params.get(AmiParamConst.CHANNEL_VAR_MAP));	
+		chanvarMap = (Map<String, String>)(params.get(AmiParamConst.VAR_MAP));	
 		
 		originateAction = new OriginateAction();			
-		String dstChannel = actionMap.get(AmiParamConst.DEST_CHANNEL);
+		String dstChannel = actionMap.get(AmiParamConst.CHANNEL);
 		if(StringUtil.isEmpty(dstChannel))
 		{
-			logger.error("Parameter name "+ AmiParamConst.DEST_CHANNEL + " is empty!!!!!");
+			logger.error("Parameter name "+ AmiParamConst.CHANNEL + " is empty!!!!!");
 			return ERROR_BAD_PARAM;
 		}
 		String context = actionMap.get(AmiParamConst.DIALPLAN_CONTEXT);			
@@ -70,7 +65,7 @@ public class OriginateActionHandler extends AbstractActionHandler {
 		originateAction.setCallerId(clid);		
 		originateAction.setVariables(chanvarMap);
 		
-		callbackMap = (Map<String, String>)(params.get(AmiParamConst.CALLBACK_MAP));
+		callbackMap = (Map<String, String>)(params.get(AmiParamConst.ACTION_EVENT));
 		OriginateActionCallback observer = null;
 		if(callbackMap!=null)
 		{

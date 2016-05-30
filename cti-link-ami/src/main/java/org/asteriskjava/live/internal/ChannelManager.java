@@ -27,7 +27,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import sun.misc.BASE64Decoder;
+import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.live.AsteriskChannel;
 import org.asteriskjava.live.CallerId;
 import org.asteriskjava.live.ChannelState;
@@ -66,14 +66,12 @@ import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.ami.util.AmiUtil;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
-import com.tinet.ctilink.conf.model.EnterpriseHangupAction;
 import com.tinet.ctilink.conf.model.EnterpriseSetting;
-import com.tinet.ctilink.curl.CurlData;
-import com.tinet.ctilink.curl.CurlPushClient;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.inc.StringUtil;
 import com.tinet.ctilink.json.JSONObject;
 import com.tinet.ctilink.util.ContextUtil;
+
+import sun.misc.BASE64Decoder;
 
 
 
@@ -518,7 +516,7 @@ public class ChannelManager  {
 		if (event.getChannelState() != null) {
 			if (!channel.getState().equals(ChannelState.valueOf(event.getChannelState()))) {
 				String callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);
-				if(StringUtil.isEmpty(callType))
+				if(StringUtils.isEmpty(callType))
 				{
 					return;
 				}
@@ -557,13 +555,13 @@ public class ChannelManager  {
 									, Const.ENTERPRISE_SETTING_NAME_CRM_URL_POPUP_USER_FIELD)
 									, EnterpriseSetting.class);
 							if (entSetting != null && entSetting.getId() != null) {
-								if (StringUtil.isNotEmpty(entSetting.getProperty())) {
+								if (StringUtils.isNotEmpty(entSetting.getProperty())) {
 									JSONObject clientData = new JSONObject();
-									String property[] = StringUtil.split(entSetting.getProperty(), ",");
+									String property[] = StringUtils.split(entSetting.getProperty(), ",");
 									String channelMainChannel = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
 									//获取main_channel的场景（transfer,consult）需要调测。
 									AsteriskChannel mainChannel = null;
-									if(StringUtil.isNotEmpty(channelMainChannel))
+									if(StringUtils.isNotEmpty(channelMainChannel))
 									{
 										mainChannel = server.getChannelByName(channelMainChannel);
 										try{
@@ -638,7 +636,7 @@ public class ChannelManager  {
 						int curlType = 0;
 
 						if ((Const.CDR_CALL_TYPE_OB_WEBCALL + "").equals(channelCallType)
-								&& StringUtil.isEmpty(channelUniqueId)) {
+								&& StringUtils.isEmpty(channelUniqueId)) {
 							pushType = Const.ENTERPRISE_PUSH_TYPE_RINGING_WEB_CALL;
 							curlType = Const.CURL_TYPE_RINGING_WEBCALL;
 						} else {
@@ -675,7 +673,7 @@ public class ChannelManager  {
 	 * @return
 	 */
 	private boolean checkWhetherAgentEvent(String cno) {
-		return StringUtil.isNotEmpty(cno);
+		return StringUtils.isNotEmpty(cno);
 	}
 
 	public void handleNewCallerIdEvent(NewCallerIdEvent event) {

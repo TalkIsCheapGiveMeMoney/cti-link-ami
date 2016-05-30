@@ -39,8 +39,6 @@ public class AnswerEventHandler extends AbstractAmiEventHandler implements AmiUs
 		
 		JSONObject userEvent=new JSONObject();
 		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.ANSWER);
-//		userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-//		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventConst.ANSWER);
 		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
 		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);

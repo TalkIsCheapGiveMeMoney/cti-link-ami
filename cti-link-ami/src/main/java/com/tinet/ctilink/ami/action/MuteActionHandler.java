@@ -2,12 +2,12 @@ package com.tinet.ctilink.ami.action;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.MuteAudioAction;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.inc.AmiActionTypeConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.inc.StringUtil;
 
 
 
@@ -29,7 +29,7 @@ public class MuteActionHandler extends AbstractActionHandler {
 		logger.info("handle {} action : {}", this.getAction(), params);
 		
 		String memberChannel = (String)params.get(AmiParamConst.CHANNEL);		
-		if(StringUtil.isEmpty(memberChannel))
+		if(StringUtils.isEmpty(memberChannel))
 		{
 			return AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_NO_CHANNEL, "no channel");
 		}

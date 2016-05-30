@@ -2,12 +2,12 @@ package com.tinet.ctilink.ami.action;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.action.IndicateAction;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.inc.AmiActionTypeConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
-import com.tinet.ctilink.inc.StringUtil;
 
 /**
  * 电话保持
@@ -27,25 +27,16 @@ public class IndicateActionHandler extends AbstractActionHandler {
 		logger.debug("handle {} action : {}", this.getAction(), params);
 		
 		String channel =(String) params.get(AmiParamConst.CHANNEL);	
-		if(StringUtil.isEmpty(channel))
+		if(StringUtils.isEmpty(channel))
 		{
 			return AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_NO_CHANNEL, "no channel");
 		}
 		
-		int code = 0;
-		String holdOpCode = (String)params.get(AmiParamConst.VARIABLE_OP_CODE);
-		if(StringUtil.isNotEmpty(holdOpCode))
+		Integer code = (Integer)params.get(AmiParamConst.INDICATE_CODE);
+		
+		if(code!= AmiParamConst.INDICATE_HOLD && code != AmiParamConst.INDICATE_UNHOLD) // 16是保持的指令代码 17是取消保持的指令代码
 		{
-			try{
-				code = Integer.parseInt((String)params.get(AmiParamConst.VARIABLE_OP_CODE));
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-			if(code!=16&&code!=17) // 16是保持的指令代码 17是取消保持的指令代码
-			{
-				return AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_BAD_PARAM, "Hold's opCode is wrong!");
-			}
+			return AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_BAD_PARAM, "Hold's opCode is wrong!");
 		}
 		
 		IndicateAction holdAction = new IndicateAction();
