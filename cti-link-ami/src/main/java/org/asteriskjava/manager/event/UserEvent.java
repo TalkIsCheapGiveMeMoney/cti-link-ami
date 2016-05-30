@@ -93,7 +93,7 @@ public abstract class UserEvent extends ManagerEvent {
 	
 	private String enterpriseId;
 	
-	private Map<String, String> chanVariables;
+	private String mainUniqueId;
 	
 	public UserEvent(Object source) {
 		super(source);
@@ -152,16 +152,14 @@ public abstract class UserEvent extends ManagerEvent {
 	public void setEnterpriseId(String enterpriseId) {
 		this.enterpriseId = enterpriseId;
 	}
-	public Map<String, String> getChanVariables() {
-		return chanVariables;
+
+	public String getMainUniqueId() {
+		return mainUniqueId;
 	}
 
-	public void setChanVariables(Map<String, String> chanVariables) {
-		this.chanVariables = chanVariables;
+	public void setMainUniqueId(String mainUniqueId) {
+		this.mainUniqueId = mainUniqueId;
 	}
+
 	
-	public String getChanVarialbe(String key)
-	{
-		return chanVariables.get(key);
-	}
 }

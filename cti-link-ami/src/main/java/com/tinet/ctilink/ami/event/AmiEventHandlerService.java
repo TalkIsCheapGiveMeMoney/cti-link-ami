@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.live.internal.ChannelManager;
 import org.asteriskjava.manager.event.AbstractChannelEvent;
 import org.asteriskjava.manager.event.ManagerEvent;
+import org.asteriskjava.manager.event.UserEvent;
 import org.asteriskjava.manager.event.NewChannelEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +50,7 @@ public class AmiEventHandlerService {
 	 */
 	public void handleUserEvent(ManagerEvent event) {
 		
-		String mainUniqueId = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_MAIN_UNIQUE_ID) ;
+		String mainUniqueId = ((UserEvent)event).getMainUniqueId();
 		if (StringUtils.isNotEmpty(mainUniqueId)) {
 			String tail = mainUniqueId.substring(mainUniqueId.length() - 1);
 			getExecutor(tail).execute(new Runnable() {
