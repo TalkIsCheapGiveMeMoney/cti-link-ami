@@ -26,7 +26,7 @@ import com.tinet.ctilink.json.JSONObject;
  * @author tianzp
  */
 @Component
-public class AgentCallTringEventHandler extends AbstractAmiEventHandler implements AmiUserEventHandler {
+public class AgentCallTryingEventHandler extends AbstractAmiEventHandler implements AmiUserEventHandler {
 
 	@Autowired
 	private RedisService redisService;
