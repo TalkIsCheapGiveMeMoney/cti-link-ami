@@ -39,7 +39,7 @@ public class AgentCallTryingEventHandler extends AbstractAmiEventHandler impleme
 	public void handle(ManagerEvent event) {
 		logger.info("handle {} : {}.", this.getEventClass().getSimpleName(), event);
 		
-		String enterpriseId = ((IncomingEvent) event).getEnterpriseId();
+		String enterpriseId = ((AgentCallTryingEvent) event).getEnterpriseId();
 		String cno =  ((AgentCallTryingEvent) event).getCno();
 		Map<String, String> userEvent = new HashMap<String, String>();
 		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.STATUS);
