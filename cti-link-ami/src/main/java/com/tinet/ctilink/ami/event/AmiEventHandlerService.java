@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.tinet.ctilink.ami.inc.AmiChanVarNameConst;
 import com.tinet.ctilink.inc.Const;
 
 /**
@@ -72,12 +73,10 @@ public class AmiEventHandlerService {
 	 * @param event
 	 */
 	public void handleUserEvent(ManagerEvent event) {
-		String enterpriseId = getEnterpriseId(event);
-		String channel = ((UserEvent) event).getChannel();
-		if (StringUtils.isNotEmpty(channel)) {
-			String tail = channel.substring(channel.length() - 1);
-//			String tail = enterpriseId.substring(enterpriseId.length() - 1);
-
+		
+		String mainUniqueId = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_MAIN_UNIQUE_ID) ;
+		if (StringUtils.isNotEmpty(mainUniqueId)) {
+			String tail = mainUniqueId.substring(mainUniqueId.length() - 1);
 			getExecutor(tail).execute(new Runnable() {
 				@Override
 				public void run() {
@@ -94,9 +93,7 @@ public class AmiEventHandlerService {
 	 * @param event
 	 */
 	public void handleChannelEvent(ManagerEvent event, ChannelManager channelManager) {
-//		String enterpriseId = getEnterpriseId(event);
-//		String channel = ((AbstractChannelEvent) event).getChannel();
-		String mainUniqueId = ((AbstractChannelEvent) event).getChanVarialbe("cdr_main_unique_id") ;
+		String mainUniqueId = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_MAIN_UNIQUE_ID) ;
 		if (StringUtils.isNotEmpty(mainUniqueId)) {
 			String tail = mainUniqueId.substring(mainUniqueId.length() - 1);
 			getExecutor(tail).execute(new Runnable() {
