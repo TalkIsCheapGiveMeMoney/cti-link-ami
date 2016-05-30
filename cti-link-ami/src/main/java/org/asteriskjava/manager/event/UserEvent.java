@@ -16,6 +16,8 @@
  */
 package org.asteriskjava.manager.event;
 
+import java.util.Map;
+
 import org.asteriskjava.live.AsteriskChannel;
 
 /**
@@ -91,6 +93,8 @@ public abstract class UserEvent extends ManagerEvent {
 	
 	private String enterpriseId;
 	
+	private Map<String, String> chanVariables;
+	
 	public UserEvent(Object source) {
 		super(source);
 	}
@@ -148,5 +152,16 @@ public abstract class UserEvent extends ManagerEvent {
 	public void setEnterpriseId(String enterpriseId) {
 		this.enterpriseId = enterpriseId;
 	}
+	public Map<String, String> getChanVariables() {
+		return chanVariables;
+	}
 
+	public void setChanVariables(Map<String, String> chanVariables) {
+		this.chanVariables = chanVariables;
+	}
+	
+	public String getChanVarialbe(String key)
+	{
+		return chanVariables.get(key);
+	}
 }

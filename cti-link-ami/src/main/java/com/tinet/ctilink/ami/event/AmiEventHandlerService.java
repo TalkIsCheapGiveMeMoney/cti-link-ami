@@ -72,11 +72,10 @@ public class AmiEventHandlerService {
 	 * @param event
 	 */
 	public void handleUserEvent(ManagerEvent event) {
-		String enterpriseId = getEnterpriseId(event);
+
 		String channel = ((UserEvent) event).getChannel();
 		if (StringUtils.isNotEmpty(channel)) {
 			String tail = channel.substring(channel.length() - 1);
-//			String tail = enterpriseId.substring(enterpriseId.length() - 1);
 
 			getExecutor(tail).execute(new Runnable() {
 				@Override
@@ -94,8 +93,7 @@ public class AmiEventHandlerService {
 	 * @param event
 	 */
 	public void handleChannelEvent(ManagerEvent event, ChannelManager channelManager) {
-//		String enterpriseId = getEnterpriseId(event);
-//		String channel = ((AbstractChannelEvent) event).getChannel();
+
 		String mainUniqueId = ((AbstractChannelEvent) event).getChanVarialbe("cdr_main_unique_id") ;
 		if (StringUtils.isNotEmpty(mainUniqueId)) {
 			String tail = mainUniqueId.substring(mainUniqueId.length() - 1);
@@ -112,16 +110,6 @@ public class AmiEventHandlerService {
 				channelManager.handleNewChannelEvent((NewChannelEvent) event);
 			}
 		}
-	}
-
-	/**
-	 *依据NewAccountCodeEvent获取enterpriseid
-	 * 
-	 * @param event
-	 */
-	public void handleNewAccountCodeEvent(ManagerEvent event) {
-		logger.info("get enterprise based on accountcode");
-		getEnterpriseId(event);
 	}
 	
 	
@@ -189,117 +177,5 @@ public class AmiEventHandlerService {
 		}
 		
 		return handler;
-	}
-
-
-	/**
-	 * 从Event中解析企业Id
-	 * 
-	 * @param event
-	 * @return enterpriseId
-	 */
-	private String getEnterpriseId(ManagerEvent event) {
-		String enterpriseId = "";
-		if (event instanceof NewAccountCodeEvent){
-			NewAccountCodeEvent newAccountCode = (NewAccountCodeEvent)event;
-			enterpriseId = newAccountCode.getAccountCode();
-			if(StringUtils.isNotEmpty(enterpriseId)){
-				enterpriseIds.put(newAccountCode.getChannel(),enterpriseId);
-			}
-		}
-		// Handle Channel related events
-		else if (event instanceof NewChannelEvent) {
-			NewChannelEvent nEvent = (NewChannelEvent) event;
-			enterpriseId = nEvent.getAccountCode();
-			if (StringUtils.isNotEmpty(enterpriseId)) {
-				enterpriseIds.put(nEvent.getChannel(), enterpriseId);
-			}
-
-		} else if (event instanceof NewExtenEvent) {
-			enterpriseId = enterpriseIds.get(((NewExtenEvent) event).getChannel());
-		} else if (event instanceof NewStateEvent) {
-			enterpriseId = enterpriseIds.get(((NewStateEvent) event).getChannel());
-		} else if (event instanceof NewCallerIdEvent) {
-			enterpriseId = enterpriseIds.get(((NewCallerIdEvent) event).getChannel());
-		} else if (event instanceof DialEvent) {
-			enterpriseId = enterpriseIds.get(((DialEvent) event).getChannel());
-		} else if (event instanceof BridgeEvent) {
-			enterpriseId = enterpriseIds.get(((BridgeEvent) event).getChannel1());
-		} else if (event instanceof RenameEvent) {
-			enterpriseId = enterpriseIds.get(((RenameEvent) event).getChannel());
-		} else if (event instanceof HangupEvent) {
-			enterpriseId = enterpriseIds.get(((HangupEvent) event).getChannel());
-			if (StringUtils.isNotEmpty(enterpriseId)) {
-				enterpriseIds.remove(((HangupEvent) event).getChannel());
-			}
-		} else if (event instanceof CdrEvent) {
-			enterpriseId = enterpriseIds.get(((CdrEvent) event).getChannel());
-		} else if (event instanceof VarSetEvent) {
-			enterpriseId = enterpriseIds.get(((VarSetEvent) event).getChannel());
-		} else if (event instanceof DtmfEvent) {
-			enterpriseId = enterpriseIds.get(((DtmfEvent) event).getChannel());
-		}
-		// End of parking related events
-		// Handle queue related event
-		else if (event instanceof QueueParamsEvent) {
-			enterpriseId = getEnterpriseIdByQueue(((QueueParamsEvent) event).getQueue());
-		} else if (event instanceof JoinEvent) {
-			enterpriseId =  getEnterpriseIdByQueue(((JoinEvent) event).getQueue());
-		} else if (event instanceof LeaveEvent) {
-			enterpriseId = getEnterpriseIdByQueue(((LeaveEvent) event).getQueue());
-		} else if (event instanceof QueueMemberStatusEvent) {
-			enterpriseId = getEnterpriseIdByMember(((QueueMemberStatusEvent) event).getName());
-		} else if (event instanceof QueueMemberPenaltyEvent) {
-			enterpriseId = getEnterpriseIdByQueue(((QueueMemberPenaltyEvent) event).getQueue());
-		} else if (event instanceof QueueMemberAddedEvent) {
-			enterpriseId = getEnterpriseIdByMember(((QueueMemberAddedEvent) event).getMemberName());
-		} else if (event instanceof QueueMemberRemovedEvent) {
-			enterpriseId = getEnterpriseIdByMember(((QueueMemberRemovedEvent) event).getMemberName());
-		} else if (event instanceof QueueMemberPausedEvent) {
-			enterpriseId = getEnterpriseIdByMember(((QueueMemberPausedEvent) event).getMemberName());
-		} else if (event instanceof QueueLogEvent) {
-			QueueLogEvent queueLogEvent = (QueueLogEvent)event;
-			enterpriseId = getEnterpriseIdByQueue(queueLogEvent.getQueueName());
-			if (StringUtils.isEmpty(enterpriseId)) {
-				enterpriseId = getEnterpriseIdByMember(queueLogEvent.getAgent());
-			}
-		} else if (event instanceof OriginateResponseEvent) {
-			enterpriseId = enterpriseIds.get(((OriginateResponseEvent) event).getChannel());
-		} else if (event instanceof UserEvent) {
-			enterpriseId = ((UserEvent) event).getEnterpriseId();
-		}
-		return enterpriseId;
-	}
-
-	/**
-	 * 根据MemberName 获取企业Id
-	 * 
-	 * @param memberName
-	 * @return
-	 */
-	private String getEnterpriseIdByMember(String memberName) {
-		if (StringUtils.isEmpty(memberName)) {
-			return null;
-		}
-		if (memberName.length() > Const.ENTERPRISE_ID_LEN) {
-			return memberName.substring(0, Const.ENTERPRISE_ID_LEN);
-		}
-		return null;
-	}
-
-	/**
-	 * 根据Queue name 获取企业Id
-	 * 
-	 * @param queueName
-	 * @return
-	 */
-	private String getEnterpriseIdByQueue(String queueName) {
-		if (StringUtils.isEmpty(queueName)) {
-			return null;
-		}
-		if (queueName.length() > Const.ENTERPRISE_ID_LEN) {
-			return queueName.substring(0, Const.ENTERPRISE_ID_LEN);
-		}
-		return null;
 	}
 }
