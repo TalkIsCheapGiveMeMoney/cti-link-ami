@@ -1,22 +1,25 @@
 package com.tinet.ctilink.ami.event;
 
-import java.util.*;
+import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.tinet.ctilink.ami.inc.AmiParamConst;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
+import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
+import com.tinet.ctilink.conf.model.EnterpriseHangupAction;
+import com.tinet.ctilink.conf.model.EnterpriseSetting;
 import com.tinet.ctilink.curl.CurlData;
 import com.tinet.ctilink.curl.CurlPushClient;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.json.JSONObject;
-import com.tinet.ctilink.conf.model.EnterpriseHangupAction;
-import com.tinet.ctilink.conf.model.EnterpriseSetting;
-import com.tinet.ctilink.util.ContextUtil;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 
 
 /**
@@ -37,9 +40,6 @@ public class AmiEventPublisher {
 	}
 
 	public void publish(Map<String, String> event) {
-		if (!event.containsKey(AmiParamConst.VARIABLE_TYPE)) {
-			event.put(AmiParamConst.VARIABLE_TYPE, AmiParamConst.VARIABLE_EVENT);
-		}
 
 		redisService.lpush(Const.REDIS_DB_CTI_INDEX, AmiEventTypeConst.AMI_EVENT_LIST, event.toString());
 		// 根据企业设置推送AMI状态
@@ -50,7 +50,7 @@ public class AmiEventPublisher {
 	
 
 	private void pushevent(Map<String, String> event) {
-		if (event.get(AmiParamConst.VARIABLE_NAME).equals(AmiEventTypeConst.STATUS)) {
+		if (event.get(AmiParamConst.VARIABLE_EVENT).equals(AmiEventTypeConst.STATUS)) {
 			int enterpriseId = Integer.parseInt(event.get(AmiParamConst.VARIABLE_ENTERPRISE_ID));
 			List<EnterpriseHangupAction> pushActionList = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId,
 					Const.ENTERPRISE_PUSH_TYPE_CLIENT_STATUS), EnterpriseHangupAction.class);
@@ -83,7 +83,7 @@ public class AmiEventPublisher {
 
 					Map<String, String> nvParams = new HashMap<String, String>();
 					for (String key : event.keySet()) {
-						if (key.equals(AmiParamConst.VARIABLE_TYPE) || key.equals(AmiParamConst.VARIABLE_NAME)) {
+						if (key.equals(AmiParamConst.VARIABLE_EVENT)) {
 							continue;
 						}
 						for (int i = 0; i < paramName.length; i++) {

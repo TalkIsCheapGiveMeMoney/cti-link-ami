@@ -26,14 +26,14 @@ public class HangupActionHandler extends AbstractActionHandler   {
 		Integer cause = (Integer)params.get(AmiParamConst.HANGUP_CAUSE);
 		if(StringUtils.isEmpty(channelName))
 		{
-			return AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_NO_CHANNEL, "no channel");
+			return AmiActionResponse.createFailResponse(AmiParamConst.ERROR_CODE, "no channel");
 		}
 		// 构造HangupAction对象，传入consultCancelChannel值
 		HangupAction hangupAction = new HangupAction(channelName);
 		hangupAction.setCause(cause);
 
 		if(sendAction(hangupAction)==null){
-			return ERROR_EXCEPTION;
+			return ERROR;
 		}
 		
 		return SUCCESS;

@@ -32,8 +32,7 @@ public abstract class AbstractActionHandler implements AmiActionHandler {
 	protected AmiEventPublisher amiEventPublisher;
 
 	protected final AmiActionResponse SUCCESS = AmiActionResponse.createSuccessResponse();
-	protected final AmiActionResponse ERROR_BAD_PARAM = AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_BAD_PARAM,"无效参数");
-	protected final AmiActionResponse ERROR_EXCEPTION = AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_EXCEPTION,"发生异常");
+	protected final AmiActionResponse ERROR = AmiActionResponse.createFailResponse(AmiParamConst.ERROR_CODE,"发生异常");
 
 	/**
 	 * 执行AMI特定动作

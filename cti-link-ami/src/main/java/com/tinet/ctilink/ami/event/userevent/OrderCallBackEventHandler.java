@@ -37,7 +37,7 @@ public class OrderCallBackEventHandler extends AbstractAmiEventHandler implement
 		JSONObject userEvent=new JSONObject();
 		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.ORDER_CALL_BACK);		
 		userEvent.put(AmiParamConst.ENTERPRISEID, enterpriseId);
-		userEvent.put(AmiParamConst.VARIABLE_QID, queueName);
+		userEvent.put(AmiParamConst.VARIABLE_QNO, queueName);
 		userEvent.put(AmiParamConst.CUSTOMER_NUMBER, customerNumber);
 		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE,customerAreaCode );
 		userEvent.put(AmiParamConst.VARIABLE_ORDER_TIME,customerAreaCode );

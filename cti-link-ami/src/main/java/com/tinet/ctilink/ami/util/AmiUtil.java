@@ -63,7 +63,7 @@ public class AmiUtil {
 							boolean flag = false;
 							String variable = new String(Base64.getDecoder().decode(paramVariable[i]));
 							for (String key : event.keySet()) {
-								if (key.equals(AmiParamConst.VARIABLE_TYPE) || key.equals(AmiParamConst.VARIABLE_NAME)) {
+								if (key.equals(AmiParamConst.VARIABLE_EVENT)) {
 									continue;
 								}
 

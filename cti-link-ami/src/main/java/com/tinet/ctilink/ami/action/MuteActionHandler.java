@@ -31,7 +31,7 @@ public class MuteActionHandler extends AbstractActionHandler {
 		String memberChannel = (String)params.get(AmiParamConst.CHANNEL);		
 		if(StringUtils.isEmpty(memberChannel))
 		{
-			return AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_NO_CHANNEL, "no channel");
+			return AmiActionResponse.createFailResponse(AmiParamConst.ERROR_CODE, "no channel");
 		}
 		
 		String direction = (String)params.get(AmiParamConst.VARIABLE_MUTE_DIRECTION);
@@ -41,7 +41,7 @@ public class MuteActionHandler extends AbstractActionHandler {
 		muteAudioAction.setState(state);
 
 		if (sendAction(muteAudioAction) == null) {
-			return ERROR_EXCEPTION;
+			return ERROR;
 		}
 		return SUCCESS;
 	}

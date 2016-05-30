@@ -645,7 +645,7 @@ public class ChannelManager  {
 						}
 
 						Map<String, String> pushEvent = new HashMap<String, String>();
-						pushEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.RINGING);
+						pushEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.RINGING);
 						pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, String.valueOf(enterpriseId));
 						pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, channelCustomerNumber);
 						pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);

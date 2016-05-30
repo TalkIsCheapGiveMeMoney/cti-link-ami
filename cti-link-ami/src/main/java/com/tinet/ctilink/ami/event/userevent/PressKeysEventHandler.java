@@ -40,13 +40,12 @@ public class PressKeysEventHandler extends AbstractAmiEventHandler implements Am
 		String callType = ((PressKeysEvent) event).getCallType();
 
 		Map<String, String> userEvent = new HashMap<String, String>();
-		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.PRESS_KEYS);
+		userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.PRESS_KEYS);
 		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
 		userEvent.put(AmiParamConst.VARIABLE_IVR_ID, ivrId);
 		userEvent.put(AmiParamConst.VARIABLE_IVR_NODE, ivrNode);
 		userEvent.put(AmiParamConst.VARIABLE_TIME, time);
-		userEvent.put(AmiParamConst.VARIABLE_USER_FIELD, userField);
 		userEvent.put(AmiParamConst.VARIABLE_KEYS, keys);
 		userEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
 

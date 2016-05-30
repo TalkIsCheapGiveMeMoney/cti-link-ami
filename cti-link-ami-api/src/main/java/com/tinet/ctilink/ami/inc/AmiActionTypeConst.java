@@ -26,6 +26,5 @@ public class AmiActionTypeConst {
 	public static final String SET_VAR = "setVar";
 	public static final String GET_VAR = "getVar";
 	public static final String SORCERY_EXPIRE = "sorceryExpire";
-	public static final String STATUS = "status";
 
 }

@@ -30,7 +30,7 @@ public class SetVarActionHandler extends AbstractActionHandler {
 		String channel =(String) params.get(AmiParamConst.CHANNEL);	
 		if(StringUtils.isEmpty(channel))
 		{
-			return AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_NO_CHANNEL, "no channel");
+			return AmiActionResponse.createFailResponse(AmiParamConst.ERROR_CODE, "no channel");
 		}
 		
 		@SuppressWarnings("unchecked")
@@ -45,7 +45,7 @@ public class SetVarActionHandler extends AbstractActionHandler {
 			
 			if (sendAction(setVarAction) == null)
 			{
-				return ERROR_EXCEPTION;
+				return ERROR;
 			}
 		}
 

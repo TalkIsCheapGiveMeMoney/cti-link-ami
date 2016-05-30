@@ -34,7 +34,7 @@ public class OriginateActionHandler extends AbstractActionHandler {
 		if(actionMap == null)
 		{
 			logger.error("Parameter name "+ AmiParamConst.ACTION_MAP + " is empty!!!!!");
-			return ERROR_BAD_PARAM;
+			return ERROR;
 		}		
 		chanvarMap = (Map<String, String>)(params.get(AmiParamConst.VAR_MAP));	
 		
@@ -43,7 +43,7 @@ public class OriginateActionHandler extends AbstractActionHandler {
 		if(StringUtil.isEmpty(dstChannel))
 		{
 			logger.error("Parameter name "+ AmiParamConst.CHANNEL + " is empty!!!!!");
-			return ERROR_BAD_PARAM;
+			return ERROR;
 		}
 		String context = actionMap.get(AmiParamConst.DIALPLAN_CONTEXT);			
 		String clid = actionMap.get(AmiParamConst.CLID);

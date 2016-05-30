@@ -35,7 +35,7 @@ public class SorceryExpireActionHandler extends AbstractActionHandler {
 		
 		if (sendAction(sorceryMemoryCacheExpireAction) == null)
 		{
-			return ERROR_EXCEPTION;
+			return ERROR;
 		}
 
 		return SUCCESS;

@@ -45,14 +45,12 @@ public class BridgeEventHandler extends AbstractAmiEventHandler implements AmiUs
 
 		
 		Map<String, String> userEvent = new HashMap<String, String>();
-		userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-		userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.BRIDGED);
+		userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.BRIDGED);
 		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
 		userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
 		userEvent.put(AmiParamConst.VARIABLE_BRIDGE_TIME, bridgeTime);
 		userEvent.put(AmiParamConst.VARIABLE_CALLEE_NUMBER, calleeNumber);
-		userEvent.put(AmiParamConst.VARIABLE_USER_FIELD, userField);
 		userEvent.put(AmiParamConst.VARIABLE_DETAIL_CALLTYPE, detailCallType);
 		userEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
 		

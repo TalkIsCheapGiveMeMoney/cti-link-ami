@@ -67,8 +67,7 @@ public class BargeLinkEventHandler extends AbstractAmiEventHandler implements Am
 		// 发送事件给发起者
 		if (null != cno && !cno.equals("")) {
 			Map<String, String> userEvent = new HashMap<String, String>();
-			userEvent.put("type", AmiParamConst.VARIABLE_EVENT);
-			userEvent.put(AmiParamConst.VARIABLE_NAME, AmiEventTypeConst.BARGE_LINK);
+			userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.BARGE_LINK);
 			userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
 			userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
 			userEvent.put(AmiParamConst.VARIABLE_BARGE_OBJECT, bargeObject);

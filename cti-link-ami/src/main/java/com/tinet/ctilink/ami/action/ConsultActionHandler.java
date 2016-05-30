@@ -30,7 +30,7 @@ public class ConsultActionHandler extends AbstractActionHandler {
 		String channel =(String) params.get(AmiParamConst.CHANNEL);	
 		if(StringUtils.isEmpty(channel))
 		{
-			return AmiActionResponse.createFailResponse(AmiParamConst.ERRORCODE_NO_CHANNEL, "no channel");
+			return AmiActionResponse.createFailResponse(AmiParamConst.ERROR_CODE, "no channel");
 		}
 		
 		String context = (String)params.get(AmiParamConst.DIALPLAN_CONTEXT);			
@@ -42,7 +42,7 @@ public class ConsultActionHandler extends AbstractActionHandler {
 		transferAction.setExten(extension);
 
 		if (sendAction(transferAction, 30000) == null) {
-			return ERROR_EXCEPTION;
+			return ERROR;
 		}
 
 		return SUCCESS;
