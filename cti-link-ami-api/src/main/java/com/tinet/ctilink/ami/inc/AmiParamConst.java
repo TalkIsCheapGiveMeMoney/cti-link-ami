@@ -158,53 +158,6 @@ public class AmiParamConst {
 																	// 被抢线的座席
 	public static final String VARIABLE_CONSULTER_CNO = "consulterCno";
 	public static final String VARIABLE_CONSULTEE_CNO = "consulteeCno";
-
-
 	
-	
-	
-		
-		
-		
-	//action parameter
-	//可变参数	
-		public static final String CDR_DETAIL_GW_IP = "cdr_detail_gw_ip";
-		public static final String CDR_GW_IP = "cdr_gw_ip";
-		public static final String CDR_NUMBER_TRUNK = "cdr_number_trunk";
-		public static final String CDR_CALLEE_AREA_CODE = "cdr_callee_area_code";
-		public static final String CDR_STATUS = "cdr_status";
-		public static final String RECORD_FILE = "record_file";
-		public static final String CDR_RECORD_FILE = "cdr_record_file";
-		public static final String CDR_IVR_ID = "cdr_ivr_id";
-		public static final String CDR_IVR_FLOW = "cdr_ivr_flow";
-		public static final String CDR_TELSET_NAME = "cdr_telset_name";
-		public static final String CDR_IVR_FLOW_SEC = "cdr_ivr_flow_sec";
-		public static final String CDR_USER_FIELD = "CDR(userfield)";
-		public static final String CDR_SIP_CAUSE = "cdr_sip_cause";
-		public static final String CDR_OB_CLID = "cdr_ob_clid";
-		public static final String CDR_REQUEST_UNIQUE_ID = "cdr_request_unique_id";
-		public static final String CDR_BRIDGE_TIME ="cdr_bridge_time";
-		public static final String CDR_START_TIME = "cdr_start_time";
-		public static final String CDR_START = "CDR(start)";
-		public static final String CDR_ANSWER_TIME = "cdr_answer_time";
-		public static final String CDR_END_TIME = "cdr_end_time";
-		public static final String CDR_END = "CDR(end)";
-		public static final String CDR_DIAL_TIME = "cdr_dial_time";
-		public static final String CDR_REQUEST_TIME = "cdr_request_time";
-		public static final String CDR_MONITOR_START_TIME = "cdr_monitor_start_time";
-		public static final String CDR_MONITOR_STOP_TIME = "cdr_monitor_stop_time";
-		public static final String CDR_MARK = "cdr_mark";
-		public static final String CDR_MARK_DATA = "cdr_mark_data";
-		public static final String CDR_HANGUP_CAUSE = "cdr_hangup_cause";
-		public static final String CDR_DETAIL_CLID = "cdr_detail_clid";
-		public static final String CDR_DETAIL_CALLEE_NUMBER="cdr_detail_callee_number";
-		public static final String WEBCALL_TEL = "webcall_tel";
-		public static final String IS_AMD_ON = "is_amd_on";
-		public static final String SUBTEL = "subtel";
-		public static final String NUMBER_TRUNK_AREA_CODE="number_trunk_area_code";
-		public static final String WEBCALL_IVR_ID = "webcall_ivr_id";
-		
-
-		
 		
 }

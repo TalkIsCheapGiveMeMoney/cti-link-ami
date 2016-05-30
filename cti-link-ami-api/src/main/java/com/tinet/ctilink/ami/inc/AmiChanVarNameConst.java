@@ -35,13 +35,38 @@ public class AmiChanVarNameConst {
 
     public static final String MAIN_CHANNEL = "main_channel";
     public static final String CHANNEL_CNO = "channel_cno";
+    public static final	String UNIQUEID = "UNIQUEID";
+    public static final	String LINKEDID = "CHANNEL(linkedid)";
+    public static final String ENTERPRISE_ID = "enterprise_id";
     
+    public static final String PREVIEW_OUTCALL_LEFT_CLID = "preview_outcall_left_clid";   
+    public static final String CUR_QUEUE = "cur_queue";
+    
+    public static final String CONSULT_CANCEL = "consult_cancel";
+    public static final String CONSULT_CANCEL_UNCONSULT_VALUE ="10001";
+    public static final String CONSULT_THREEWAY_CHAN = "consult_threeway_chan";
+	public static final String DIRECT_CALL_READ_STATUS = "DIRECT_CALL_READ_STATUS";
+	public static final String DIRECT_CALL_READ_DONE = "DIRECT_CALL_READ_DONE";
+	
+	/**通道变量:is_investigation 前台满意度调查时会设置这个变量*/
+	public static final String IS_INVESTIGATION = "is_investigation";
+	/** 号码状态识别功能是否开启 **/
+	public static final String IS_TSI = "is_tel_status_identification";
+	/**通道变量:is_ib_record */
+	public static final String IS_IB_RECORD = "is_ib_record";
+	
+	/**通道变量:is_ob_record  外呼是否录音 0--不录音 ，1--录音 */
+	public static final String IS_OB_RECORD = "is_ob_record";
+	
+	/**通道变量:is_investigation_auto 是否自动满意度调查*/
+	public static final String IS_INVESTIGATION_AUTO = "is_investigation_auto";
+	
+	public static final String DIAL_TIMEOUT = "dial_timeout";
+	public static final String PRE_DIAL_RUN = "predialrun";
+	
     public static final String CDR_HOTLINE = "cdr_hotline";
     public static final String CDR_ENTERPRISE_ID = "cdr_enterprise_id";
     public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id";
-    public static final	String UNIQUEID = "UNIQUEID";
-//    public static final	String BRIDGEPEER = "BRIDGEPEER";
-    public static final	String LINKEDID = "CHANNEL(linkedid)";
     public static final String CDR_START_TIME = "cdr_start_time";
     public static final String CDR_DETAIL_CNO = "cdr_detail_cno";
     public static final String CDR_DETAIL_CALL_TYPE = "cdr_detail_call_type";
@@ -62,39 +87,5 @@ public class AmiChanVarNameConst {
     public static final String CDR_RECORD_FILE = "cdr_record_file";
     public static final String CDR_IVR_ID = "cdr_ivr_id";
     public static final String CDR_ORDER_CALL_BACK = "orderCallBackId";
-
-    public static final String CUR_NODE = "cur_node";
-    public static final String CUR_NODE_ACTION = "cur_node_action";
-
-    public static final String CALL_POWER = "call_power";
-
-    public static final String PREVIEW_OUTCALL_LEFT_CLID = "preview_outcall_left_clid";    
-    
-    
-    
-    public static final String CDR_QUEUE_NAME = "cdr_queue_name"; 
-    public static final String CUR_QUEUE = "cur_queue";
-    public static final String ENTERPRISE_ID = "enterprise_id";
-    
-    public static final String CONSULT_CANCEL = "consult_cancel";
-    public static final String CONSULT_CANCEL_UNCONSULT_VALUE ="10001";
-    public static final String CONSULT_THREEWAY_CHAN = "consult_threeway_chan";
-	public static final String DIRECT_CALL_READ_STATUS = "DIRECT_CALL_READ_STATUS";
-	public static final String DIRECT_CALL_READ_DONE = "DIRECT_CALL_READ_DONE";
-	public static final String CDR_FORCE_DISCONNECT = "cdr_force_disconnect";
-	/**通道变量:is_investigation 前台满意度调查时会设置这个变量*/
-	public static final String IS_INVESTIGATION = "is_investigation";
-	/** 号码状态识别功能是否开启 **/
-	public static final String IS_TSI = "is_tel_status_identification";
-	/**通道变量:is_ib_record */
-	public static final String IS_IB_RECORD = "is_ib_record";
-	
-	/**通道变量:is_ob_record  外呼是否录音 0--不录音 ，1--录音 */
-	public static final String IS_OB_RECORD = "is_ob_record";
-	
-	/**通道变量:is_investigation_auto 是否自动满意度调查*/
-	public static final String IS_INVESTIGATION_AUTO = "is_investigation_auto";
-	
-	public static final String DIAL_TIMEOUT = "dial_timeout";
-	public static final String PRE_DIAL_RUN = "predialrun";
+    public static final String CDR_FORCE_DISCONNECT = "cdr_force_disconnect";
 }
