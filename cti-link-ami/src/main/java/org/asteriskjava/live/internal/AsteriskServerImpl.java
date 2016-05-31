@@ -976,7 +976,6 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		} else {
 			channel = callbackData.getChannel();
 		}
-
 		try {
 			if (channel == null) {
 				final LiveException cause;
@@ -987,47 +986,17 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 				return;
 			}
 
-			if (channel.wasInState(ChannelState.UP)) {
+//			if (channel.wasInState(ChannelState.UP)) 
+			if(originateEvent.isSuccess())
+			{
 				cb.onSuccess(channel);
 				return;
 			}
-
-			if (channel.wasBusy()) {
-				cb.onBusy(channel);
+			else{
+				cb.onFailure(null);
 				return;
 			}
 
-			otherChannel = channelManager.getOtherSideOfLocalChannel(channel);
-			// special treatment of local channels:
-			// the interesting things happen to the other side so we have a look
-			// at that
-			if (otherChannel != null) {
-				final AsteriskChannel dialedChannel;
-
-				dialedChannel = otherChannel.getDialedChannel();
-
-				// on busy the other channel is in state busy when we receive
-				// the originate event
-				if (otherChannel.wasBusy()) {
-					cb.onBusy(channel);
-					return;
-				}
-
-				// alternative:
-				// on busy the dialed channel is hung up when we receive the
-				// originate event having a look at the hangup cause reveals the
-				// information we are interested in
-				// this alternative has the drawback that there might by
-				// multiple channels that have been dialed by the local channel
-				// but we only look at the last one.
-				if (dialedChannel != null && dialedChannel.wasBusy()) {
-					cb.onBusy(channel);
-					return;
-				}
-			}
-
-			// if nothing else matched we asume no answer
-			cb.onNoAnswer(channel);
 		} catch (Throwable t) {
 			logger.warn("Exception dispatching originate progress", t);
 		}

@@ -14,17 +14,20 @@ import com.tinet.ctilink.Application;
 import com.tinet.ctilink.ami.event.AmiEventPublisher;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.json.JSONObject;
+import com.tinet.ctilink.util.ContextUtil;
 
-@Component
+
 public class OriginateActionCallback implements OriginateCallback{
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	@Autowired
+		
 	protected AmiEventPublisher amiEventPublisher;
 	
 	private JSONObject originateDataArray;
 	
-
+	public OriginateActionCallback() {
+		amiEventPublisher = ContextUtil.getBean(AmiEventPublisher.class);
+	}
+	
 	public JSONObject getOriginateDataArray() {
 		return originateDataArray;
 	}
@@ -43,12 +46,9 @@ public class OriginateActionCallback implements OriginateCallback{
 
 		if(originateDataArray == null)
 			return;
-		originateDataArray.put("result", AmiParamConst.ORIGINATE_RESPONSE_RESULT_SUCCESS);		
-		JSONObject json = new JSONObject();
-	    json.putAll( originateDataArray );	    
-	    
-	    logger.debug("onSuccess json:" + json.toString());
-	    amiEventPublisher.publish(json);		
+		originateDataArray.put("result", AmiParamConst.ORIGINATE_RESPONSE_RESULT_SUCCESS);	
+	    logger.debug("onSuccess json:" + originateDataArray.toString());
+	    amiEventPublisher.publish(originateDataArray);		
 	}
 
 	@Override
@@ -80,11 +80,10 @@ public class OriginateActionCallback implements OriginateCallback{
 		if(originateDataArray == null)
 			return;
 		originateDataArray.put("result", AmiParamConst.ORIGINATE_RESPONSE_RESULT_ERROR);		
-		JSONObject json = new JSONObject();
-	    json.putAll( originateDataArray );	    
+		    
 	    
-	    logger.debug("onFailure json:" + json.toString());
-	    amiEventPublisher.publish(json);
+	    logger.debug("onFailure json:" + originateDataArray.toString());
+	    amiEventPublisher.publish(originateDataArray);
 	}
 	
 }
