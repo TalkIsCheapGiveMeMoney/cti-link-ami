@@ -9,6 +9,7 @@ import com.github.pagehelper.StringUtil;
 import com.tinet.ctilink.ami.action.callback.OriginateActionCallback;
 import com.tinet.ctilink.ami.inc.AmiActionTypeConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
+import com.tinet.ctilink.json.JSONObject;
 
 @Component
 public class OriginateActionHandler extends AbstractActionHandler {
@@ -25,36 +26,33 @@ public class OriginateActionHandler extends AbstractActionHandler {
 		logger.info("handle {} action : {}", this.getAction(), params);
 		
 		OriginateAction originateAction;
-		int timeout = 60; 
-		Map<String, String> actionMap = null;
-		Map<String, String> callbackMap = null;
-		Map<String, String> chanvarMap = null;
+
+		Map<String, Object> actionMap = null;
+		JSONObject actionEvent = null;
+		Map<String, String> varMap = null;
 		
-		actionMap = (Map<String, String>)(params.get(AmiParamConst.ACTION_MAP));
+		actionMap = (Map<String, Object>)(params.get(AmiParamConst.ACTION_MAP));
 		if(actionMap == null)
 		{
 			logger.error("Parameter name "+ AmiParamConst.ACTION_MAP + " is empty!!!!!");
 			return ERROR;
 		}		
-		chanvarMap = (Map<String, String>)(params.get(AmiParamConst.VAR_MAP));	
+		varMap = (Map<String, String>)(params.get(AmiParamConst.VAR_MAP));	
 		
 		originateAction = new OriginateAction();			
-		String dstChannel = actionMap.get(AmiParamConst.CHANNEL);
+		String dstChannel = actionMap.get(AmiParamConst.CHANNEL).toString();
 		if(StringUtil.isEmpty(dstChannel))
 		{
 			logger.error("Parameter name "+ AmiParamConst.CHANNEL + " is empty!!!!!");
 			return ERROR;
 		}
-		String context = actionMap.get(AmiParamConst.DIALPLAN_CONTEXT);			
-		String clid = actionMap.get(AmiParamConst.CLID);
-		String extension = actionMap.get(AmiParamConst.EXTENSION);
-		String otherChannelId = actionMap.get(AmiParamConst.OTHER_CHANNEL_ID);
-		try{
-			timeout = Integer.parseInt(actionMap.get(AmiParamConst.ORIGINATE_TIMEOUT));
-		}catch(NumberFormatException e)
-		{
+		String context = actionMap.get(AmiParamConst.DIALPLAN_CONTEXT).toString();			
+		String clid = actionMap.get(AmiParamConst.CLID).toString();
+		String extension = actionMap.get(AmiParamConst.EXTENSION).toString();
+		String otherChannelId = actionMap.get(AmiParamConst.OTHER_CHANNEL_ID).toString();
+		Integer timeout = (Integer)actionMap.get(AmiParamConst.ORIGINATE_TIMEOUT);
+		if(timeout == null || timeout < 0 || timeout > 60){
 			timeout = 60;
-			e.printStackTrace();
 		}
 		originateAction.setChannel(dstChannel); //set channel	
 		originateAction.setOtherChannelId(otherChannelId);
@@ -63,14 +61,14 @@ public class OriginateActionHandler extends AbstractActionHandler {
 		originateAction.setTimeout((long)timeout * 1000); //set timeout
 		originateAction.setPriority(new Integer(1)); //set priority 1		
 		originateAction.setCallerId(clid);		
-		originateAction.setVariables(chanvarMap);
+		originateAction.setVariables(varMap);
 		
-		callbackMap = (Map<String, String>)(params.get(AmiParamConst.ACTION_EVENT));
+		actionEvent = (JSONObject)(params.get(AmiParamConst.ACTION_EVENT));
 		OriginateActionCallback observer = null;
-		if(callbackMap!=null)
+		if(actionEvent!=null)
 		{
 			observer = new OriginateActionCallback();
-			observer.setOriginateDataArray(callbackMap);
+			observer.setOriginateDataArray(actionEvent);
 		}
 		originateAsync(originateAction,observer);
 		logger.info("The end of OriginateActionHandler:handle");

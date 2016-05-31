@@ -22,14 +22,14 @@ public class OriginateActionCallback implements OriginateCallback{
 	@Autowired
 	protected AmiEventPublisher amiEventPublisher;
 	
-	private Map<String, String> originateDataArray;
+	private JSONObject originateDataArray;
 	
 
-	public Map<String, String> getOriginateDataArray() {
+	public JSONObject getOriginateDataArray() {
 		return originateDataArray;
 	}
 
-	public void setOriginateDataArray(Map<String, String> originateDataArray) {
+	public void setOriginateDataArray(JSONObject originateDataArray) {
 		this.originateDataArray = originateDataArray;
 	}
 	
