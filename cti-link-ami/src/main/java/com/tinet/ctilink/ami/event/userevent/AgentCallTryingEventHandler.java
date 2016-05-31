@@ -41,12 +41,20 @@ public class AgentCallTryingEventHandler extends AbstractAmiEventHandler impleme
 		
 		String enterpriseId = ((AgentCallTryingEvent) event).getEnterpriseId();
 		String cno =  ((AgentCallTryingEvent) event).getCno();
+		String callType = ((AgentCallTryingEvent) event).getCallType();
+		String consulterCno = ((AgentCallTryingEvent) event).getConsulterCno();
+		String transferCno = ((AgentCallTryingEvent) event).getTransferCno();
+		
 		Map<String, String> userEvent = new HashMap<String, String>();
-		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.STATUS);
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);		
+		userEvent.put(AmiParamConst.EVENT,AmiEventTypeConst.STATUS);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);		
 		userEvent.put(AmiParamConst.CNO, cno);
 		String channelState = ((Integer)AmiChannelStatusConst.TRYING).toString();
-		userEvent.put(AmiParamConst.CHANNELSTATE, channelState);
+		userEvent.put(AmiParamConst.STATUS, channelState);
+		userEvent.put(AmiParamConst.CALL_TYPE, callType);
+		userEvent.put(AmiParamConst.CONSULTER_CNO, consulterCno);
+		userEvent.put(AmiParamConst.TRANSFER_CNO, transferCno);
+		
 		JSONObject pushEvent=new JSONObject();
 		pushEvent.putAll(userEvent);
 		publishEvent(pushEvent);

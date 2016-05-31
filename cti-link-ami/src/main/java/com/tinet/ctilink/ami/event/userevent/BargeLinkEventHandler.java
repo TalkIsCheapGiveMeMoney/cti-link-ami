@@ -35,46 +35,18 @@ public class BargeLinkEventHandler extends AbstractAmiEventHandler implements Am
 		String cno = ((BargeLinkEvent) event).getCno();
 		String bargeObject = ((BargeLinkEvent) event).getBargeObject();
 		String bargedCno = ((BargeLinkEvent) event).getBargedCno();
-		String cid = enterpriseId + cno;
-//		CtiAgent ctiAgent = null;
+		String objectType = ((BargeLinkEvent) event).getObjectType();
 
-		// 保存在线座席
-//		RedisLock redisLock = RedisLockUtil.lock(CtiAgent.getLockKey(cid));
-//		if (redisLock != null) {
-//			try {
-//				ctiAgent = ctiAgentService.get(cid);
-//
-//				if (ctiAgent != null) {
-//					ctiAgent.setBargeChannel(channel);
-//					ctiAgentService.set(ctiAgent);
-//				}
-//			} finally {
-//				RedisLockUtil.unLock(redisLock);
-//			}
-//		}
-
-		// 发送事件给被强插者
-//		if (ctiAgent != null)
-		{
-			JSONObject userEvent=new JSONObject();		
-			userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.BARGE_LINK);
-			userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-			userEvent.put(AmiParamConst.VARIABLE_CNO, bargedCno);
-			userEvent.put(AmiParamConst.VARIABLE_BARGER_CNO, cno);
-			publishEvent(userEvent);
-		}
-
-		// 发送事件给发起者
-		if (null != cno && !cno.equals("")) {
-			Map<String, String> userEvent = new HashMap<String, String>();
-			userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.BARGE_LINK);
-			userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-			userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
-			userEvent.put(AmiParamConst.VARIABLE_BARGE_OBJECT, bargeObject);
-			userEvent.put(AmiParamConst.VARIABLE_OBJECT_TYPE, bargeObject);
-			userEvent.put(AmiParamConst.VARIABLE_BARGED_CNO, bargedCno);
-			publishEvent(userEvent);
-		}
+		JSONObject userEvent=new JSONObject();		
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.BARGE_LINK);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.CHANNEL, channel);
+		userEvent.put(AmiParamConst.BARGE_OBJECT, bargeObject);
+		userEvent.put(AmiParamConst.BARGED_CNO, bargedCno);
+		userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
+		publishEvent(userEvent);
+		
 
 	}
 

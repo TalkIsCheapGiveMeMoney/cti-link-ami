@@ -37,12 +37,12 @@ public class WhisperUnlinkEventHandler extends AbstractAmiEventHandler implement
 				
 		if (null != cno && !cno.equals("")) {
 			JSONObject userEvent=new JSONObject();		
-			userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.WHISPER_UNLINK);
-			userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-			userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
-			userEvent.put(AmiParamConst.VARIABLE_WHISPER_OBJECT, whisperObject);
-			userEvent.put(AmiParamConst.VARIABLE_OBJECT_TYPE, objectType);
-			userEvent.put(AmiParamConst.VARIABLE_WHISPERED_CNO, whisperedCno);
+			userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.WHISPER_UNLINK);
+			userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+			userEvent.put(AmiParamConst.CNO, cno);
+			userEvent.put(AmiParamConst.WHISPER_OBJECT, whisperObject);
+			userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
+			userEvent.put(AmiParamConst.WHISPERED_CNO, whisperedCno);
 			publishEvent(userEvent);
 		}
 

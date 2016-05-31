@@ -34,8 +34,8 @@ public class MuteActionHandler extends AbstractActionHandler {
 			return AmiActionResponse.createFailResponse(AmiParamConst.ERROR_CODE, "no channel");
 		}
 		
-		String direction = (String)params.get(AmiParamConst.VARIABLE_MUTE_DIRECTION);
-		String state = (String)params.get(AmiParamConst.VARIABLE_MUTE_STATE);
+		String direction = (String)params.get(AmiParamConst.MUTE_DIRECTION);
+		String state = (String)params.get(AmiParamConst.MUTE_STATE);
 		MuteAudioAction muteAudioAction = new MuteAudioAction(memberChannel);
 		muteAudioAction.setDirection(direction);
 		muteAudioAction.setState(state);

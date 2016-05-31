@@ -38,12 +38,12 @@ public class AnswerEventHandler extends AbstractAmiEventHandler implements AmiUs
 		String customerAreaCode = ((AnswerEvent) event).getCustomerAreaCode();
 		
 		JSONObject userEvent=new JSONObject();
-		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.ANSWER);
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER_TYPE, customerNumberType);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE, customerAreaCode);
+		userEvent.put(AmiParamConst.EVENT,AmiEventTypeConst.ANSWER);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CALL_TYPE, callType);
+		userEvent.put(AmiParamConst.CUSTOMER_NUMBER, customerNumber);
+		userEvent.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, customerNumberType);
+		userEvent.put(AmiParamConst.CUSTOMER_AREA_CODE, customerAreaCode);
 
 		publishEvent(userEvent);
 	}

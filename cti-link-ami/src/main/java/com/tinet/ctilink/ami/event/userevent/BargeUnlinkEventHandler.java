@@ -37,21 +37,15 @@ public class BargeUnlinkEventHandler extends AbstractAmiEventHandler implements 
 		String bargeObject = ((BargeUnlinkEvent) event).getBargeObject();
 		String objectType = ((BargeUnlinkEvent) event).getObjectType();
 		String bargedCno = ((BargeUnlinkEvent) event).getBargedCno();
-		String cid = enterpriseId + bargedCno;
 
-//		if (ctiAgent != null) 
-		{
-			if (null != cno && !cno.equals("")) {
-				JSONObject userEvent=new JSONObject();		
-				userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.BARGE_UNLINK);
-				userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-				userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
-				userEvent.put(AmiParamConst.VARIABLE_SPY_OBJECT, bargeObject);
-				userEvent.put(AmiParamConst.VARIABLE_OBJECT_TYPE, objectType);
-				userEvent.put(AmiParamConst.VARIABLE_SPIED_CNO, bargedCno);
-				publishEvent(userEvent);
-			}
-		}
+		JSONObject userEvent=new JSONObject();		
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.BARGE_UNLINK);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.BARGE_OBJECT, bargeObject);
+		userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
+		userEvent.put(AmiParamConst.BARGED_CNO, bargedCno);
+		publishEvent(userEvent);
 
 	}
 

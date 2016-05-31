@@ -38,23 +38,23 @@ public class UnanswerEventHandler extends AbstractAmiEventHandler implements Ami
 		String customerNumber = ((UnanswerEvent) event).getCustomerNumber();
 		String customerNumberType = ((UnanswerEvent) event).getCustomerNumberType();
 		String customerAreaCode = ((UnanswerEvent) event).getCustomerAreaCode();
-		String queue = ((UnanswerEvent) event).getQueue();
+		String qno = ((UnanswerEvent) event).getQno();
 		String cno = ((UnanswerEvent) event).getCno();
 		String startTime = ((UnanswerEvent) event).getStartTime();
 
 		JSONObject userEvent=new JSONObject();
-		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.UNANSWER);
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER_TYPE, customerNumberType);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE, customerAreaCode);
-		userEvent.put(AmiParamConst.VARIABLE_START_TIME, startTime);
+		userEvent.put(AmiParamConst.EVENT,AmiEventTypeConst.UNANSWER);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CALL_TYPE, callType);
+		userEvent.put(AmiParamConst.CUSTOMER_NUMBER, customerNumber);
+		userEvent.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, customerNumberType);
+		userEvent.put(AmiParamConst.CUSTOMER_AREA_CODE, customerAreaCode);
+		userEvent.put(AmiParamConst.START_TIME, startTime);
 
 		if (!StringUtils.isEmpty(cno)) {
-			userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
-		} else if (!StringUtils.isEmpty(queue)) {
-			userEvent.put(AmiParamConst.VARIABLE_QNO, queue);
+			userEvent.put(AmiParamConst.CNO, cno);
+		} else if (!StringUtils.isEmpty(qno)) {
+			userEvent.put(AmiParamConst.QNO, qno);
 		}
 
 		publishEvent(userEvent);

@@ -36,9 +36,9 @@ public class UnconsultEventHandler extends AbstractAmiEventHandler implements Am
 		String cno = ((UnconsultEvent) event).getCno();
 		
 		JSONObject userEvent=new JSONObject();		
-		userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.UNCONSULT);
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.UNCONSULT);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, cno);
 		publishEvent(userEvent);
 	}
 

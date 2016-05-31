@@ -7,7 +7,6 @@ public class CallBridgeEvent extends UserEvent {
 	private String cno;
 	private String callType;
 	private String customerNumber;
-	private String userField;
 	private String bridgeTime;
 	private String calleeNumber;
 	private String detailCallType;
@@ -30,14 +29,6 @@ public class CallBridgeEvent extends UserEvent {
 
 	public void setCustomerNumber(String customerNumber) {
 		this.customerNumber = customerNumber;
-	}
-
-	public String getUserField() {
-		return userField;
-	}
-
-	public void setUserField(String userField) {
-		this.userField = userField;
 	}
 
 	public String getCno() {

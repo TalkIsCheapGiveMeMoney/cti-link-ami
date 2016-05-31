@@ -37,10 +37,10 @@ public class ConsultThreewayLinkEventHandler extends AbstractAmiEventHandler imp
 		String consulterCno = ((ConsultThreewayLinkEvent) event).getConsulterCno(); // 发起咨询三方的座席
 		
 		JSONObject userEvent=new JSONObject();
-		userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.CONSULT_THREEWAY);
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiParamConst.VARIABLE_CNO, consulteeCno);
-		userEvent.put(AmiParamConst.VARIABLE_CONSULTER_CNO, consulterCno);
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.CONSULT_THREEWAY);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, consulteeCno);
+		userEvent.put(AmiParamConst.CONSULTER_CNO, consulterCno);
 		publishEvent(userEvent);
 		
 /*

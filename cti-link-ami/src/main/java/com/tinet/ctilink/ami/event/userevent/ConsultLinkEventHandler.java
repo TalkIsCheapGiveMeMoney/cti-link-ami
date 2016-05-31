@@ -38,11 +38,11 @@ public class ConsultLinkEventHandler extends AbstractAmiEventHandler implements 
 		String objectType = ((ConsultLinkEvent) event).getObjectType();
 		
 		JSONObject userEvent=new JSONObject();
-		userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.CONSULT_LINK);
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
-		userEvent.put(AmiParamConst.VARIABLE_CONSULT_OBJECT, consultObject);
-		userEvent.put(AmiParamConst.VARIABLE_OBJECT_TYPE, objectType);
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.CONSULT_LINK);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.CONSULT_OBJECT, consultObject);
+		userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
 		publishEvent(userEvent);
 	}
 

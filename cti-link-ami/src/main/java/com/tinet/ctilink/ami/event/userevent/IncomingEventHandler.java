@@ -46,12 +46,12 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 
 		
 		Map<String, String> userEvent = new HashMap<String, String>();
-		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.INCOMING);
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER_TYPE, customerNumberType);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE, customerAreaCode);
+		userEvent.put(AmiParamConst.EVENT,AmiEventTypeConst.INCOMING);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CALL_TYPE, callType);
+		userEvent.put(AmiParamConst.CUSTOMER_NUMBER, customerNumber);
+		userEvent.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, customerNumberType);
+		userEvent.put(AmiParamConst.CUSTOMER_AREA_CODE, customerAreaCode);
 
 		JSONObject pushEvent=new JSONObject();
 		pushEvent.putAll(userEvent);

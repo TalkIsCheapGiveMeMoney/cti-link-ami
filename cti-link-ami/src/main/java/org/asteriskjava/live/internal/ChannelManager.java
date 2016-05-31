@@ -61,6 +61,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.pagehelper.StringUtil;
 import com.tinet.ctilink.ami.AmiEventListener;
+import com.tinet.ctilink.ami.event.AmiChannelEventHandler;
 import com.tinet.ctilink.ami.inc.AmiChanVarNameConst;
 import com.tinet.ctilink.ami.inc.AmiChannelStatusConst;
 import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
@@ -522,7 +523,7 @@ public class ChannelManager  {
 			}
 		}
 
-		String channelCno = ((AbstractChannelEvent) event).getChanVarialbe("channel_cno") ;
+		String channelCno = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_CNO) ;
 		String enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe("enterprise_id") ;
 		if(StringUtils.isNotEmpty(channelCno))
 		{	
@@ -533,14 +534,14 @@ public class ChannelManager  {
 			}
 			
 			JSONObject j=new JSONObject();
-			j.put(AmiParamConst.ENTERPRISEID, enterpriseId);
-			j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
-			j.put(AmiParamConst.VARIABLE_CNO, channelCno);	
+			j.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+			j.put(AmiParamConst.EVENT, AmiEventTypeConst.STATUS);	
+			j.put(AmiParamConst.CNO, channelCno);	
 			
 			String callType = "";
 			String channelState = "";
 			channelState = AmiChannelStatusConst.TransformChannelState(event.getChannelState()).toString();	
-			j.put(AmiParamConst.CHANNELSTATE, channelState);
+			j.put(AmiParamConst.STATUS, channelState);
 			if(ChannelState.valueOf(event.getChannelState()) == ChannelState.RINGING)
 			{
 				try{
@@ -583,7 +584,7 @@ public class ChannelManager  {
 								{
 									e.printStackTrace();
 								}
-								j.put(AmiParamConst.VARIABLE_STATUS_VARIABLES,clientData);
+								j.put(AmiParamConst.VARIABLES,clientData);
 							}
 						}catch(org.asteriskjava.live.NoSuchChannelException e)
 						{
@@ -629,17 +630,17 @@ public class ChannelManager  {
 			}
 			
 			j.put(AmiParamConst.CHANNEL, event.getChannel());
-			j.put(AmiParamConst.UNIQUEID, channelUniqueId);
+			j.put(AmiParamConst.UNIQUE_ID, channelUniqueId);
 			j.put(AmiParamConst.CALL_TYPE, channelCallType);
 			j.put(AmiParamConst.CUSTOMER_NUMBER, channelCustomerNumber);
 			j.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
-			j.put(AmiParamConst.CUSTOMER_NUMBER_AREA_CODE, channelCustomerAreaCode);
+			j.put(AmiParamConst.CUSTOMER_AREA_CODE, channelCustomerAreaCode);
 			j.put(AmiParamConst.DETAIL_CALL_TYPE, detailCallType);
-			j.put(AmiParamConst.VARIABLE_HOTLINE, hotline);
-			j.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);
-			j.put(AmiParamConst.VARIABLE_QUEUE, queueName);	
-			j.put(AmiParamConst.VARIABLE_BRIDGED_CHANNEL, bridgedChannelName);
-			j.put(AmiParamConst.VARIABLE_BRIDGED_UNIQUEID, bridgedUniqueId);	
+			j.put(AmiParamConst.HOTLINE, hotline);
+			j.put(AmiParamConst.NUMBER_TRUNK, channelNumberTrunk);
+			j.put(AmiParamConst.QNO, queueName);	
+			j.put(AmiParamConst.BRIDGED_CHANNEL, bridgedChannelName);
+			j.put(AmiParamConst.BRIDGED_UNIQUE_ID, bridgedUniqueId);	
 			amiEventListener.publishEvent(j);
 			
 			// 来电推送
@@ -656,16 +657,16 @@ public class ChannelManager  {
 			}
 
 			Map<String, String> pushEvent = new HashMap<String, String>();
-			pushEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.RINGING);
-			pushEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, String.valueOf(enterpriseId));
-			pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, channelCustomerNumber);
-			pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
-			pushEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE, channelCustomerAreaCode);
-			pushEvent.put(AmiParamConst.VARIABLE_NUMBER_TRUNK, channelNumberTrunk);
-			pushEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, channelCallType);
-			pushEvent.put(AmiParamConst.VARIABLE_RINGING_TIME, com.tinet.ctilink.util.DateUtil
+			pushEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.RINGING);
+			pushEvent.put(AmiParamConst.ENTERPRISE_ID, String.valueOf(enterpriseId));
+			pushEvent.put(AmiParamConst.CUSTOMER_NUMBER, channelCustomerNumber);
+			pushEvent.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
+			pushEvent.put(AmiParamConst.CUSTOMER_AREA_CODE, channelCustomerAreaCode);
+			pushEvent.put(AmiParamConst.NUMBER_TRUNK, channelNumberTrunk);
+			pushEvent.put(AmiParamConst.CALL_TYPE, channelCallType);
+			pushEvent.put(AmiParamConst.RINGING_TIME, com.tinet.ctilink.util.DateUtil
 					.format(new Date(), com.tinet.ctilink.util.DateUtil.FMT_DATE_YYYY_MM_DD_HH_mm_ss));
-			pushEvent.put(AmiParamConst.VARIABLE_UNIQUEID, channelUniqueId);
+			pushEvent.put(AmiParamConst.UNIQUE_ID, channelUniqueId);
 
 			// 根据企业设置推送Curl
 			AmiUtil.pushCurl(channel, pushEvent, Integer.parseInt(enterpriseId), pushType, curlType);
@@ -730,8 +731,8 @@ public class ChannelManager  {
 			String enterpriseId = "";
 			String channelCno = "";
 			
-			channelCno = ((AbstractChannelEvent) event).getChanVarialbe("channel_cno") ;
-			enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe("enterprise_id") ;
+			channelCno = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_CNO) ;
+			enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_ENTERPRISE_ID) ;
 			if(StringUtil.isNotEmpty(channelCno))
 			{
 				String channelUniqueId = "";
@@ -739,12 +740,12 @@ public class ChannelManager  {
 				channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
 				channelUniqueId = event.getUniqueId();
 				JSONObject j=new JSONObject();
-				j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
-				j.put(AmiParamConst.ENTERPRISEID, enterpriseId);	
-				j.put(AmiParamConst.VARIABLE_CNO, channelCno);	
-				j.put(AmiParamConst.CHANNELSTATE, channelState);
+				j.put(AmiParamConst.EVENT, AmiEventTypeConst.STATUS);	
+				j.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);	
+				j.put(AmiParamConst.CNO, channelCno);	
+				j.put(AmiParamConst.STATUS, channelState);
 				j.put(AmiParamConst.CHANNEL, event.getChannel());
-				j.put(AmiParamConst.UNIQUEID, channelUniqueId);	
+				j.put(AmiParamConst.UNIQUE_ID, channelUniqueId);	
 				amiEventListener.publishEvent(j);
 			}
 		}

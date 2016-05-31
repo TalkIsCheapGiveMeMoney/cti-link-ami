@@ -43,14 +43,14 @@ public class PreviewOutcallBridgeEventHandler extends AbstractAmiEventHandler im
 
 		Map<String, String> userEvent = new HashMap<String, String>();
 		
-		userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.PREVIEW_OUTCALL_BRIDGE);
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER_TYPE, customerNumberType);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_AREA_CODE, customerAreaCode);
-		userEvent.put(AmiParamConst.VARIABLE_UNIQUEID, mainUniqueId);
-		userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.PREVIEW_OUTCALL_BRIDGE);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CALL_TYPE, callType);
+		userEvent.put(AmiParamConst.CUSTOMER_NUMBER, customerNumber);
+		userEvent.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, customerNumberType);
+		userEvent.put(AmiParamConst.CUSTOMER_AREA_CODE, customerAreaCode);
+		userEvent.put(AmiParamConst.MAIN_UNIQUE_ID, mainUniqueId);
+		userEvent.put(AmiParamConst.CNO, cno);
 		
 		JSONObject pushEvent=new JSONObject();
 		pushEvent.putAll(userEvent);

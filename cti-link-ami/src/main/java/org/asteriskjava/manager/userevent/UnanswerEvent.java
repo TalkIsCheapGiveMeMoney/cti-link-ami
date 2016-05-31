@@ -9,7 +9,7 @@ public class UnanswerEvent extends UserEvent {
 	private String customerNumberType;
 	private String customerAreaCode;
 	private String cno;
-	private String queue;
+	private String qno;
 	private String startTime;
 
 	public UnanswerEvent(Object source) {
@@ -56,12 +56,12 @@ public class UnanswerEvent extends UserEvent {
 		this.cno = cno;
 	}
 
-	public String getQueue() {
-		return queue;
+	public String getQno() {
+		return qno;
 	}
 
-	public void setQueue(String queue) {
-		this.queue = queue;
+	public void setQno(String qno) {
+		this.qno = qno;
 	}
 
 	public String getStartTime() {

@@ -36,13 +36,13 @@ public class DirectCallStartEventHandler extends AbstractAmiEventHandler impleme
 		String cno = ((DirectCallStartEvent) event).getCno();
 		String chan = ((DirectCallStartEvent) event).getChannel();
 		String exten = ((DirectCallStartEvent) event).getExten();
-		String cid = enterpriseId + cno;
 		
 		JSONObject userEvent=new JSONObject();
-		userEvent.put(AmiParamConst.VARIABLE_EVENT,AmiEventTypeConst.DIRECT_CALL_START);
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
-		userEvent.put(AmiParamConst.EXTENSION, exten);
+		userEvent.put(AmiParamConst.EVENT,AmiEventTypeConst.DIRECT_CALL_START);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.EXTEN, exten);
+		userEvent.put(AmiParamConst.CHANNEL, chan);
 		
 		publishEvent(userEvent);
 

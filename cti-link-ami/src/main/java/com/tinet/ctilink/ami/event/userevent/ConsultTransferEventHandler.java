@@ -37,10 +37,10 @@ public class ConsultTransferEventHandler extends AbstractAmiEventHandler impleme
 		
 		if (StringUtils.isNotEmpty(consulterCno)) {
 			JSONObject userEvent=new JSONObject();
-			userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.CONSULT_TRANSFER);
-			userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-			userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
-			userEvent.put(AmiParamConst.VARIABLE_CONSULTER_CNO, consulterCno);
+			userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.CONSULT_TRANSFER);
+			userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+			userEvent.put(AmiParamConst.CNO, cno);
+			userEvent.put(AmiParamConst.CONSULTER_CNO, consulterCno);
 			publishEvent(userEvent);
 		}
 	}

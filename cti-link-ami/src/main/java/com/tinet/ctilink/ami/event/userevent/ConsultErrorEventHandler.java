@@ -36,9 +36,9 @@ public class ConsultErrorEventHandler extends AbstractAmiEventHandler implements
 		String cno = ((ConsultErrorEvent) event).getCno();
 
 		JSONObject userEvent=new JSONObject();
-		userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.CONSULT_ERROR);
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.CONSULT_ERROR);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, cno);
 		publishEvent(userEvent);		
 		
 	}

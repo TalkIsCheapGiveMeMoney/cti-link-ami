@@ -35,9 +35,9 @@ public class ConsultThreewayUnlinkEventHandler extends AbstractAmiEventHandler i
 		String cno = ((ConsultThreewayUnlinkEvent) event).getCno();
 		
 		JSONObject userEvent=new JSONObject();
-		userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.CONSULT_THREEWAY_UNLINK);
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.CONSULT_THREEWAY_UNLINK);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, cno);
 		publishEvent(userEvent);
 
 	}

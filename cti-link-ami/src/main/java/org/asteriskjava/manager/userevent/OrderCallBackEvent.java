@@ -8,7 +8,7 @@ public class OrderCallBackEvent extends UserEvent {
 	private String customerNumber;
 	private String customerNumberType;
 	private String customerAreaCode;
-	private String queueName;
+	private String qno;
 	private String orderTime;
 
 	public OrderCallBackEvent(Object source) {
@@ -47,12 +47,12 @@ public class OrderCallBackEvent extends UserEvent {
 		this.customerAreaCode = customerAreaCode;
 	}
 
-	public String getQueueName() {
-		return queueName;
+	public String getQno() {
+		return qno;
 	}
 
-	public void setQueueName(String queueName) {
-		this.queueName = queueName;
+	public void setQno(String qno) {
+		this.qno = qno;
 	}
 
 	public String getOrderTime() {

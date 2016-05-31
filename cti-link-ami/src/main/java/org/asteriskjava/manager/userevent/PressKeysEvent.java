@@ -8,7 +8,6 @@ public class PressKeysEvent extends UserEvent {
 	private String ivrId;
 	private String ivrNode;
 	private String time;
-	private String userField;
 	private String keys;
 	private String callType;
 
@@ -54,14 +53,6 @@ public class PressKeysEvent extends UserEvent {
 
 	public void setTime(String time) {
 		this.time = time;
-	}
-
-	public String getUserField() {
-		return userField;
-	}
-
-	public void setUserField(String userField) {
-		this.userField = userField;
 	}
 
 	public String getKeys() {

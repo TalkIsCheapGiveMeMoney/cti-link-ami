@@ -39,24 +39,22 @@ public class BridgeEventHandler extends AbstractAmiEventHandler implements AmiUs
 		String cno = ((CallBridgeEvent) event).getCno();
 		String bridgeTime = ((CallBridgeEvent) event).getBridgeTime();
 		String calleeNumber = ((CallBridgeEvent) event).getCalleeNumber();
-		String userField = ((CallBridgeEvent) event).getUserField();
 		String detailCallType = ((CallBridgeEvent) event).getDetailCallType();
 		String callType = ((CallBridgeEvent) event).getCallType();
 
 		
 		Map<String, String> userEvent = new HashMap<String, String>();
-		userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.BRIDGED);
-		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-		userEvent.put(AmiParamConst.VARIABLE_CUSTOMER_NUMBER, customerNumber);
-		userEvent.put(AmiParamConst.VARIABLE_CNO, cno);
-		userEvent.put(AmiParamConst.VARIABLE_BRIDGE_TIME, bridgeTime);
-		userEvent.put(AmiParamConst.VARIABLE_CALLEE_NUMBER, calleeNumber);
-		userEvent.put(AmiParamConst.VARIABLE_DETAIL_CALLTYPE, detailCallType);
-		userEvent.put(AmiParamConst.VARIABLE_CALL_TYPE, callType);
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.BRIDGED);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CUSTOMER_NUMBER, customerNumber);
+		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.BRIDGE_TIME, bridgeTime);
+		userEvent.put(AmiParamConst.CALLEE_NUMBER, calleeNumber);
+		userEvent.put(AmiParamConst.DETAIL_CALLTYPE, detailCallType);
+		userEvent.put(AmiParamConst.CALL_TYPE, callType);
 		
 		JSONObject pushEvent=new JSONObject();
 		pushEvent.putAll(userEvent);		
-		publishEvent(pushEvent);
 
 		// 根据企业设置推送Curl
 		AmiUtil.pushCurl(((UserEvent) event).getAsteriskChannel(), userEvent, Integer.parseInt(enterpriseId),

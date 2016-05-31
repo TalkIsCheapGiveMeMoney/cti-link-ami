@@ -27,15 +27,17 @@ public class PredictiveBridgeEventHandler extends AbstractAmiEventHandler implem
 	public void handle(ManagerEvent event) {
 		logger.info("handle {} : {}.", this.getEventClass().getSimpleName(), event);
 
-//		String enterpriseId = ((PredictiveBridgeEvent) event).getEnterpriseId();
-//		String taskId = ((PredictiveBridgeEvent) event).getTaskId();
-
-//		JSONObject userEvent=new JSONObject();
-//		userEvent.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.Pre);
-//		userEvent.put(AmiParamConst.VARIABLE_ENTERPRISE_ID, enterpriseId);
-//		userEvent.put(AmiParamConst.VARIABLE_TASK_ID, taskId);
-//		publishEvent(userEvent);
-		throw new UnsupportedOperationException("预测外呼不再支持");
+		String enterpriseId = ((PredictiveBridgeEvent) event).getEnterpriseId();
+		String taskId = ((PredictiveBridgeEvent) event).getTaskId();
+		String tel = ((PredictiveBridgeEvent) event).getTel();
+		
+		JSONObject userEvent=new JSONObject();
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.PREVIEW_OUTCALL_BRIDGE);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.TASK_ID, taskId);
+		userEvent.put(AmiParamConst.TEL, tel);
+		
+		publishEvent(userEvent);
 	}
 
 }
