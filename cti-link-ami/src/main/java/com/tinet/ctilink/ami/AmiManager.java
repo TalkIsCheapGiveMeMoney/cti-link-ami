@@ -116,46 +116,11 @@ public class AmiManager {
 		return object.toString();
 	}
 
-	/**
-	 * 获取本机的所有IP，用于判断Asterisk（CTI）与AMI Server之间是否有对应关系
-	 *
-	 * @return
-	 */
-	private Set<String> getLocalIPs() {
-		Set<String> ips = new HashSet<String>();
-		Enumeration<NetworkInterface> ns = null;
-		try {
-			ns = NetworkInterface.getNetworkInterfaces();
-		} catch (SocketException e) {
-			// ignored...
-		}
-
-		while (ns != null && ns.hasMoreElements()) {
-			NetworkInterface n = ns.nextElement();
-			Enumeration<InetAddress> is = n.getInetAddresses();
-			while (is.hasMoreElements()) {
-				InetAddress i = is.nextElement();
-				ips.add(i.getHostAddress());
-			}
-		}
-
-		return ips;
-	}
-
 	@ManagedAttribute(description = "通道数")
 	public int getChannelCount() {
 		int sum = 0;
 		if (amiListener != null) {
 			sum = amiListener.getAsteriskServer().getChannels().size();
-		}
-		return sum;
-	}
-
-	@ManagedAttribute(description = "座席数")
-	public int getAgentCount() {
-		int sum = 0;
-		if (amiListener != null) {
-			sum = amiListener.getAsteriskServer().getAgents().size();
 		}
 		return sum;
 	}

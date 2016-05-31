@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.asteriskjava.live.AsteriskChannel;
 import org.asteriskjava.manager.action.GetVarAction;
 import org.asteriskjava.manager.response.ManagerResponse;
 import org.springframework.stereotype.Component;
@@ -38,10 +39,23 @@ public class GetVarActionHandler extends AbstractActionHandler {
 		AmiActionResponse actionResponse = AmiActionResponse.createSuccessResponse();
 		actionResponse.setValues(new HashMap<String,Object>());
 		
+		AsteriskChannel asteriskChannel = amiManager.getManager().getAsteriskServer().getChannelByName(channel);
+		if(asteriskChannel == null){
+			return AmiActionResponse.createFailResponse(AmiParamConst.ERROR_CODE, "no channel");
+		}
 		@SuppressWarnings("unchecked")
 		Map<String, String> varMap = (Map<String, String>)(params.get(AmiParamConst.VAR_MAP));			
 		for(String varName: varMap.keySet()){
+			String noCache = varMap.get(varName).toString();
+			if("1".equals(noCache)){
 				
+			}else{
+				Object localValue = asteriskChannel.getVariables().get(varName);
+				if(localValue != null){
+					actionResponse.getValues().put(varName, localValue.toString());
+					continue;
+				}
+			}
 			GetVarAction getVarAction = new GetVarAction();
 			getVarAction.setChannel(channel);
 			getVarAction.setVariable(varName);
