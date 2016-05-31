@@ -59,6 +59,7 @@ import org.asteriskjava.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.pagehelper.StringUtil;
 import com.tinet.ctilink.ami.AmiEventListener;
 import com.tinet.ctilink.ami.inc.AmiChanVarNameConst;
 import com.tinet.ctilink.ami.inc.AmiChannelStatusConst;
@@ -480,6 +481,8 @@ public class ChannelManager  {
 		}
 		
 		
+		
+		
 		// NewStateEvent can provide a new CallerIdNum or CallerIdName not
 		// previously received through a
 		// NewCallerIdEvent. This happens at least on outgoing legs from the
@@ -522,10 +525,10 @@ public class ChannelManager  {
 		String channelCno = ((AbstractChannelEvent) event).getChanVarialbe("channel_cno") ;
 		String enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe("enterprise_id") ;
 		if(StringUtils.isNotEmpty(channelCno))
-		{			
+		{	
 			if (event.getChannelState() != null) {
 				if (!channel.getState().equals(ChannelState.valueOf(event.getChannelState()))) {
-					
+					channel.stateChanged(event.getDateReceived(),ChannelState.valueOf(event.getChannelState()));
 				}
 			}
 			
@@ -704,7 +707,7 @@ public class ChannelManager  {
 
 		synchronized (channel) {
 			channel.setCallerId(new CallerId(event.getCallerIdName(), event.getCallerIdNum()));
-			channel.setChannelType(0);	
+			
 		}
 	}
 
@@ -723,32 +726,26 @@ public class ChannelManager  {
 
 		synchronized (channel) {
 			channel.hungup(event.getDateReceived(), cause, event.getCauseTxt());
-			String channelUniqueId = "";
-			String channelCallType = "";					
-			String cno = "";
-			String channelState = "";
+			
 			String enterpriseId = "";
 			String channelCno = "";
 			
-			int channelType = channel.getChannelType();
-			if(channelType == 1 )
+			channelCno = ((AbstractChannelEvent) event).getChanVarialbe("channel_cno") ;
+			enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe("enterprise_id") ;
+			if(StringUtil.isNotEmpty(channelCno))
 			{
-				JSONObject j=new JSONObject();
-				String channelName = "";
+				String channelUniqueId = "";
+				String channelState = "";
 				channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
-				channelName = event.getChannel();	
 				channelUniqueId = event.getUniqueId();
-				channelCno = ((AbstractChannelEvent) event).getChanVarialbe("channel_cno") ;
-				enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe("enterprise_id") ;				
+				JSONObject j=new JSONObject();
 				j.put(AmiParamConst.VARIABLE_EVENT, AmiEventTypeConst.STATUS);	
 				j.put(AmiParamConst.ENTERPRISEID, enterpriseId);	
-				j.put(AmiParamConst.VARIABLE_CNO, cno);	
+				j.put(AmiParamConst.VARIABLE_CNO, channelCno);	
 				j.put(AmiParamConst.CHANNELSTATE, channelState);
 				j.put(AmiParamConst.CHANNEL, event.getChannel());
-				j.put(AmiParamConst.UNIQUEID, channelUniqueId);				
-	
+				j.put(AmiParamConst.UNIQUEID, channelUniqueId);	
 				amiEventListener.publishEvent(j);
-				
 			}
 		}
 
