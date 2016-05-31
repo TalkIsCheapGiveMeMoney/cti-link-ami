@@ -12,12 +12,12 @@ public class AmiActionResponse {
 
 	private int code;
 	private String msg;
-	private Map<String, Object> values;
+	private Map<String, String> values;
 
 	public AmiActionResponse() {
 		this.code = 0;
 		this.msg = "ok";
-		values = new HashMap<String, Object>();
+		values = new HashMap<String, String>();
 	}
 
 	/**
@@ -46,11 +46,11 @@ public class AmiActionResponse {
 		this.msg = msg;
 	}
 
-	public Map<String, Object> getValues() {
+	public Map<String, String> getValues() {
 		return values;
 	}
 
-	public void setValues(Map<String, Object> values) {
+	public void setValues(Map<String, String> values) {
 		this.values = values;
 	}
 

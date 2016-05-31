@@ -37,7 +37,7 @@ public class GetVarActionHandler extends AbstractActionHandler {
 			return AmiActionResponse.createFailResponse(AmiParamConst.ERROR_CODE, "no channel");
 		}
 		AmiActionResponse actionResponse = AmiActionResponse.createSuccessResponse();
-		actionResponse.setValues(new HashMap<String,Object>());
+		actionResponse.setValues(new HashMap<String,String>());
 		
 		AsteriskChannel asteriskChannel = amiManager.getManager().getAsteriskServer().getChannelByName(channel);
 		if(asteriskChannel == null){
