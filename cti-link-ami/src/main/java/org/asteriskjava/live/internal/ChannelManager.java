@@ -604,7 +604,7 @@ public class ChannelManager  {
 			String channelCallType = "";					
 			String bridgedUniqueId = "";					
 			String cno = "";
-			String queueName = "";
+			String qno = "";
 			String hotline = "";				
 			String bridgedChannelName = "";
 			String detailCallType = "";
@@ -612,7 +612,7 @@ public class ChannelManager  {
 			
 			try{	
 				callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);				
-				queueName = channel.getVariable(AmiChanVarNameConst.CUR_QUEUE);
+				qno = channel.getVariable(AmiChanVarNameConst.CUR_QNO);
 				hotline = channel.getVariable(AmiChanVarNameConst.CDR_HOTLINE);						
 				channelCustomerAreaCode = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_AREA_CODE);	
 				channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
@@ -638,7 +638,7 @@ public class ChannelManager  {
 			j.put(AmiParamConst.DETAIL_CALL_TYPE, detailCallType);
 			j.put(AmiParamConst.HOTLINE, hotline);
 			j.put(AmiParamConst.NUMBER_TRUNK, channelNumberTrunk);
-			j.put(AmiParamConst.QNO, queueName);	
+			j.put(AmiParamConst.QNO, qno);	
 			j.put(AmiParamConst.BRIDGED_CHANNEL, bridgedChannelName);
 			j.put(AmiParamConst.BRIDGED_UNIQUE_ID, bridgedUniqueId);	
 			amiEventListener.publishEvent(j);
