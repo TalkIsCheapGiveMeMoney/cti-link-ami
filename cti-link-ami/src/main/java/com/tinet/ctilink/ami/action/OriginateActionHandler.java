@@ -39,23 +39,42 @@ public class OriginateActionHandler extends AbstractActionHandler {
 		}		
 		varMap = (Map<String, String>)(params.get(AmiParamConst.VAR_MAP));	
 		
-		originateAction = new OriginateAction();			
+		originateAction = new OriginateAction();
+		if(actionMap.get(AmiParamConst.CHANNEL) == null)
+		{
+			logger.error("Parameter name "+ AmiParamConst.CHANNEL  + " in ACTION_MAP is NULL!!!!!");
+			return ERROR;
+		}
 		String dstChannel = actionMap.get(AmiParamConst.CHANNEL).toString();
 		if(StringUtil.isEmpty(dstChannel))
 		{
-			logger.error("Parameter name "+ AmiParamConst.CHANNEL + " is empty!!!!!");
+			logger.error("Parameter name "+ AmiParamConst.CHANNEL + "in ACTION_MAP is empty!!!!!");
 			return ERROR;
 		}
-		String context = actionMap.get(AmiParamConst.DIALPLAN_CONTEXT).toString();			
-		String clid = actionMap.get(AmiParamConst.CLID).toString();
-		String extension = actionMap.get(AmiParamConst.EXTENSION).toString();
-		String otherChannelId = actionMap.get(AmiParamConst.OTHER_CHANNEL_ID).toString();
+		String context = "";
+		String clid = "";
+		String extension = "";
+		try{
+			context = actionMap.get(AmiParamConst.DIALPLAN_CONTEXT).toString();			
+			clid = actionMap.get(AmiParamConst.CLID).toString();
+			extension = actionMap.get(AmiParamConst.EXTENSION).toString();
+		}catch(Exception e)
+		{
+			logger.error("Parameter name " + AmiParamConst.DIALPLAN_CONTEXT + " or " + AmiParamConst.CLID + " or "+AmiParamConst.EXTENSION +" in ACTION_MAP is empty!!!!!");
+			return ERROR;
+		}
+		if(actionMap.get(AmiParamConst.OTHER_CHANNEL_ID) != null)
+		{
+			String otherChannelId = actionMap.get(AmiParamConst.OTHER_CHANNEL_ID).toString();
+			originateAction.setOtherChannelId(otherChannelId);
+		}
+		
 		Integer timeout = (Integer)actionMap.get(AmiParamConst.ORIGINATE_TIMEOUT);
 		if(timeout == null || timeout < 0 || timeout > 60){
 			timeout = 60;
 		}
-		originateAction.setChannel(dstChannel); //set channel	
-		originateAction.setOtherChannelId(otherChannelId);
+		
+		originateAction.setChannel(dstChannel); //set channel		
 		originateAction.setContext(context); // set
 		originateAction.setExten(extension); //set extension
 		originateAction.setTimeout((long)timeout * 1000); //set timeout
