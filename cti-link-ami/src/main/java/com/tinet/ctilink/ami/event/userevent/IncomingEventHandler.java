@@ -42,7 +42,6 @@ public class IncomingEventHandler extends AbstractAmiEventHandler implements Ami
 		String customerNumber = ((IncomingEvent) event).getCustomerNumber();
 		String customerNumberType = ((IncomingEvent) event).getCustomerNumberType();
 		String customerAreaCode = ((IncomingEvent) event).getCustomerAreaCode();
-		String ivrId =  ((IncomingEvent) event).getIvrId();
 
 		
 		Map<String, String> userEvent = new HashMap<String, String>();

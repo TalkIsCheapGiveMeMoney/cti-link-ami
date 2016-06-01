@@ -8,17 +8,8 @@ public class IncomingEvent extends UserEvent {
 	private String customerNumber;
 	private String customerNumberType;
 	private String customerAreaCode;
-	private String ivrId;
-	private String enterpriseIdIvrIdCount;
-	private String channel;
 
-	public String getChannel() {
-		return channel;
-	}
 
-	public void setChannel(String channel) {
-		this.channel = channel;
-	}
 
 	public IncomingEvent(Object source) {
 		super(source);
@@ -30,14 +21,6 @@ public class IncomingEvent extends UserEvent {
 
 	public void setCallType(String callType) {
 		this.callType = callType;
-	}
-	
-	public void setIvrId(String ivrId) {
-		this.ivrId = ivrId;
-	}
-	
-	public String getIvrId() {
-		return ivrId;
 	}
 
 	public String getCustomerNumber() {
@@ -62,14 +45,6 @@ public class IncomingEvent extends UserEvent {
 
 	public void setCustomerAreaCode(String customerAreaCode) {
 		this.customerAreaCode = customerAreaCode;
-	}
-
-	public String getEnterpriseIdIvrIdCount() {
-		return enterpriseIdIvrIdCount;
-	}
-
-	public void setEnterpriseIdIvrIdCount(String enterpriseIdIvrIdCount) {
-		this.enterpriseIdIvrIdCount = enterpriseIdIvrIdCount;
 	}
 	
 }
