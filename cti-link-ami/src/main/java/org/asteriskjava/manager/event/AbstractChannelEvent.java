@@ -59,6 +59,14 @@ public abstract class AbstractChannelEvent extends ManagerEvent {
 	 */
 	private String uniqueId;
 
+	private String linkedId;
+	
+	private String language;
+	
+	private String systemName;
+	
+	private Integer channelState;
+	
 	protected AbstractChannelEvent(Object source) {
 		super(source);
 	}
@@ -152,6 +160,38 @@ public abstract class AbstractChannelEvent extends ManagerEvent {
 	public String getChanVarialbe(String key)
 	{
 		return chanVariables.get(key);
+	}
+
+	public String getLinkedId() {
+		return linkedId;
+	}
+
+	public void setLinkedId(String linkedId) {
+		this.linkedId = linkedId;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getSystemName() {
+		return systemName;
+	}
+
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
+	}
+
+	public Integer getChannelState() {
+		return channelState;
+	}
+
+	public void setChannelState(Integer channelState) {
+		this.channelState = channelState;
 	}
 
 
