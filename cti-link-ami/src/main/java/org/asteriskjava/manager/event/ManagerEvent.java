@@ -67,7 +67,20 @@ public abstract class ManagerEvent extends EventObject {
 	private Integer line;
 	private String func;
 	private Integer sequenceNumber;
+	private Map<String, String> chanVariables;
+	
+	public Map<String, String> getChanVariables() {
+		return chanVariables;
+	}
 
+	public void setChanVariables(Map<String, String> chanVariables) {
+		this.chanVariables = chanVariables;
+	}
+	
+	public String getChanVarialbe(String key)
+	{
+		return chanVariables.get(key);
+	}
 	public ManagerEvent(Object source) {
 		super(source);
 

@@ -122,7 +122,6 @@ public class AmiChanVarNameConst {
     public static final String CDR_CNO = "cdr_cno";
     public static final String CDR_MAIN_UNIQUE_ID = "cdr_main_unique_id";
     public static final String CDR_START_TIME = "cdr_start_time";
-    public static final String CDR_DETAIL_CNO = "cdr_detail_cno";
     public static final String CDR_DETAIL_CALL_TYPE = "cdr_detail_call_type";
     public static final String CDR_DETAIL_GW_IP = "cdr_detail_gw_ip";
     public static final String CDR_GW_IP = "cdr_gw_ip";
@@ -131,12 +130,10 @@ public class AmiChanVarNameConst {
     public static final String CDR_CUSTOMER_AREA_CODE = "cdr_customer_area_code";
     public static final String CDR_NUMBER_TRUNK = "cdr_number_trunk";
     public static final String CDR_CALL_TYPE = "cdr_call_type";
-    public static final String CDR_CLIENT_NUMBER = "cdr_client_number";
+    public static final String CDR_CALLEE_NUMBER = "cdr_callee_number";
     public static final String CDR_EXTEN = "cdr_exten";
     public static final String CDR_STATUS = "cdr_status";
-    public static final String CDR_BRIDGED_CNO = "cdr_bridged_cno";
-    public static final String CDR_TASK_ID = "cdr_task_id";
-    public static final String CDR_TASK_INVENTORY_ID = "cdr_task_inventory_id";
+
     public static final String CDR_RECORD_FILE = "cdr_record_file";
     public static final String CDR_IVR_ID = "cdr_ivr_id";
     public static final String CDR_FORCE_DISCONNECT = "cdr_force_disconnect";

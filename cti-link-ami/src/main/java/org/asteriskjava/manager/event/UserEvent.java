@@ -20,6 +20,8 @@ import java.util.Map;
 
 import org.asteriskjava.live.AsteriskChannel;
 
+import com.tinet.ctilink.ami.inc.AmiChanVarNameConst;
+
 /**
  * Abstract base class for user events.
  * <p>
@@ -91,9 +93,6 @@ public abstract class UserEvent extends ManagerEvent {
 	
 	private AsteriskChannel asteriskChannel;
 	
-	private String enterpriseId;
-	
-	private String mainUniqueId;
 	
 	public UserEvent(Object source) {
 		super(source);
@@ -144,22 +143,14 @@ public abstract class UserEvent extends ManagerEvent {
 	public void setAsteriskChannel(AsteriskChannel asteriskChannel) {
 		this.asteriskChannel = asteriskChannel;
 	}
-	
-	public String getEnterpriseId() {
-		return enterpriseId;
-	}
 
-	public void setEnterpriseId(String enterpriseId) {
-		this.enterpriseId = enterpriseId;
+	public String getEnterpriseId(){
+		return getChanVarialbe(AmiChanVarNameConst.CDR_ENTERPRISE_ID);
 	}
-
-	public String getMainUniqueId() {
-		return mainUniqueId;
+	public String getMainUniqueId(){
+		return getChanVarialbe(AmiChanVarNameConst.CDR_MAIN_UNIQUE_ID);
 	}
-
-	public void setMainUniqueId(String mainUniqueId) {
-		this.mainUniqueId = mainUniqueId;
+	public String getCno(){
+		return getChanVarialbe(AmiChanVarNameConst.CDR_CNO);
 	}
-
-	
 }

@@ -33,13 +33,6 @@ public abstract class AbstractChannelEvent extends ManagerEvent {
 	static final long serialVersionUID = 5906599407896179295L;
 	
 	/**
-	 * The  map the chanVariables.
-	 */
-
-	
-	private Map<String, String> chanVariables;
-
-	/**
 	 * The name of the channel.
 	 */
 	private String channel;
@@ -147,19 +140,6 @@ public abstract class AbstractChannelEvent extends ManagerEvent {
 
 	public void setCallerIdName(String callerIdName) {
 		this.callerIdName = callerIdName;
-	}
-
-	public Map<String, String> getChanVariables() {
-		return chanVariables;
-	}
-
-	public void setChanVariables(Map<String, String> chanVariables) {
-		this.chanVariables = chanVariables;
-	}
-	
-	public String getChanVarialbe(String key)
-	{
-		return chanVariables.get(key);
 	}
 
 	public String getLinkedId() {

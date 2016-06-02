@@ -455,11 +455,7 @@ public class ChannelManager  {
 	public void handleNewStateEvent(NewStateEvent event) {
 		
 		logger.info("The begin of handleNewStateEvent!" );
-		String channelName = "";	
-		String channelUniqueId = "";
-			
-		channelName = event.getChannel();	
-		channelUniqueId = event.getUniqueId();
+		String channelUniqueId = event.getUniqueId();
 		AsteriskChannelImpl channel = getChannelImplById(channelUniqueId);
 		if (channel == null) {
 			// NewStateEvent can occur for an existing channel that now has a
@@ -480,82 +476,76 @@ public class ChannelManager  {
 						null /* account code not available */);
 			}			
 		}
-		
-		
-		
-		
-		// NewStateEvent can provide a new CallerIdNum or CallerIdName not
-		// previously received through a
-		// NewCallerIdEvent. This happens at least on outgoing legs from the
-		// queue application to agents.
-		if (event.getCallerIdNum() != null || event.getCallerIdName() != null) {
-			String cidnum = "";
-			String cidname = "";
-			CallerId currentCallerId = channel.getCallerId();
-
-			if (currentCallerId != null) {
-				cidnum = currentCallerId.getNumber();
-				cidname = currentCallerId.getName();
-			}
-
-			if (event.getCallerIdNum() != null) {
-				cidnum = event.getCallerIdNum();
-			}
-
-			if (event.getCallerIdName() != null) {
-				cidname = event.getCallerIdName();
-			}
-
-			CallerId newCallerId = new CallerId(cidname, cidnum);
-			logger.debug("Updating CallerId (following NewStateEvent) to: " + newCallerId.toString());
-			channel.setCallerId(newCallerId);
-
-			// Also, NewStateEvent can return a new channel name for the same
-			// channel uniqueid, indicating the channel has been
-			// renamed but no related RenameEvent has been received.
-			// This happens with mISDN channels (see AJ-153)
-			if (event.getChannel() != null && !event.getChannel().equals(channel.getName())) {
-				logger.info("Renaming channel (following NewStateEvent) '" + channel.getName() + "' to '"
-						+ event.getChannel() + "'");
-				synchronized (channel) {
-					channel.nameChanged(event.getDateReceived(), event.getChannel());
-				}
-			}
+		if (event.getChannelState() == null) {
+			return;
 		}
+		Integer newState = AmiChannelStatusConst.TransformChannelState(event.getChannelState());	
+		Integer oldState = AmiChannelStatusConst.TransformChannelState(channel.getState().getStatus());	
+		if (newState.equals(oldState)) {
+			return;
+		}
+		channel.stateChanged(event.getDateReceived(),ChannelState.valueOf(event.getChannelState()));
+		
 
-		String channelCno = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_CNO) ;
-		String enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe("enterprise_id") ;
-		if(StringUtils.isNotEmpty(channelCno))
-		{	
-			if (event.getChannelState() != null) {
-				if (!channel.getState().equals(ChannelState.valueOf(event.getChannelState()))) {
-					channel.stateChanged(event.getDateReceived(),ChannelState.valueOf(event.getChannelState()));
-				}
-			}
-			
-			JSONObject j=new JSONObject();
-			j.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
-			j.put(AmiParamConst.EVENT, AmiEventTypeConst.STATUS);	
-			j.put(AmiParamConst.CNO, channelCno);	
-			
+		if(newState.equals(AmiChannelStatusConst.RING) || (newState.equals(AmiChannelStatusConst.UP) && !oldState.equals(AmiChannelStatusConst.RING)) ){
+
+			String channelCustomerNumber = "";
+			String channelCustomerNumberType = "";
+			String channelCustomerAreaCode = "";			
+			String channelNumberTrunk = "";
+			String channelCallType = "";					
+			String bridgedUniqueId = "";					
+			String qno = "";
+			String hotline = "";				
+			String bridgedChannelName = "";
+			String detailCallType = "";
 			String callType = "";
-			String channelState = "";
-			channelState = AmiChannelStatusConst.TransformChannelState(event.getChannelState()).toString();	
-			j.put(AmiParamConst.STATUS, channelState);
-			if(ChannelState.valueOf(event.getChannelState()) == ChannelState.RINGING)
-			{
-				try{
-					callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);
+			
+			String cno = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_CNO) ;
+			String enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_ENTERPRISE_ID) ;
+			if(StringUtils.isNotEmpty(cno))
+			{	
+				JSONObject statusEvent = new JSONObject();
+				statusEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+				statusEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.STATUS);	
+				statusEvent.put(AmiParamConst.CNO, cno);	
 				
-				}catch(org.asteriskjava.live.NoSuchChannelException e)
-				{
-					
+	
+				String channelState = AmiChannelStatusConst.TransformChannelState(event.getChannelState()).toString();	
+				statusEvent.put(AmiParamConst.STATUS, channelState);
+
+				
+				try{	
+					callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);				
+					qno = channel.getVariable(AmiChanVarNameConst.CUR_QNO);
+					hotline = channel.getVariable(AmiChanVarNameConst.CDR_HOTLINE);						
+					channelCustomerAreaCode = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_AREA_CODE);	
+					channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
+					channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);	
+					detailCallType = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CALL_TYPE);						
+					bridgedChannelName = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
+					bridgedUniqueId = channel.getVariable(AmiChanVarNameConst.LINKEDID);
+					channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
+					channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);		
+				}catch(org.asteriskjava.live.NoSuchChannelException e){	
 				}						
-				catch(Exception e)
-				{
+				catch(Exception e){
 					e.printStackTrace();
 				}
 				
+				statusEvent.put(AmiParamConst.CHANNEL, event.getChannel());
+				statusEvent.put(AmiParamConst.UNIQUE_ID, channelUniqueId);
+				statusEvent.put(AmiParamConst.CALL_TYPE, channelCallType);
+				statusEvent.put(AmiParamConst.CUSTOMER_NUMBER, channelCustomerNumber);
+				statusEvent.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
+				statusEvent.put(AmiParamConst.CUSTOMER_AREA_CODE, channelCustomerAreaCode);
+				statusEvent.put(AmiParamConst.DETAIL_CALL_TYPE, detailCallType);
+				statusEvent.put(AmiParamConst.HOTLINE, hotline);
+				statusEvent.put(AmiParamConst.NUMBER_TRUNK, channelNumberTrunk);
+				statusEvent.put(AmiParamConst.QNO, qno);	
+				statusEvent.put(AmiParamConst.BRIDGED_CHANNEL, bridgedChannelName);
+				statusEvent.put(AmiParamConst.BRIDGED_UNIQUE_ID, bridgedUniqueId);	
+			
 				//弹屏参数设置	
 				EnterpriseSetting entSetting = redisService.get(Const.REDIS_DB_CONF_INDEX
 						, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME
@@ -584,11 +574,10 @@ public class ChannelManager  {
 								{
 									e.printStackTrace();
 								}
-								j.put(AmiParamConst.VARIABLES,clientData);
+								statusEvent.put(AmiParamConst.VARIABLES,clientData);
 							}
 						}catch(org.asteriskjava.live.NoSuchChannelException e)
 						{
-							
 						}						
 						catch(Exception e)
 						{
@@ -596,58 +585,13 @@ public class ChannelManager  {
 						}
 					}
 				}
+				amiEventListener.publishEvent(statusEvent);
 			}
-			String channelCustomerNumber = "";
-			String channelCustomerNumberType = "";
-			String channelCustomerAreaCode = "";			
-			String channelNumberTrunk = "";
-			String channelCallType = "";					
-			String bridgedUniqueId = "";					
-			String cno = "";
-			String qno = "";
-			String hotline = "";				
-			String bridgedChannelName = "";
-			String detailCallType = "";
-			
-			
-			try{	
-				callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);				
-				qno = channel.getVariable(AmiChanVarNameConst.CUR_QNO);
-				hotline = channel.getVariable(AmiChanVarNameConst.CDR_HOTLINE);						
-				channelCustomerAreaCode = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_AREA_CODE);	
-				channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
-				channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);	
-				detailCallType = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CALL_TYPE);						
-				bridgedChannelName = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
-				bridgedUniqueId = channel.getVariable(AmiChanVarNameConst.LINKEDID);
-				channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
-				channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);		
-			}catch(org.asteriskjava.live.NoSuchChannelException e){
-				
-			}						
-			catch(Exception e){
-				
-			}
-			
-			j.put(AmiParamConst.CHANNEL, event.getChannel());
-			j.put(AmiParamConst.UNIQUE_ID, channelUniqueId);
-			j.put(AmiParamConst.CALL_TYPE, channelCallType);
-			j.put(AmiParamConst.CUSTOMER_NUMBER, channelCustomerNumber);
-			j.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
-			j.put(AmiParamConst.CUSTOMER_AREA_CODE, channelCustomerAreaCode);
-			j.put(AmiParamConst.DETAIL_CALL_TYPE, detailCallType);
-			j.put(AmiParamConst.HOTLINE, hotline);
-			j.put(AmiParamConst.NUMBER_TRUNK, channelNumberTrunk);
-			j.put(AmiParamConst.QNO, qno);	
-			j.put(AmiParamConst.BRIDGED_CHANNEL, bridgedChannelName);
-			j.put(AmiParamConst.BRIDGED_UNIQUE_ID, bridgedUniqueId);	
-			amiEventListener.publishEvent(j);
-			
-			// 来电推送
+			//下面是推送的
 			int pushType = 0;
 			int curlType = 0;
 
-			if ((Const.CDR_CALL_TYPE_OB_WEBCALL + "").equals(channelCallType)
+			if ((Const.CDR_CALL_TYPE_OB_WEBCALL + "").equals(callType)
 					&& StringUtils.isEmpty(channelUniqueId)) {
 				pushType = Const.ENTERPRISE_PUSH_TYPE_RINGING_WEB_CALL;
 				curlType = Const.CURL_TYPE_RINGING_WEBCALL;
@@ -670,10 +614,7 @@ public class ChannelManager  {
 
 			// 根据企业设置推送Curl
 			AmiUtil.pushCurl(channel, pushEvent, Integer.parseInt(enterpriseId), pushType, curlType);
-			
 		}
-		
-		logger.info("The end of handleNewStateEvent!" );
 	}
 
 	/**
