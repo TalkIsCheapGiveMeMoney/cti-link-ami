@@ -100,7 +100,6 @@ import org.asteriskjava.manager.userevent.ConsultThreewayUnlinkEvent;
 import org.asteriskjava.manager.userevent.ConsultTransferEvent;
 import org.asteriskjava.manager.userevent.DirectCallStartEvent;
 import org.asteriskjava.manager.userevent.IncomingEvent;
-import org.asteriskjava.manager.userevent.IncomingLeftEvent;
 import org.asteriskjava.manager.userevent.InteractReturnEvent;
 import org.asteriskjava.manager.userevent.MixSoundEvent;
 import org.asteriskjava.manager.userevent.OrderCallBackEvent;
@@ -270,7 +269,6 @@ public class AsteriskServerImpl implements AsteriskServer, ManagerEventListener 
 		eventConnection.registerUserEventClass(DtmfEvent.class);
 		
 		eventConnection.registerUserEventClass(IncomingEvent.class);
-		eventConnection.registerUserEventClass(IncomingLeftEvent.class);
 		eventConnection.registerUserEventClass(AnswerEvent.class);
 		eventConnection.registerUserEventClass(UnanswerEvent.class);
 		eventConnection.registerUserEventClass(ConsultLinkEvent.class);

@@ -4,7 +4,6 @@ import org.asteriskjava.manager.event.UserEvent;
 
 @SuppressWarnings("serial")
 public class CallBridgeEvent extends UserEvent {
-	private String cno;
 	private String callType;
 	private String customerNumber;
 	private String bridgeTime;
@@ -29,14 +28,6 @@ public class CallBridgeEvent extends UserEvent {
 
 	public void setCustomerNumber(String customerNumber) {
 		this.customerNumber = customerNumber;
-	}
-
-	public String getCno() {
-		return cno;
-	}
-
-	public void setCno(String cno) {
-		this.cno = cno;
 	}
 
 	public String getBridgeTime() {
