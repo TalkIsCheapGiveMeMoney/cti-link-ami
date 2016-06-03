@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tinet.ctilink.inc.EnterpriseSettingConst;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -112,7 +113,7 @@ public class AmiEventPublisher {
 					// 获取curl级别
 					int level = 0;
 					EnterpriseSetting setting = redisService.get(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
-							enterpriseId, Const.ENTERPRISE_SETTING_NAME_CURL_LEVEL), EnterpriseSetting.class);
+							enterpriseId, EnterpriseSettingConst.ENTERPRISE_SETTING_NAME_CURL_LEVEL), EnterpriseSetting.class);
 
 					if (setting != null && StringUtils.isNumeric(setting.getValue())) {
 						level = Integer.parseInt(setting.getValue());

@@ -27,6 +27,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import com.tinet.ctilink.inc.EnterpriseSettingConst;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.live.AsteriskChannel;
 import org.asteriskjava.live.CallerId;
@@ -549,7 +550,7 @@ public class ChannelManager  {
 				EnterpriseSetting entSetting = redisService.get(Const.REDIS_DB_CONF_INDEX
 						, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME
 						,Integer.parseInt(enterpriseId)
-						, Const.ENTERPRISE_SETTING_NAME_CRM_URL_POPUP_USER_FIELD)
+						, EnterpriseSettingConst.ENTERPRISE_SETTING_NAME_CRM_URL_POPUP_USER_FIELD)
 						, EnterpriseSetting.class);
 				if (entSetting != null && entSetting.getId() != null) {
 					if (StringUtils.isNotEmpty(entSetting.getProperty())) {
