@@ -8,6 +8,7 @@ import com.tinet.ctilink.curl.CurlPushClient;
 import com.tinet.ctilink.inc.Const;
 import com.tinet.ctilink.conf.model.EnterpriseHangupAction;
 import com.tinet.ctilink.conf.model.EnterpriseSetting;
+import com.tinet.ctilink.inc.EnterpriseSettingConst;
 import com.tinet.ctilink.util.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.live.AsteriskChannel;
@@ -105,7 +106,7 @@ public class AmiUtil {
 				int level = 0;
 				EnterpriseSetting setting = ContextUtil.getBean(RedisService.class).get(Const.REDIS_DB_CONF_INDEX
 						, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME,
-						enterpriseId, Const.ENTERPRISE_SETTING_NAME_CURL_LEVEL), EnterpriseSetting.class);
+						enterpriseId, EnterpriseSettingConst.ENTERPRISE_SETTING_NAME_CURL_LEVEL), EnterpriseSetting.class);
 				if (setting != null && setting.getId() != null) {
 					level = Integer.parseInt(setting.getValue());
 				}
