@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.github.pagehelper.StringUtil;
 import com.tinet.ctilink.ami.action.callback.OriginateActionCallback;
 import com.tinet.ctilink.ami.inc.AmiActionTypeConst;
+import com.tinet.ctilink.ami.inc.AmiChanVarNameConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.json.JSONObject;
 
@@ -38,6 +39,7 @@ public class OriginateActionHandler extends AbstractActionHandler {
 			return ERROR;
 		}		
 		varMap = (Map<String, String>)(params.get(AmiParamConst.VAR_MAP));	
+		varMap.put(AmiChanVarNameConst.HANGUP_HANDLER_PUSH, "\""+ "hangup_handler,push_cdr,1(args)"+ "\"");
 		
 		originateAction = new OriginateAction();
 		if(actionMap.get(AmiParamConst.CHANNEL) == null)

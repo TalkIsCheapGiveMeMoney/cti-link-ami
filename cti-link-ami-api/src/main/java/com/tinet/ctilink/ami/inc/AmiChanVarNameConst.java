@@ -117,6 +117,7 @@ public class AmiChanVarNameConst {
     public static final String TEL_NUMBER = "tel_number";
     
     /* ======================================================================*/
+    public static final String HANGUP_HANDLER_PUSH = "CHANNEL(hangup_handler_push)";
     public static final String CDR_HOTLINE = "cdr_hotline";
     public static final String CDR_ENTERPRISE_ID = "cdr_enterprise_id";
     public static final String CDR_CNO = "cdr_cno";
