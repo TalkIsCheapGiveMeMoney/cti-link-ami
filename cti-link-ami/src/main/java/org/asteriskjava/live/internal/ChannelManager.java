@@ -491,16 +491,13 @@ public class ChannelManager  {
 		String channelCustomerNumber = "";
 		String channelCustomerNumberType = "";
 		String channelCustomerAreaCode = "";			
-		String channelNumberTrunk = "";
-		String channelCallType = "";					
+		String channelNumberTrunk = "";				
 		String bridgedUniqueId = "";					
 		String qno = "";
 		String hotline = "";				
 		String bridgedChannelName = "";
 		String detailCallType = "";
 		String callType = "";
-		
-		
 		
 		//坐席事件处理
 		String cno = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_CNO) ;
@@ -518,16 +515,14 @@ public class ChannelManager  {
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			statusEvent.put(AmiParamConst.CALL_TYPE, channelCallType);
+			statusEvent.put(AmiParamConst.CALL_TYPE, callType);
 			//单处理需要带popup信息的status事件
 			if(newState.equals(AmiChannelStatusConst.RING) || (newState.equals(AmiChannelStatusConst.UP) && !oldState.equals(AmiChannelStatusConst.RING)) ){
 				try{	
-					callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);				
 					qno = channel.getVariable(AmiChanVarNameConst.CUR_QNO);
 					hotline = channel.getVariable(AmiChanVarNameConst.CDR_HOTLINE);						
 					channelCustomerAreaCode = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_AREA_CODE);	
 					channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
-					channelCallType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);	
 					detailCallType = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CALL_TYPE);						
 					bridgedChannelName = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
 					bridgedUniqueId = channel.getVariable(AmiChanVarNameConst.LINKEDID);
@@ -561,11 +556,16 @@ public class ChannelManager  {
 						JSONObject userFieldData = new JSONObject();
 						String property[] = StringUtils.split(entSetting.getProperty(), ",");
 						try{
-							String channelMainChannel = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
 							AsteriskChannel mainChannel = null;
-							if(StringUtils.isNotEmpty(channelMainChannel))
-							{
+							String channelMainChannel;
+							if ((Const.CDR_CALL_TYPE_IB + "").equals(callType) || (Const.CDR_CALL_TYPE_OB_PREDICTIVE + "").equals(callType) || (Const.CDR_CALL_TYPE_OB_WEBCALL + "").equals(callType)) {
+								channelMainChannel = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
 								mainChannel = server.getChannelByName(channelMainChannel);
+							}else if((Const.CDR_CALL_TYPE_OB_PREVIEW + "").equals(callType)) {
+								channelMainChannel = channel.getName();
+								mainChannel = channel;
+							}
+							if(mainChannel != null){
 								try{
 									for (String var : property) {
 										userFieldData.put(var, mainChannel.getNoCacheVariable(var));
@@ -577,8 +577,8 @@ public class ChannelManager  {
 								{
 									e.printStackTrace();
 								}
-								statusEvent.put(AmiParamConst.VARIABLES, userFieldData);
 							}
+							statusEvent.put(AmiParamConst.VARIABLES, userFieldData);
 						}catch(org.asteriskjava.live.NoSuchChannelException e)
 						{
 						}						
@@ -613,7 +613,7 @@ public class ChannelManager  {
 			pushEvent.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
 			pushEvent.put(AmiParamConst.CUSTOMER_AREA_CODE, channelCustomerAreaCode);
 			pushEvent.put(AmiParamConst.NUMBER_TRUNK, channelNumberTrunk);
-			pushEvent.put(AmiParamConst.CALL_TYPE, channelCallType);
+			pushEvent.put(AmiParamConst.CALL_TYPE, callType);
 			pushEvent.put(AmiParamConst.RINGING_TIME, com.tinet.ctilink.util.DateUtil
 					.format(new Date(), com.tinet.ctilink.util.DateUtil.FMT_DATE_YYYY_MM_DD_HH_mm_ss));
 			pushEvent.put(AmiParamConst.UNIQUE_ID, channelUniqueId);
@@ -621,15 +621,6 @@ public class ChannelManager  {
 			// 根据企业设置推送Curl
 			AmiUtil.pushCurl(channel, pushEvent, Integer.parseInt(enterpriseId), pushType, curlType);
 		}
-	}
-
-	/**
-	 * 检查NewStateEvent是否是坐席事件
-	 * @param cno
-	 * @return
-	 */
-	private boolean checkWhetherAgentEvent(String cno) {
-		return StringUtils.isNotEmpty(cno);
 	}
 
 	public void handleNewCallerIdEvent(NewCallerIdEvent event) {
@@ -679,6 +670,17 @@ public class ChannelManager  {
 		logger.info("Removing channel " + channel.getName() + " due to hangup (" + cause + ")");
 		removeOldChannels();
 		
+		//坐席事件处理
+		String cno = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_CNO) ;
+		String enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_ENTERPRISE_ID) ;
+		if(StringUtils.isNotEmpty(cno) && StringUtils.isNotEmpty(enterpriseId)){	//有座席的按照座席弹屏处理
+			JSONObject statusEvent = new JSONObject();
+			statusEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+			statusEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.STATUS);	
+			statusEvent.put(AmiParamConst.CNO, cno);	
+			statusEvent.put(AmiParamConst.STATUS, AmiChannelStatusConst.IDLE);
+			amiEventListener.publishEvent(statusEvent);
+		}
 		logger.info(" The end of  HangupEvent handler! " + event.getChannel());
 	}
 
