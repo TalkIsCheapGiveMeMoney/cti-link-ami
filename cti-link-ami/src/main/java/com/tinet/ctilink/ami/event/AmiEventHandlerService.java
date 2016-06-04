@@ -49,7 +49,6 @@ public class AmiEventHandlerService {
 	 * @param event
 	 */
 	public void handleUserEvent(ManagerEvent event) {
-		
 		String mainUniqueId = ((UserEvent)event).getMainUniqueId();
 		if (StringUtils.isNotEmpty(mainUniqueId)) {
 			String tail = mainUniqueId.substring(mainUniqueId.length() - 1);
@@ -81,7 +80,6 @@ public class AmiEventHandlerService {
 
 		}else{
 			if(event instanceof NewChannelEvent){
-				logger.info("channelManager.handleNewChannelEvent((NewChannelEvent) event)");
 				channelManager.handleNewChannelEvent((NewChannelEvent) event);
 			}
 		}

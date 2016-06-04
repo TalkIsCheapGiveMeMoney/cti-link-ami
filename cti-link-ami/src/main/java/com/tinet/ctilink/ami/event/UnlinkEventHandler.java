@@ -17,7 +17,6 @@ public class UnlinkEventHandler   extends AbstractAmiEventHandler  implements Am
 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
-		logger.info("channelManager.handleBridgeEvent((BridgeEvent) event)");
 		channelManager.handleBridgeEvent((UnlinkEvent) event);
 	}
 }

@@ -17,7 +17,6 @@ public class LinkEventHandler  extends AbstractAmiEventHandler  implements AmiCh
 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
-		logger.info("channelManager.handleBridgeEvent((BridgeEvent) event)");
 		channelManager.handleBridgeEvent((LinkEvent) event);
 	}
 }

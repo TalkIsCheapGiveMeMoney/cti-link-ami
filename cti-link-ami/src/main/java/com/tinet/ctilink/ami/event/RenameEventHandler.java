@@ -17,7 +17,6 @@ public class RenameEventHandler extends AbstractAmiEventHandler  implements AmiC
 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
-		logger.info("channelManager.handleRenameEvent((RenameEvent) event)");
 		channelManager.handleRenameEvent((RenameEvent) event);
 	}
 }

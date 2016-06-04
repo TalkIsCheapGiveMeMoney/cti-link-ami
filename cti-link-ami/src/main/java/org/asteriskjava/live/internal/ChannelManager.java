@@ -487,34 +487,40 @@ public class ChannelManager  {
 		}
 		channel.stateChanged(event.getDateReceived(),ChannelState.valueOf(event.getChannelState()));
 		
+		//预先定义好可能用的变量，推送时可能还用，提高效率
+		String channelCustomerNumber = "";
+		String channelCustomerNumberType = "";
+		String channelCustomerAreaCode = "";			
+		String channelNumberTrunk = "";
+		String channelCallType = "";					
+		String bridgedUniqueId = "";					
+		String qno = "";
+		String hotline = "";				
+		String bridgedChannelName = "";
+		String detailCallType = "";
+		String callType = "";
 		
-		if(newState.equals(AmiChannelStatusConst.RING) || (newState.equals(AmiChannelStatusConst.UP) && !oldState.equals(AmiChannelStatusConst.RING)) ){
-
-			String channelCustomerNumber = "";
-			String channelCustomerNumberType = "";
-			String channelCustomerAreaCode = "";			
-			String channelNumberTrunk = "";
-			String channelCallType = "";					
-			String bridgedUniqueId = "";					
-			String qno = "";
-			String hotline = "";				
-			String bridgedChannelName = "";
-			String detailCallType = "";
-			String callType = "";
+		
+		
+		//坐席事件处理
+		String cno = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_CNO) ;
+		String enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_ENTERPRISE_ID) ;
+		if(StringUtils.isNotEmpty(cno) && StringUtils.isNotEmpty(enterpriseId)){	//有座席的按照座席弹屏处理
+			JSONObject statusEvent = new JSONObject();
+			statusEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+			statusEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.STATUS);	
+			statusEvent.put(AmiParamConst.CNO, cno);	
+			statusEvent.put(AmiParamConst.STATUS, newState);
 			
-			String cno = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_CNO) ;
-			String enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_ENTERPRISE_ID) ;
-			if(StringUtils.isNotEmpty(cno) && StringUtils.isNotEmpty(enterpriseId)){	//有座席的按照座席弹屏处理
-				JSONObject statusEvent = new JSONObject();
-				statusEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
-				statusEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.STATUS);	
-				statusEvent.put(AmiParamConst.CNO, cno);	
-				
-	
-				String channelState = AmiChannelStatusConst.TransformChannelState(event.getChannelState()).toString();	
-				statusEvent.put(AmiParamConst.STATUS, channelState);
-
-				
+			try{	
+				callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);							
+			}catch(org.asteriskjava.live.NoSuchChannelException e){	
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			statusEvent.put(AmiParamConst.CALL_TYPE, channelCallType);
+			//单处理需要带popup信息的status事件
+			if(newState.equals(AmiChannelStatusConst.RING) || (newState.equals(AmiChannelStatusConst.UP) && !oldState.equals(AmiChannelStatusConst.RING)) ){
 				try{	
 					callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);				
 					qno = channel.getVariable(AmiChanVarNameConst.CUR_QNO);
@@ -532,10 +538,8 @@ public class ChannelManager  {
 				catch(Exception e){
 					e.printStackTrace();
 				}
-				
 				statusEvent.put(AmiParamConst.CHANNEL, event.getChannel());
 				statusEvent.put(AmiParamConst.UNIQUE_ID, channelUniqueId);
-				statusEvent.put(AmiParamConst.CALL_TYPE, channelCallType);
 				statusEvent.put(AmiParamConst.CUSTOMER_NUMBER, channelCustomerNumber);
 				statusEvent.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
 				statusEvent.put(AmiParamConst.CUSTOMER_AREA_CODE, channelCustomerAreaCode);
@@ -544,8 +548,8 @@ public class ChannelManager  {
 				statusEvent.put(AmiParamConst.NUMBER_TRUNK, channelNumberTrunk);
 				statusEvent.put(AmiParamConst.QNO, qno);	
 				statusEvent.put(AmiParamConst.BRIDGED_CHANNEL, bridgedChannelName);
-				statusEvent.put(AmiParamConst.BRIDGED_UNIQUE_ID, bridgedUniqueId);	
-			
+				statusEvent.put(AmiParamConst.BRIDGED_UNIQUE_ID, bridgedUniqueId);
+				
 				//弹屏参数设置	
 				EnterpriseSetting entSetting = redisService.get(Const.REDIS_DB_CONF_INDEX
 						, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME
@@ -554,7 +558,7 @@ public class ChannelManager  {
 						, EnterpriseSetting.class);
 				if (entSetting != null && entSetting.getId() != null) {
 					if (StringUtils.isNotEmpty(entSetting.getProperty())) {
-						JSONObject clientData = new JSONObject();
+						JSONObject userFieldData = new JSONObject();
 						String property[] = StringUtils.split(entSetting.getProperty(), ",");
 						try{
 							String channelMainChannel = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
@@ -564,17 +568,16 @@ public class ChannelManager  {
 								mainChannel = server.getChannelByName(channelMainChannel);
 								try{
 									for (String var : property) {
-										clientData.put(var, mainChannel.getNoCacheVariable(var));
+										userFieldData.put(var, mainChannel.getNoCacheVariable(var));
 									}
 								}catch(org.asteriskjava.live.NoSuchChannelException e)
 								{
-									
 								}						
 								catch(Exception e)
 								{
 									e.printStackTrace();
 								}
-								statusEvent.put(AmiParamConst.VARIABLES,clientData);
+								statusEvent.put(AmiParamConst.VARIABLES, userFieldData);
 							}
 						}catch(org.asteriskjava.live.NoSuchChannelException e)
 						{
@@ -585,46 +588,38 @@ public class ChannelManager  {
 						}
 					}
 				}
-				amiEventListener.publishEvent(statusEvent);
-			}else{	//没座席的获取callType
-				try{	
-					callType = channel.getVariable(AmiChanVarNameConst.CDR_CALL_TYPE);				
-				}catch(org.asteriskjava.live.NoSuchChannelException e){	
-				}						
-				catch(Exception e){
-					e.printStackTrace();
-				}
 			}
-			//下面是推送的
+			amiEventListener.publishEvent(statusEvent);
+		}
+		//推送事件处理
 
-			if(StringUtils.isNotEmpty(callType)){//有callType的按照callType推送
-				int pushType = 0;
-				int curlType = 0;
-				if ((Const.CDR_CALL_TYPE_OB_WEBCALL + "").equals(callType)) {
-					pushType = Const.ENTERPRISE_PUSH_TYPE_RINGING_WEB_CALL;
-					curlType = Const.CURL_TYPE_RINGING_WEBCALL;
-				} else if ((Const.CDR_CALL_TYPE_IB + "").equals(callType)) {
-					pushType = Const.ENTERPRISE_PUSH_TYPE_RINGING_IB;
-					curlType = Const.CURL_TYPE_RINGING_IB;
-				}else{
-					return;
-				}
-	
-				Map<String, String> pushEvent = new HashMap<String, String>();
-				pushEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.RINGING);
-				pushEvent.put(AmiParamConst.ENTERPRISE_ID, String.valueOf(enterpriseId));
-				pushEvent.put(AmiParamConst.CUSTOMER_NUMBER, channelCustomerNumber);
-				pushEvent.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
-				pushEvent.put(AmiParamConst.CUSTOMER_AREA_CODE, channelCustomerAreaCode);
-				pushEvent.put(AmiParamConst.NUMBER_TRUNK, channelNumberTrunk);
-				pushEvent.put(AmiParamConst.CALL_TYPE, channelCallType);
-				pushEvent.put(AmiParamConst.RINGING_TIME, com.tinet.ctilink.util.DateUtil
-						.format(new Date(), com.tinet.ctilink.util.DateUtil.FMT_DATE_YYYY_MM_DD_HH_mm_ss));
-				pushEvent.put(AmiParamConst.UNIQUE_ID, channelUniqueId);
-	
-				// 根据企业设置推送Curl
-				AmiUtil.pushCurl(channel, pushEvent, Integer.parseInt(enterpriseId), pushType, curlType);
+		if(StringUtils.isNotEmpty(callType)){//有callType的按照callType推送
+			int pushType = 0;
+			int curlType = 0;
+			if ((Const.CDR_CALL_TYPE_OB_WEBCALL + "").equals(callType)) {
+				pushType = Const.ENTERPRISE_PUSH_TYPE_RINGING_WEB_CALL;
+				curlType = Const.CURL_TYPE_RINGING_WEBCALL;
+			} else if ((Const.CDR_CALL_TYPE_IB + "").equals(callType)) {
+				pushType = Const.ENTERPRISE_PUSH_TYPE_RINGING_IB;
+				curlType = Const.CURL_TYPE_RINGING_IB;
+			}else{
+				return;
 			}
+
+			Map<String, String> pushEvent = new HashMap<String, String>();
+			pushEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.RINGING);
+			pushEvent.put(AmiParamConst.ENTERPRISE_ID, String.valueOf(enterpriseId));
+			pushEvent.put(AmiParamConst.CUSTOMER_NUMBER, channelCustomerNumber);
+			pushEvent.put(AmiParamConst.CUSTOMER_NUMBER_TYPE, channelCustomerNumberType);
+			pushEvent.put(AmiParamConst.CUSTOMER_AREA_CODE, channelCustomerAreaCode);
+			pushEvent.put(AmiParamConst.NUMBER_TRUNK, channelNumberTrunk);
+			pushEvent.put(AmiParamConst.CALL_TYPE, channelCallType);
+			pushEvent.put(AmiParamConst.RINGING_TIME, com.tinet.ctilink.util.DateUtil
+					.format(new Date(), com.tinet.ctilink.util.DateUtil.FMT_DATE_YYYY_MM_DD_HH_mm_ss));
+			pushEvent.put(AmiParamConst.UNIQUE_ID, channelUniqueId);
+
+			// 根据企业设置推送Curl
+			AmiUtil.pushCurl(channel, pushEvent, Integer.parseInt(enterpriseId), pushType, curlType);
 		}
 	}
 
@@ -679,27 +674,6 @@ public class ChannelManager  {
 
 		synchronized (channel) {
 			channel.hungup(event.getDateReceived(), cause, event.getCauseTxt());
-			
-			String enterpriseId = "";
-			String channelCno = "";
-			
-			channelCno = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_CNO) ;
-			enterpriseId = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_ENTERPRISE_ID) ;
-			if(StringUtil.isNotEmpty(channelCno))
-			{
-				String channelUniqueId = "";
-				String channelState = "";
-				channelState = ((Integer)AmiChannelStatusConst.IDLE).toString();
-				channelUniqueId = event.getUniqueId();
-				JSONObject j=new JSONObject();
-				j.put(AmiParamConst.EVENT, AmiEventTypeConst.STATUS);	
-				j.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);	
-				j.put(AmiParamConst.CNO, channelCno);	
-				j.put(AmiParamConst.STATUS, channelState);
-				j.put(AmiParamConst.CHANNEL, event.getChannel());
-				j.put(AmiParamConst.UNIQUE_ID, channelUniqueId);	
-				amiEventListener.publishEvent(j);
-			}
 		}
 
 		logger.info("Removing channel " + channel.getName() + " due to hangup (" + cause + ")");

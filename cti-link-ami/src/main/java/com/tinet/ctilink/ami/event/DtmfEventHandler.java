@@ -17,7 +17,6 @@ public class DtmfEventHandler extends AbstractAmiEventHandler  implements AmiCha
 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
-		logger.info("channelManager.handleDtmfEvent((DtmfEvent) event)");
 		channelManager.handleDtmfEvent((DtmfEvent) event);
 	}
 }

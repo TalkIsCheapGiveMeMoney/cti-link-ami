@@ -17,7 +17,6 @@ public class CdrEventHandler extends AbstractAmiEventHandler  implements AmiChan
 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
-		logger.info("channelManager.handleBridgeEvent((BridgeEvent) event)");
 		channelManager.handleCdrEvent((CdrEvent) event);
 	}
 }

@@ -17,7 +17,6 @@ public class NewCallerIdEventHandler extends AbstractAmiEventHandler  implements
 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
-		logger.info("channelManager.handleNewCallerIdEvent((NewCallerIdEvent) event)");
 		channelManager.handleNewCallerIdEvent((NewCallerIdEvent) event);
 	}
 }

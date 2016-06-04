@@ -637,6 +637,11 @@ class AsteriskChannelImpl extends AbstractLiveObject implements AsteriskChannel 
 				throw new NoSuchChannelException("Channel '" + name + "' is not available: " + response.getMessage());
 			}
 			value = response.getAttribute("Value");
+			if (value == null) {
+				value = response.getAttribute(variable); // for Asterisk 1.0.x
+			}
+
+			variables.put(variable, value);
 		}
 		return value;
 	}

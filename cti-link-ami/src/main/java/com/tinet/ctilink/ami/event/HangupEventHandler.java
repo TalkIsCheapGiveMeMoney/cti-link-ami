@@ -17,7 +17,6 @@ public class HangupEventHandler extends AbstractAmiEventHandler  implements AmiC
 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
-		logger.info("channelManager.handleHangupEvent((HangupEvent) event)");
 		channelManager.handleHangupEvent((HangupEvent) event);
 	}
 }

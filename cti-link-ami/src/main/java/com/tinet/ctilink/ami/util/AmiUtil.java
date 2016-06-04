@@ -79,7 +79,7 @@ public class AmiUtil {
 								}
 							}
 							if (!flag) {
-								String value = channel.getNoCacheVariable(variable);
+								String value = channel.getVariable(variable);
 								if (value == null) {
 									value = "";
 								}

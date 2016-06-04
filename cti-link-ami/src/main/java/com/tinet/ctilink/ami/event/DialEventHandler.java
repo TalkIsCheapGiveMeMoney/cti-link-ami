@@ -17,7 +17,6 @@ public class DialEventHandler extends AbstractAmiEventHandler  implements AmiCha
 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
-		logger.info("channelManager.handleDialEvent((DialEvent) event)");
 		channelManager.handleDialEvent((DialEvent) event);
 	}
 }

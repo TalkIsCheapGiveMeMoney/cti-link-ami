@@ -17,7 +17,6 @@ public class NewExtenEventHandler extends AbstractAmiEventHandler  implements Am
 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
-		logger.info("channelManager.handleNewExtenEvent((NewExtenEvent) event)");
 		channelManager.handleNewExtenEvent((NewExtenEvent) event);
 	}
 }

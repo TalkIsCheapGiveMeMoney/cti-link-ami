@@ -17,7 +17,6 @@ public class VarSetEventHandler extends AbstractAmiEventHandler  implements AmiC
 
 	@Override
 	public void handle(ManagerEvent event, ChannelManager channelManager) {
-		logger.info("channelManager.handleVarSetEvent((VarSetEvent) event)");
 		channelManager.handleVarSetEvent((VarSetEvent) event);
 	}
 }
