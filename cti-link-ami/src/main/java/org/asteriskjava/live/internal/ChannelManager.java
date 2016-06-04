@@ -523,9 +523,13 @@ public class ChannelManager  {
 					hotline = channel.getVariable(AmiChanVarNameConst.CDR_HOTLINE);						
 					channelCustomerAreaCode = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_AREA_CODE);	
 					channelNumberTrunk = channel.getVariable(AmiChanVarNameConst.CDR_NUMBER_TRUNK);
-					detailCallType = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CALL_TYPE);						
-					bridgedChannelName = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
-					bridgedUniqueId = channel.getVariable(AmiChanVarNameConst.LINKEDID);
+					detailCallType = channel.getVariable(AmiChanVarNameConst.CDR_DETAIL_CALL_TYPE);	
+					if ((Const.CDR_CALL_TYPE_IB + "").equals(callType) || (Const.CDR_CALL_TYPE_OB_PREDICTIVE + "").equals(callType) || (Const.CDR_CALL_TYPE_OB_WEBCALL + "").equals(callType)) {
+						bridgedChannelName = channel.getVariable(AmiChanVarNameConst.MAIN_CHANNEL);
+						bridgedUniqueId = channel.getVariable(AmiChanVarNameConst.LINKEDID);
+					}else if((Const.CDR_CALL_TYPE_OB_PREVIEW + "").equals(callType)) {
+					}
+					
 					channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
 					channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);		
 				}catch(org.asteriskjava.live.NoSuchChannelException e){	

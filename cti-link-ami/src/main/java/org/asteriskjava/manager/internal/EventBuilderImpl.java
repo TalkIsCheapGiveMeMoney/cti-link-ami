@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.asteriskjava.manager.event.*;
-import org.asteriskjava.manager.userevent.QueueLogEvent;
 
 /**
  * Default implementation of the EventBuilder interface.
@@ -148,7 +147,6 @@ class EventBuilderImpl extends AbstractBuilder implements EventBuilder {
 		registerEventClass(VoicemailUserEntryEvent.class);
 		registerEventClass(ZapShowChannelsEvent.class);
 		registerEventClass(ZapShowChannelsCompleteEvent.class);
-		registerEventClass(QueueLogEvent.class); // 自定义managerEvent，这个地方增加这个是为了提高logqueue的性能
 	}
 
 	public final void registerEventClass(Class<? extends ManagerEvent> clazz) throws IllegalArgumentException {
