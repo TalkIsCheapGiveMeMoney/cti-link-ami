@@ -60,6 +60,8 @@ public class AmiChanVarNameConst {
     public static final String RECORD_FILE_USERFIELD = "record_file_userfield";
     /** 录音企业定制 **/
     public static final String MONITOR_TYPE = "monitorType";
+    /** 录音企业定制 **/
+    public static final String MP3_RATIO = "mp3_ratio";
     
     /** 通道变量:enterprise_status 企业目前业务状态 */
     public static final String INBOUND_CALL_LIMIT = "inboundCallLimit";
