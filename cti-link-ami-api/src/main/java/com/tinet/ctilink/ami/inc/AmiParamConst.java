@@ -33,6 +33,7 @@ public class AmiParamConst {
 	public static final String ENTERPRISE_ID = "enterpriseId"; // action/event字段：企业id
 	public static final String QNO = "qno"; // action/event字段：队列号 001
 	public static final String CHANNEL = "channel"; // 事件参数：通道名
+	public static final String DEST_CHANNEL ="destChannel";
 	public static final String CONSULT_OBJECT = "consultObject"; // action/event字段:咨询对象
 	public static final String TRANSFER_OBJECT = "transferObject"; // action/event字段:
 																			// 转移对象

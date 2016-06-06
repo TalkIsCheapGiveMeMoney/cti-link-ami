@@ -8,7 +8,8 @@ public class PreviewOutcallBridgeEvent extends UserEvent {
 	private String customerNumber;
 	private String customerNumberType;
 	private String customerAreaCode;
-
+	private String destChan;
+	
 	public PreviewOutcallBridgeEvent(Object source) {
 		super(source);
 	}
@@ -44,4 +45,13 @@ public class PreviewOutcallBridgeEvent extends UserEvent {
 	public void setCustomerAreaCode(String customerAreaCode) {
 		this.customerAreaCode = customerAreaCode;
 	}
+
+	public String getDestChan() {
+		return destChan;
+	}
+
+	public void setDestChan(String destChan) {
+		this.destChan = destChan;
+	}
+	
 }

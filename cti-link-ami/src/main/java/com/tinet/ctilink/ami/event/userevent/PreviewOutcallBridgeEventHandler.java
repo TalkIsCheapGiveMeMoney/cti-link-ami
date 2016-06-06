@@ -40,7 +40,9 @@ public class PreviewOutcallBridgeEventHandler extends AbstractAmiEventHandler im
 		String customerAreaCode = ((PreviewOutcallBridgeEvent) event).getCustomerAreaCode();
 		String cno = ((PreviewOutcallBridgeEvent) event).getCno();
 		String mainUniqueId = ((PreviewOutcallBridgeEvent) event).getMainUniqueId();
-
+		String destChannel = ((PreviewOutcallBridgeEvent) event).getDestChan();
+		String channel = ((PreviewOutcallBridgeEvent) event).getChannel();
+		
 		Map<String, String> userEvent = new HashMap<String, String>();
 		
 		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.PREVIEW_OUTCALL_BRIDGE);
@@ -51,6 +53,8 @@ public class PreviewOutcallBridgeEventHandler extends AbstractAmiEventHandler im
 		userEvent.put(AmiParamConst.CUSTOMER_AREA_CODE, customerAreaCode);
 		userEvent.put(AmiParamConst.MAIN_UNIQUE_ID, mainUniqueId);
 		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.CHANNEL, channel);
+		userEvent.put(AmiParamConst.DEST_CHANNEL, destChannel);
 		
 		JSONObject pushEvent=new JSONObject();
 		pushEvent.putAll(userEvent);
