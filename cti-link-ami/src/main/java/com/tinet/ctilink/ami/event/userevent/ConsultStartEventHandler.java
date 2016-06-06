@@ -30,11 +30,13 @@ public class ConsultStartEventHandler extends AbstractAmiEventHandler implements
 
 		String enterpriseId = ((ConsultStartEvent) event).getEnterpriseId();
 		String cno = ((ConsultStartEvent) event).getCno();
-			
+		String channel = ((ConsultStartEvent) event).getChannel();
+		
 		JSONObject userEvent=new JSONObject();
 		userEvent.put(AmiParamConst.EVENT,AmiEventTypeConst.CONSULT_START);
 		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.CHANNEL, channel);
 			
 		publishEvent(userEvent);
 		
