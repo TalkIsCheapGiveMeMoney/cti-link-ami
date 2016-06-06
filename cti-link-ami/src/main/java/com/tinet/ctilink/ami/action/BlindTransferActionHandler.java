@@ -3,7 +3,7 @@ package com.tinet.ctilink.ami.action;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.asteriskjava.manager.action.FeatureAction;
+import org.asteriskjava.manager.action.BlindTransferAction;
 import org.springframework.stereotype.Component;
 
 import com.tinet.ctilink.ami.inc.AmiActionTypeConst;
@@ -35,14 +35,12 @@ public class BlindTransferActionHandler extends AbstractActionHandler {
 		
 		String context = (String)params.get(AmiParamConst.DIALPLAN_CONTEXT);			
 		String extension = (String)params.get(AmiParamConst.EXTENSION);		
-		String feature = (String)params.get(AmiParamConst.FEATURE);		
-		
-		FeatureAction transferAction = new FeatureAction();
+
+		BlindTransferAction transferAction = new BlindTransferAction();
 		transferAction.setChannel(channel);
 		transferAction.setContext(context);
-		transferAction.setExtension(extension);
-		transferAction.setFeature(feature);
-
+		transferAction.setExten(extension);
+		
 		if (sendAction(transferAction) == null) {
 			return ERROR;
 		}

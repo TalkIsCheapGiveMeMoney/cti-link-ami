@@ -2,18 +2,17 @@ package org.asteriskjava.manager.action;
 
 import org.asteriskjava.manager.action.AbstractManagerAction;
 
-public class FeatureAction extends AbstractManagerAction {
+public class BlindTransferAction extends AbstractManagerAction {
 	static final long serialVersionUID = 1L;
 
 	private String channel;
-	private String extension;
+	private String exten;
 	private String context;
-	private String feature;
 
 	/**
 	 * Creates a new empty AtxferAction.
 	 */
-	public FeatureAction() {
+	public BlindTransferAction() {
 
 	}
 
@@ -30,11 +29,10 @@ public class FeatureAction extends AbstractManagerAction {
 	 * @param priority
 	 *            the destination priority
 	 */
-	public FeatureAction(String channel, String context, String extension, String feature) {
+	public BlindTransferAction(String channel, String context, String extension) {
 		this.channel = channel;
 		this.context = context;
-		this.extension = extension;
-		this.feature = feature;
+		this.exten = extension;
 	}
 
 	/**
@@ -42,7 +40,7 @@ public class FeatureAction extends AbstractManagerAction {
 	 */
 	@Override
 	public String getAction() {
-		return "Feature";
+		return "BlindTransfer";
 	}
 
 	/**
@@ -83,31 +81,15 @@ public class FeatureAction extends AbstractManagerAction {
 		this.context = context;
 	}
 
-	/**
-	 * Returns the destination extension.
-	 *
-	 * @return the destination extension
-	 */
-	public String getExtension() {
-		return extension;
+	public String getExten() {
+		return exten;
 	}
 
-	/**
-	 * Sets the destination extension.
-	 *
-	 * @param exten
-	 *            the destination extension
-	 */
-	public void setExtension(String extension) {
-		this.extension = extension;
+	public void setExten(String exten) {
+		this.exten = exten;
 	}
 
-	public String getFeature() {
-		return feature;
-	}
 
-	public void setFeature(String feature) {
-		this.feature = feature;
-	}
+
 
 }
