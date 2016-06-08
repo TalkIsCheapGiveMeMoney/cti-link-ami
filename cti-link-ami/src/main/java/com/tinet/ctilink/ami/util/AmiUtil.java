@@ -6,13 +6,12 @@ import com.tinet.ctilink.cache.RedisService;
 import com.tinet.ctilink.curl.CurlData;
 import com.tinet.ctilink.curl.CurlPushClient;
 import com.tinet.ctilink.inc.Const;
-import com.tinet.ctilink.conf.model.EnterpriseHangupAction;
+import com.tinet.ctilink.conf.model.EnterprisePushAction;
 import com.tinet.ctilink.conf.model.EnterpriseSetting;
 import com.tinet.ctilink.inc.EnterpriseSettingConst;
 import com.tinet.ctilink.util.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.live.AsteriskChannel;
-import org.asteriskjava.manager.event.QueueMemberEvent;
 
 import java.util.Base64;
 import java.util.HashMap;
@@ -28,11 +27,11 @@ import java.util.Map;
 public class AmiUtil {
 
 	public static void pushCurl(AsteriskChannel channel, Map<String, String> event, int enterpriseId, int pushType, int curlType) {
-		List<EnterpriseHangupAction> pushActionList = ContextUtil.getBean(RedisService.class).getList(Const.REDIS_DB_CONF_INDEX
-				, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId, pushType), EnterpriseHangupAction.class);
+		List<EnterprisePushAction> pushActionList = ContextUtil.getBean(RedisService.class).getList(Const.REDIS_DB_CONF_INDEX
+				, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId, pushType), EnterprisePushAction.class);
 
 		if (pushActionList != null) {
-			for (EnterpriseHangupAction pushAction : pushActionList) {
+			for (EnterprisePushAction pushAction : pushActionList) {
 				CurlData curlData = new CurlData();
 				// curlData.setUniqueId(channelUniqueId);
 				curlData.setEnterpriseId(enterpriseId);

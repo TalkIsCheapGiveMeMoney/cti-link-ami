@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tinet.ctilink.conf.model.EnterprisePushAction;
 import com.tinet.ctilink.inc.EnterpriseSettingConst;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import com.tinet.ctilink.ami.inc.AmiEventTypeConst;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
 import com.tinet.ctilink.cache.CacheKey;
 import com.tinet.ctilink.cache.RedisService;
-import com.tinet.ctilink.conf.model.EnterpriseHangupAction;
 import com.tinet.ctilink.conf.model.EnterpriseSetting;
 import com.tinet.ctilink.curl.CurlData;
 import com.tinet.ctilink.curl.CurlPushClient;
@@ -53,10 +53,10 @@ public class AmiEventPublisher {
 	private void pushevent(Map<String, String> event) {
 		if (event.get(AmiParamConst.EVENT).equals(AmiEventTypeConst.STATUS)) {
 			int enterpriseId = Integer.parseInt(event.get(AmiParamConst.ENTERPRISE_ID));
-			List<EnterpriseHangupAction> pushActionList = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId,
-					Const.ENTERPRISE_PUSH_TYPE_CLIENT_STATUS), EnterpriseHangupAction.class);
+			List<EnterprisePushAction> pushActionList = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId,
+					Const.ENTERPRISE_PUSH_TYPE_CLIENT_STATUS), EnterprisePushAction.class);
 			if (pushActionList != null) {
-				for (EnterpriseHangupAction pushAction : pushActionList) {
+				for (EnterprisePushAction pushAction : pushActionList) {
 
 					String url = pushAction.getUrl();
 					String urlParams = null;
