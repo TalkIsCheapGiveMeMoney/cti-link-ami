@@ -28,7 +28,7 @@ public class AmiUtil {
 
 	public static void pushCurl(AsteriskChannel channel, Map<String, String> event, int enterpriseId, int pushType, int curlType) {
 		List<EnterprisePushAction> pushActionList = ContextUtil.getBean(RedisService.class).getList(Const.REDIS_DB_CONF_INDEX
-				, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId, pushType), EnterprisePushAction.class);
+				, String.format(CacheKey.ENTERPRISE_PUSH_ACTION_ENTERPRISE_ID_TYPE, enterpriseId, pushType), EnterprisePushAction.class);
 
 		if (pushActionList != null) {
 			for (EnterprisePushAction pushAction : pushActionList) {

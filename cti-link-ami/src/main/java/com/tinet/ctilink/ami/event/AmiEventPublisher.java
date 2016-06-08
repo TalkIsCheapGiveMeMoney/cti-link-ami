@@ -53,7 +53,7 @@ public class AmiEventPublisher {
 	private void pushevent(Map<String, String> event) {
 		if (event.get(AmiParamConst.EVENT).equals(AmiEventTypeConst.STATUS)) {
 			int enterpriseId = Integer.parseInt(event.get(AmiParamConst.ENTERPRISE_ID));
-			List<EnterprisePushAction> pushActionList = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_HANGUP_ACTION_ENTERPRISE_ID_TYPE, enterpriseId,
+			List<EnterprisePushAction> pushActionList = redisService.getList(Const.REDIS_DB_CONF_INDEX, String.format(CacheKey.ENTERPRISE_PUSH_ACTION_ENTERPRISE_ID_TYPE, enterpriseId,
 					Const.ENTERPRISE_PUSH_TYPE_CLIENT_STATUS), EnterprisePushAction.class);
 			if (pushActionList != null) {
 				for (EnterprisePushAction pushAction : pushActionList) {
