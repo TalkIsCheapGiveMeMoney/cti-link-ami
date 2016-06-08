@@ -28,4 +28,9 @@ public class AmiEventPublisher {
 		redisService.lpush(Const.REDIS_DB_CTI_INDEX, AmiEventTypeConst.AMI_EVENT_LIST, event.toString());
 	}
 
+	public void publish(Map<String, String> event) {
+
+		redisService.lpush(Const.REDIS_DB_CTI_INDEX, AmiEventTypeConst.AMI_EVENT_LIST, event.toString());
+	}
+
 }
