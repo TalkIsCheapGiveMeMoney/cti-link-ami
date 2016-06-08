@@ -114,6 +114,8 @@ public class AmiParamConst {
     public static final String DETAIL_CALL_TYPE = "detailCallType";
     public static final String VARIABLES = "variables";
 	
+    public static final String HANGUP_ACTION_ID = "actionId";
+    public static final String HANGUP_ACTION_PARAMS = "actionParams";
 	
 		
 }

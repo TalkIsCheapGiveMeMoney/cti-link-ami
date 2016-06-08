@@ -27,9 +27,6 @@ public abstract class AbstractAmiEventHandler {
 	 * 
 	 * @param event
 	 */
-	protected void publishEvent(final Map<String, String> event) {
-		amiEventPublisher.publish(event);
-	}
 	
 	public void publishEvent(final JSONObject event) {
 		logger.info(" published event: " + event.toString());

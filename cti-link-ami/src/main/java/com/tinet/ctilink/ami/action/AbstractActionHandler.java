@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.tinet.ctilink.ami.AmiManager;
 import com.tinet.ctilink.ami.event.AmiEventPublisher;
 import com.tinet.ctilink.ami.inc.AmiParamConst;
+import com.tinet.ctilink.json.JSONObject;
 
 
 /**
@@ -95,7 +96,7 @@ public abstract class AbstractActionHandler implements AmiActionHandler {
 	 * 
 	 * @param event
 	 */
-	protected void publishEvent(final Map<String, String> event) {
+	protected void publishEvent(JSONObject event) {
 		amiEventPublisher.publish(event);
 	}
 
