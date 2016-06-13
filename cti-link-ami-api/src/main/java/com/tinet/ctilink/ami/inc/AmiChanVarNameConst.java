@@ -134,8 +134,11 @@ public class AmiChanVarNameConst {
     public static final String CDR_NUMBER_TRUNK = "cdr_number_trunk";
     public static final String CDR_CALL_TYPE = "cdr_call_type";
     public static final String CDR_CALLEE_NUMBER = "cdr_callee_number";
+    public static final String CDR_CALLEE_CNO ="cdr_callee_cno";
+    public static final String CDR_CALLEE_EXTEN ="cdr_callee_exten";
     public static final String CDR_EXTEN = "cdr_exten";
     public static final String CDR_STATUS = "cdr_status";
+    public static final String CDR_CLID = "cdr_clid";
 
     public static final String CDR_RECORD_FILE = "cdr_record_file";
     public static final String CDR_IVR_ID = "cdr_ivr_id";
