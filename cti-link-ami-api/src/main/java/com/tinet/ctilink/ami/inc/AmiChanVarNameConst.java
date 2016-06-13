@@ -119,7 +119,7 @@ public class AmiChanVarNameConst {
     public static final String TEL_NUMBER = "tel_number";
     
     /* ======================================================================*/
-    public static final String HANGUP_HANDLER_PUSH = "CHANNEL(hangup_handler_push)";
+    public static final String HANGUP_HANDLER_PUSH = "CHANNEL(hangup_handler_push)";//在AMI通过varMap设置HANGUP_HANDLER_PUSH只能设置1个，因为varMap结构决定设置多个，后设置的覆盖前设置的，无法实现设置多个
     public static final String CDR_HOTLINE = "cdr_hotline";
     public static final String CDR_ENTERPRISE_ID = "cdr_enterprise_id";
     public static final String CDR_CNO = "cdr_cno";

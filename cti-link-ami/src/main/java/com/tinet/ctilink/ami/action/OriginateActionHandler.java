@@ -40,7 +40,6 @@ public class OriginateActionHandler extends AbstractActionHandler {
 		}		
 		varMap = (Map<String, String>)(params.get(AmiParamConst.VAR_MAP));	
 		varMap.put(AmiChanVarNameConst.HANGUP_HANDLER_PUSH, "\""+ "hangup_handler,push_cdr,1"+ "\"");
-		varMap.put(AmiChanVarNameConst.HANGUP_HANDLER_PUSH, "\""+ "hangup_handler,push_monitor,1"+ "\"");
 		
 		originateAction = new OriginateAction();
 		if(actionMap.get(AmiParamConst.CHANNEL) == null)
