@@ -498,6 +498,8 @@ public class ChannelManager  {
 		String bridgedChannelName = "";
 		String detailCallType = "";
 		String callType = "";
+		String consulterCno = "";
+		String tansferCno = "";
 		
 		//坐席事件处理
 		String cno = ((AbstractChannelEvent) event).getChanVarialbe(AmiChanVarNameConst.CDR_CNO) ;
@@ -531,7 +533,11 @@ public class ChannelManager  {
 					}
 					
 					channelCustomerNumber = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER);
-					channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);		
+					channelCustomerNumberType = channel.getVariable(AmiChanVarNameConst.CDR_CUSTOMER_NUMBER_TYPE);	
+					
+					consulterCno = channel.getVariable(AmiChanVarNameConst.CONSULTER_CNO);
+					tansferCno = channel.getVariable(AmiChanVarNameConst.TRANSFER_CNO);
+					
 				}catch(org.asteriskjava.live.NoSuchChannelException e){	
 				}						
 				catch(Exception e){
@@ -548,6 +554,12 @@ public class ChannelManager  {
 				statusEvent.put(AmiParamConst.QNO, qno);	
 				statusEvent.put(AmiParamConst.BRIDGED_CHANNEL, bridgedChannelName);
 				statusEvent.put(AmiParamConst.BRIDGED_UNIQUE_ID, bridgedUniqueId);
+				if(StringUtils.isNotEmpty(consulterCno)){
+					statusEvent.put(AmiParamConst.CONSULTER_CNO, consulterCno);
+				}
+				if(StringUtils.isNotEmpty(tansferCno)){
+					statusEvent.put(AmiParamConst.TRANSFER_CNO, tansferCno);
+				}
 				
 				//弹屏参数设置	
 				EnterpriseSetting entSetting = redisService.get(Const.REDIS_DB_CONF_INDEX
