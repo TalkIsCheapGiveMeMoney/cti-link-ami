@@ -59,7 +59,7 @@ public class AmiChanVarNameConst {
     /** 录音企业定制 **/
     public static final String RECORD_FILE_USERFIELD = "record_file_userfield";
     /** 录音企业定制 **/
-    public static final String MONITOR_TYPE = "monitorType";
+    public static final String MONITOR_TYPE = "monitor_type";
     /** 录音企业定制 **/
     public static final String MP3_RATIO = "mp3_ratio";
     
