@@ -142,5 +142,5 @@ public class AmiChanVarNameConst {
 
     public static final String CDR_RECORD_FILE = "cdr_record_file";
     public static final String CDR_IVR_ID = "cdr_ivr_id";
-    public static final String CDR_FORCE_DISCONNECT = "cdr_force_disconnect";
+    public static final String CDR_END_REASON = "cdr_end_reason";
 }

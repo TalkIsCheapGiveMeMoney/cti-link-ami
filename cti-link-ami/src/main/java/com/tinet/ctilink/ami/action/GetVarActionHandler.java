@@ -63,7 +63,7 @@ public class GetVarActionHandler extends AbstractActionHandler {
 			ManagerResponse response = sendAction(getVarAction);
 			if (response != null)
 			{
-				actionResponse.getValues().put(varMap.get(varName).toString(), response.getAttribute("Value"));
+				actionResponse.getValues().put(varName, response.getAttribute("Value"));
 			}
 		}
 
