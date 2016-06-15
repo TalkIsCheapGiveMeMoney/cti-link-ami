@@ -195,6 +195,11 @@ public class AmiListener {
 		actionConnectionPool.clear();
 		for (int i = 0; i < actionConnectionPoolCount; i++) {
 			ManagerConnection connection = new DefaultManagerConnection(host, port, actionUser, actionPwd);
+			try{
+				connection.login("off");
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			actionConnectionPool.add(connection);
 		}
 
