@@ -27,7 +27,7 @@ public class AmiChanVarNameConst {
     public static final String BARGER_INTERFACE = "barger_interface";
     public static final String PICKUP_CHAN = "pickup_chan";
     public static final String PICKUPER_CNO = "pickuper_cno";
-    public static final String PICKUPER_INTERFACE = "pickuper_interface";
+    public static final String PICKUPER_TEL = "pickuper_tel";
     public static final String MAIN_CHANNEL = "main_channel";
     public static final	String UNIQUEID = "UNIQUEID";
     public static final	String LINKEDID = "CHANNEL(linkedid)";
