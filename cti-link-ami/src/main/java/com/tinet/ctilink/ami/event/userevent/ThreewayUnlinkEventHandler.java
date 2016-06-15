@@ -38,19 +38,14 @@ public class ThreewayUnlinkEventHandler extends AbstractAmiEventHandler implemen
 		String objectType = ((ThreewayUnlinkEvent) event).getObjectType();
 		String threewayedCno = ((ThreewayUnlinkEvent) event).getThreewayedCno();
 		
-		if (null != cno && !cno.equals("")) {
-			JSONObject userEvent=new JSONObject();		
-			userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.THREEWAY_UNLINK);
-			userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
-			userEvent.put(AmiParamConst.CNO, cno);
-			userEvent.put(AmiParamConst.THREEWAY_OBJECT, threewayObject);
-			userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
-			userEvent.put(AmiParamConst.THREEWAYED_CNO, threewayedCno);
-			publishEvent(userEvent);
-		
-		}
-		
-
+		JSONObject userEvent=new JSONObject();		
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.THREEWAY_UNLINK);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.THREEWAY_OBJECT, threewayObject);
+		userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
+		userEvent.put(AmiParamConst.THREEWAYED_CNO, threewayedCno);
+		publishEvent(userEvent);
 	}
 
 }

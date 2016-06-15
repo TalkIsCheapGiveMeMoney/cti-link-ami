@@ -37,17 +37,14 @@ public class WhisperLinkEventHandler extends AbstractAmiEventHandler implements 
 		String objectType = ((WhisperLinkEvent) event).getObjectType();
 		String whisperedCno = ((WhisperLinkEvent) event).getWhisperedCno();
 		
-		if (null != cno && !cno.equals("")) {
-			JSONObject userEvent=new JSONObject();		
-			userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.WHISPER_LINK);
-			userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
-			userEvent.put(AmiParamConst.CNO, cno);
-			userEvent.put(AmiParamConst.WHISPER_OBJECT, whisperObject);
-			userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
-			userEvent.put(AmiParamConst.WHISPERED_CNO, whisperedCno);
-			publishEvent(userEvent);
-		}
-
+		JSONObject userEvent=new JSONObject();		
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.WHISPER_LINK);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.WHISPER_OBJECT, whisperObject);
+		userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
+		userEvent.put(AmiParamConst.WHISPERED_CNO, whisperedCno);
+		publishEvent(userEvent);
 	}
 
 }

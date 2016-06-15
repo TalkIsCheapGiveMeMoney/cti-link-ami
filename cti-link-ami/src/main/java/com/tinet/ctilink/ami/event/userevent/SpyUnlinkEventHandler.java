@@ -35,17 +35,14 @@ public class SpyUnlinkEventHandler extends AbstractAmiEventHandler implements Am
 		String objectType = ((SpyUnlinkEvent) event).getObjectType();
 		String spiedCno = ((SpyUnlinkEvent) event).getSpiedCno();
 		
-		if (null != cno && !cno.equals("")) {
-			JSONObject userEvent=new JSONObject();		
-			userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.SPY_UNLINK);
-			userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
-			userEvent.put(AmiParamConst.CNO, cno);
-			userEvent.put(AmiParamConst.SPY_OBJECT, spyObject);
-			userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
-			userEvent.put(AmiParamConst.SPIED_CNO, spiedCno);
-			publishEvent(userEvent);
-		}
-
+		JSONObject userEvent=new JSONObject();		
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.SPY_UNLINK);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.SPY_OBJECT, spyObject);
+		userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
+		userEvent.put(AmiParamConst.SPIED_CNO, spiedCno);
+		publishEvent(userEvent);
 	}
 
 }

@@ -39,18 +39,14 @@ public class ThreewayLinkEventHandler extends AbstractAmiEventHandler implements
 		String objectType = ((ThreewayLinkEvent) event).getObjectType();
 		String threewayedCno = ((ThreewayLinkEvent) event).getThreewayedCno();
 		
-		if (null != cno && !cno.equals("")) {
-			JSONObject userEvent=new JSONObject();		
-			userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.THREEWAY_LINK);
-			userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
-			userEvent.put(AmiParamConst.CNO, cno);
-			userEvent.put(AmiParamConst.THREEWAY_OBJECT, threewayObject);
-			userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
-			userEvent.put(AmiParamConst.THREEWAYED_CNO, threewayedCno);
-			publishEvent(userEvent);
-		}
-		
-
+		JSONObject userEvent=new JSONObject();		
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.THREEWAY_LINK);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.THREEWAY_OBJECT, threewayObject);
+		userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
+		userEvent.put(AmiParamConst.THREEWAYED_CNO, threewayedCno);
+		publishEvent(userEvent);
 	}
 
 }
