@@ -34,8 +34,8 @@ public class ConsultTransferEventHandler extends AbstractAmiEventHandler impleme
 		
 		String enterpriseId = ((ConsultTransferEvent) event).getEnterpriseId();
 		String cno = ((ConsultTransferEvent) event).getCno();
-		String consultObject = ((ConsultLinkEvent) event).getConsultObject();
-		String objectType = ((ConsultLinkEvent) event).getObjectType();	
+		String consultObject = ((ConsultTransferEvent) event).getConsultObject();
+		String objectType = ((ConsultTransferEvent) event).getObjectType();	
 		
 		JSONObject userEvent=new JSONObject();
 		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.CONSULT_TRANSFER);

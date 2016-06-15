@@ -35,8 +35,8 @@ public class ConsultThreewayLinkEventHandler extends AbstractAmiEventHandler imp
 
 		String enterpriseId = ((ConsultThreewayLinkEvent) event).getEnterpriseId();
 		String cno = ((ConsultThreewayLinkEvent) event).getCno(); // 被咨询的座席
-		String consultObject = ((ConsultLinkEvent) event).getConsultObject();
-		String objectType = ((ConsultLinkEvent) event).getObjectType();
+		String consultObject = ((ConsultThreewayLinkEvent) event).getConsultObject();
+		String objectType = ((ConsultThreewayLinkEvent) event).getObjectType();
 		
 		JSONObject userEvent=new JSONObject();
 		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.CONSULT_THREEWAY);
