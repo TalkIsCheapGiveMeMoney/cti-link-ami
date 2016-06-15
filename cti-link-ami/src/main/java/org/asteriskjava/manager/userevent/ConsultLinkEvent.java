@@ -5,6 +5,7 @@ import org.asteriskjava.manager.event.UserEvent;
 @SuppressWarnings("serial")
 public class ConsultLinkEvent extends UserEvent {
 	private String cno;
+	private String channel;
 	private String consultObject;
 	private String objectType;
 
@@ -34,6 +35,14 @@ public class ConsultLinkEvent extends UserEvent {
 
 	public void setObjectType(String objectType) {
 		this.objectType = objectType;
+	}
+
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
 
 }

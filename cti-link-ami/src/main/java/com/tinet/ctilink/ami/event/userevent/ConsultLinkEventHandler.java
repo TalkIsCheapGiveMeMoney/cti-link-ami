@@ -36,6 +36,7 @@ public class ConsultLinkEventHandler extends AbstractAmiEventHandler implements 
 		String cno = ((ConsultLinkEvent) event).getCno();
 		String consultObject = ((ConsultLinkEvent) event).getConsultObject();
 		String objectType = ((ConsultLinkEvent) event).getObjectType();
+		String channel = ((ConsultLinkEvent) event).getChannel();
 		
 		JSONObject userEvent=new JSONObject();
 		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.CONSULT_LINK);
@@ -43,6 +44,7 @@ public class ConsultLinkEventHandler extends AbstractAmiEventHandler implements 
 		userEvent.put(AmiParamConst.CNO, cno);
 		userEvent.put(AmiParamConst.CONSULT_OBJECT, consultObject);
 		userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
+		userEvent.put(AmiParamConst.CHANNEL, channel);
 		publishEvent(userEvent);
 	}
 
