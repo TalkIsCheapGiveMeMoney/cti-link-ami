@@ -16,7 +16,7 @@ import com.tinet.ctilink.ami.inc.AmiParamConst;
  * @author hongzk
  */
 @Component
-public class BlindTransferActionHandler extends AbstractActionHandler {
+public class TransferActionHandler extends AbstractActionHandler {
 
 	@Override
 	public String getAction() {

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.asteriskjava.manager.event.ManagerEvent;
+import org.asteriskjava.manager.userevent.ConsultLinkEvent;
 import org.asteriskjava.manager.userevent.ConsultThreewayUnlinkEvent;
 import org.springframework.stereotype.Component;
 
@@ -33,11 +34,15 @@ public class ConsultThreewayUnlinkEventHandler extends AbstractAmiEventHandler i
 		
 		String enterpriseId = ((ConsultThreewayUnlinkEvent) event).getEnterpriseId();
 		String cno = ((ConsultThreewayUnlinkEvent) event).getCno();
+		String consultObject = ((ConsultLinkEvent) event).getConsultObject();
+		String objectType = ((ConsultLinkEvent) event).getObjectType();
 		
 		JSONObject userEvent=new JSONObject();
 		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.CONSULT_THREEWAY_UNLINK);
 		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
 		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.CONSULT_OBJECT, consultObject);
+		userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
 		publishEvent(userEvent);
 
 	}

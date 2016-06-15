@@ -35,13 +35,13 @@ public class RedirectActionHandler extends AbstractActionHandler {
 		
 		String context = (String)params.get(AmiParamConst.DIALPLAN_CONTEXT);			
 		String extension = (String)params.get(AmiParamConst.EXTENSION);	
-		
-			
+		Integer priority = (Integer)params.get(AmiParamConst.PRIORITY);	
 				
 		RedirectAction redirectAction = new RedirectAction();
 		redirectAction.setChannel(channel);
 		redirectAction.setContext(context);
 		redirectAction.setExten(extension);
+		redirectAction.setPriority(priority);
 		
 		String extraChannel =(String) params.get(AmiParamConst.EXTRA_CHANNEL);
 		if(StringUtils.isNotEmpty(extraChannel))

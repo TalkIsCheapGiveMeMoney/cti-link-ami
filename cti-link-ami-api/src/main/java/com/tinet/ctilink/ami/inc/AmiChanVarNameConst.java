@@ -36,6 +36,7 @@ public class AmiChanVarNameConst {
     public static final String CONSULT_CANCEL = "consult_cancel";
     public static final String CONSULT_CANCEL_UNCONSULT_VALUE ="10001";
     public static final String CONSULT_THREEWAY_CHAN = "consult_threeway_chan";
+    public static final String CONSULT_TRANSFER = "consult_transfer";
 	public static final String DIRECT_CALL_READ_STATUS = "DIRECT_CALL_READ_STATUS";
 	public static final String DIRECT_CALL_READ_DONE = "DIRECT_CALL_READ_DONE";
 	/**通道变量:is_investigation 前台满意度调查时会设置这个变量*/
@@ -105,7 +106,7 @@ public class AmiChanVarNameConst {
     /** 通道变量:consulter_cno 咨询发起者的座席号 */
     public static final String CONSULTER_CNO = "consulter_cno";
     /** 通道变量:consulter_cno 被咨询的座席号 */
-    public static final String CONSULTEE_CNO = "consultee_cno";
+    //public static final String CONSULTEE_CNO = "consultee_cno";
     /** 通道变量:consulter_cno 转移发起者的座席号 */
     public static final String TRANSFER_CNO = "transfer_cno";
     /** 通道变量:consulter_cno 被转移的座席号 */

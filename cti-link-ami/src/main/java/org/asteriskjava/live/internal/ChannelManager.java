@@ -537,7 +537,6 @@ public class ChannelManager  {
 					
 					consulterCno = channel.getVariable(AmiChanVarNameConst.CONSULTER_CNO);
 					tansferCno = channel.getVariable(AmiChanVarNameConst.TRANSFER_CNO);
-					
 				}catch(org.asteriskjava.live.NoSuchChannelException e){	
 				}						
 				catch(Exception e){
@@ -560,7 +559,6 @@ public class ChannelManager  {
 				if(StringUtils.isNotEmpty(tansferCno)){
 					statusEvent.put(AmiParamConst.TRANSFER_CNO, tansferCno);
 				}
-				
 				//弹屏参数设置	
 				EnterpriseSetting entSetting = redisService.get(Const.REDIS_DB_CONF_INDEX
 						, String.format(CacheKey.ENTERPRISE_SETTING_ENTERPRISE_ID_NAME

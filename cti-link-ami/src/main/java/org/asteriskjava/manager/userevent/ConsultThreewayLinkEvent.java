@@ -5,7 +5,8 @@ import org.asteriskjava.manager.event.UserEvent;
 @SuppressWarnings("serial")
 public class ConsultThreewayLinkEvent extends UserEvent {
 	private String cno;
-	private String consulterCno;
+	private String consultObject;
+	private String objectType;
 
 	public ConsultThreewayLinkEvent(Object source) {
 		super(source);
@@ -18,12 +19,20 @@ public class ConsultThreewayLinkEvent extends UserEvent {
 	public void setCno(String cno) {
 		this.cno = cno;
 	}
-
-	public String getConsulterCno() {
-		return consulterCno;
+	public String getConsultObject() {
+		return consultObject;
 	}
 
-	public void setConsulterCno(String consulterCno) {
-		this.consulterCno = consulterCno;
+	public void setConsultObject(String consultObject) {
+		this.consultObject = consultObject;
 	}
+
+	public String getObjectType() {
+		return objectType;
+	}
+
+	public void setObjectType(String objectType) {
+		this.objectType = objectType;
+	}
+
 }

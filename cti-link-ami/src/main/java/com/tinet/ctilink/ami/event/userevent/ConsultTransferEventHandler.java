@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.asteriskjava.manager.event.ManagerEvent;
+import org.asteriskjava.manager.userevent.ConsultLinkEvent;
 import org.asteriskjava.manager.userevent.ConsultTransferEvent;
 import org.springframework.stereotype.Component;
 
@@ -33,15 +34,16 @@ public class ConsultTransferEventHandler extends AbstractAmiEventHandler impleme
 		
 		String enterpriseId = ((ConsultTransferEvent) event).getEnterpriseId();
 		String cno = ((ConsultTransferEvent) event).getCno();
-		String consulterCno = ((ConsultTransferEvent) event).getConsulterCno();
+		String consultObject = ((ConsultLinkEvent) event).getConsultObject();
+		String objectType = ((ConsultLinkEvent) event).getObjectType();	
 		
-		if (StringUtils.isNotEmpty(consulterCno)) {
-			JSONObject userEvent=new JSONObject();
-			userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.CONSULT_TRANSFER);
-			userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
-			userEvent.put(AmiParamConst.CNO, cno);
-			userEvent.put(AmiParamConst.CONSULTER_CNO, consulterCno);
-			publishEvent(userEvent);
-		}
+		JSONObject userEvent=new JSONObject();
+		userEvent.put(AmiParamConst.EVENT, AmiEventTypeConst.CONSULT_TRANSFER);
+		userEvent.put(AmiParamConst.ENTERPRISE_ID, enterpriseId);
+		userEvent.put(AmiParamConst.CNO, cno);
+		userEvent.put(AmiParamConst.CONSULT_OBJECT, consultObject);
+		userEvent.put(AmiParamConst.OBJECT_TYPE, objectType);
+		
+		publishEvent(userEvent);
 	}
 }
